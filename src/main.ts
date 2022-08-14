@@ -1,6 +1,18 @@
 import { GameLoop, Sprite, init } from 'kontra';
 
-init();
+import { UiElement } from './ui';
+
+const { canvas } = init();
+
+const uiElement = new UiElement({
+  x: 0,
+  y: 0,
+  canvas,
+  height: 0.5,
+  width: 0.5,
+});
+
+uiElement.render();
 
 const sprites = Array.from(Array(150).keys()).map((item) => {
   let color = 'white';
@@ -16,13 +28,14 @@ const sprites = Array.from(Array(150).keys()).map((item) => {
 });
 
 const loop = GameLoop({
-  update: function () {
+  update: () => {
+    uiElement.update();
     sprites.forEach((s) => s.update());
     // if (sprite.x > canvas.width) {
     //   sprite.x = -sprite.width;
     // }
   },
-  render: function () {
+  render: () => {
     sprites.forEach((s) => s.render());
   },
 });
