@@ -1,32 +1,30 @@
 import { GameLoop, Sprite, init } from 'kontra';
 
-const { canvas } = init();
+init();
 
-const sprite = Sprite({
-  x: 100, // starting x,y position of the sprite
-  y: 80,
-  color: 'red', // fill color of the sprite rectangle
-  width: 20, // width and height of the sprite rectangle
-  height: 40,
-  dx: 2, // move the sprite 2px to the right every frame
+const sprites = Array.from(Array(150).keys()).map((item) => {
+  let color = 'white';
+  if (item % 2) color = 'black';
+  return Sprite({
+    x: (item * 16) % 240,
+    y: Math.floor(item / 15) * 16,
+    color,
+    width: 16,
+    height: 16,
+    dx: 0,
+  });
 });
 
 const loop = GameLoop({
-  // create the main game loop
   update: function () {
-    // update the game state
-    sprite.update();
-
-    // wrap the sprites position when it reaches
-    // the edge of the screen
-    if (sprite.x > canvas.width) {
-      sprite.x = -sprite.width;
-    }
+    sprites.forEach((s) => s.update());
+    // if (sprite.x > canvas.width) {
+    //   sprite.x = -sprite.width;
+    // }
   },
   render: function () {
-    // render the game state
-    sprite.render();
+    sprites.forEach((s) => s.render());
   },
 });
 
-loop.start(); // start the game
+loop.start();
