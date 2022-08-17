@@ -1,5 +1,6 @@
 type Skill = {
   name: string;
+  dmg: number;
 };
 
 export type Race = {
