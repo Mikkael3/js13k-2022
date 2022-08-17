@@ -1,6 +1,7 @@
 import { GameLoop, Sprite, init } from 'kontra';
 
 import { UiElement } from './ui';
+import { generateMonsterSet } from './monster-generator';
 
 const { canvas } = init();
 
@@ -26,6 +27,10 @@ const sprites = Array.from(Array(150).keys()).map((item) => {
     dx: 0,
   });
 });
+
+const monsters = generateMonsterSet();
+
+console.log(monsters);
 
 const loop = GameLoop({
   update: () => {
