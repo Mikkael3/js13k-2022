@@ -16,4 +16,5 @@ export type Class = {
 export type Monster = {
   race: Race;
   class: Class;
+  hp: number;
 };
