@@ -1,23 +1,14 @@
-import { GameLoop, Sprite, init } from 'kontra';
+import { GameLoop, init, Sprite, SpriteClass, Text } from 'kontra';
 
-import { UiElement } from './ui';
 import { generateMonsterSet } from './monster-generator';
+import { Monster } from './types';
 
 const { canvas } = init();
 
-const uiElement = new UiElement({
-  x: 0,
-  y: 0,
-  canvas,
-  height: 0.5,
-  width: 0.5,
-});
 
-uiElement.render();
-
-const sprites = Array.from(Array(150).keys()).map((item) => {
-  let color = 'white';
-  if (item % 2) color = 'black';
+const bgSprites = Array.from(Array(150).keys()).map((item) => {
+  let color = 'darkslategray';
+  if (item % 2) color = 'lightgray';
   return Sprite({
     x: (item * 16) % 240,
     y: Math.floor(item / 15) * 16,
@@ -28,20 +19,79 @@ const sprites = Array.from(Array(150).keys()).map((item) => {
   });
 });
 
+
+const getSkills = (monster: Monster) => {
+  return [monster.race.skills, monster.class.skills].flat();
+}
+
 const monsters = generateMonsterSet();
 
-console.log(monsters);
+class MonsterC extends SpriteClass {
+  text: Text;
 
+  constructor(properties) {
+    super(properties);
+    this.text = Text({
+      text: properties.text,
+      font: '8px Arial',
+      color: 'red',
+      x: 0,
+      y: 0,
+      width: this.width,
+      anchor: { x: 0.5, y: 0.5 },
+      textAlign: 'center'
+    });
+  }
+
+  update(dt?: number | undefined, time = 0): void {
+    super.update();
+    // Make monster move a little
+    this.x += Math.sign(Math.cos(time*1)) * Math.cos(time)**2 / 8;
+    this.y += Math.sin(time * 2.1) / 20;
+  }
+
+  draw(): void {
+    super.draw();
+    this.text.draw();
+  }
+}
+
+const monsterSprites = monsters.map((monster: Monster, index) => {
+  const x = canvas.width / 4 * (index + 1);
+  const y = 100;
+  const width = 22;
+  const height = 44;
+  const text = `${monster.class.name}\n${monster.race.name}`;
+
+  return new MonsterC({
+    x,
+    y,
+    color: 'limegreen',
+    width,
+    height,
+    dx: 0,
+    text,
+  });
+});
+
+console.log('monsters', monsters);
+console.log('skills:');
+monsters.forEach((monster) => {
+  console.log(getSkills(monster));
+});
+
+let time = 0;
 const loop = GameLoop({
-  update: () => {
-    uiElement.update();
-    sprites.forEach((s) => s.update());
-    // if (sprite.x > canvas.width) {
-    //   sprite.x = -sprite.width;
-    // }
+  update: (dt) => {
+    bgSprites.forEach((s) => s.update());
+    monsterSprites.forEach((s) => s.update(dt, time));
+    time += dt;
   },
   render: () => {
-    sprites.forEach((s) => s.render());
+    bgSprites.forEach((s) => s.render());
+    monsterSprites.forEach((s) => {
+      s.render()
+    });
   },
 });
 
