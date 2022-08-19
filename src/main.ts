@@ -79,7 +79,7 @@ const monsterSprites = monsters.map((monster: Monster, index) => {
 
 const player = new Player({
   x: canvas.width / 2,
-  y: 100,
+  y: 110,
   color: 'yellow',
   width: 20,
   height: 30,
@@ -121,6 +121,29 @@ const gameUi = new GameUi({
   monster: player.monsterData,
 });
 gameUi.render();
+
+class BattleManager {
+  player: Player;
+  monsterOpponent: MonsterC | null = null;
+  monsters: MonsterC[];
+
+  constructor(player: Player, monsters: MonsterC[]) {
+    this.player = player;
+    this.monsters = monsters;
+  }
+
+  selectForBattle(monster: MonsterC) {
+    this.monsterOpponent = monster;
+    monster.x = canvas.width / 2 - monster.width / 2;
+    monster.y = canvas.height / 2 - monster.height / 2;
+  }
+
+  getMonsterOpponent() {
+    return this.monsterOpponent;
+  }
+}
+
+const battleManager = new BattleManager(player, monsterSprites);
 
 let time = 0;
 const loop = GameLoop({
