@@ -1,10 +1,10 @@
-import { GameLoop, init, initPointer, Sprite } from 'kontra';
+import { GameLoop, Sprite, init, initPointer } from 'kontra';
 
+import { GameUi } from './game-ui';
 import { Monster } from './types';
 import { MonsterBox } from './monster-box';
-import { generateMonsterSet } from './monster-generator';
-import { GameUi } from './game-ui';
 import { MonsterC } from './monster';
+import { generateMonsterSet } from './monster-generator';
 
 const { canvas } = init();
 initPointer();
@@ -32,8 +32,9 @@ const monsterBox = new MonsterBox({
   x: 0,
   y: 0,
   width: 0.3,
-  height: 0.2,
+  height: 0.05,
   monster: monsters[0],
+  canvas,
 });
 
 monsterBox.render();

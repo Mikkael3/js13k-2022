@@ -5,12 +5,11 @@ export type UiElementProps = {
   height: number;
   width: number;
   color?: string;
-  canvas?: HTMLCanvasElement;
+  canvas: HTMLCanvasElement;
 };
 
 export class UiElement {
   public rootElement: HTMLDivElement;
-  public children: UiElement[] = [];
   public rendered = false;
   public canvas?: HTMLCanvasElement;
   public width: number;
@@ -31,6 +30,7 @@ export class UiElement {
     this.rootElement.style.background = color;
     this.rootElement.style.position = 'fixed';
     this.rootElement.style.overflow = 'hidden';
+    this.rootElement.style.fontSize = '2vw';
     this.fitElement();
   }
 
@@ -57,6 +57,5 @@ export class UiElement {
 
   update() {
     if (this.rendered) this.fitElement();
-    this.children.forEach((child) => child.update());
   }
 }
