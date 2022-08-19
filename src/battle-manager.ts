@@ -12,7 +12,7 @@ export class BattleManager {
     this.player = player;
     this.monsters = monsters;
     monsters.forEach((monster) => {
-      monster.handler = this.selectForBattle;
+      monster.handler = () => this.selectForBattle(monster);
     });
   }
 
