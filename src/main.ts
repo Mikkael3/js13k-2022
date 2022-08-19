@@ -2,8 +2,8 @@ import { GameLoop, Sprite, SpriteClass, Text, init, initPointer, track } from 'k
 
 import { Monster } from './types';
 import { MonsterBox } from './monster-box';
-import { UiElement } from './ui';
 import { generateMonsterSet } from './monster-generator';
+import { GameUi } from './game-ui';
 
 const { canvas } = init();
 initPointer();
@@ -153,15 +153,14 @@ monsters.forEach((monster) => {
   console.log(getSkills(monster));
 });
 
-const uiElement = new UiElement({
+const gameUi = new GameUi({
   x: 0,
   y: 1,
   canvas,
   height: 0.1,
-  width: 0.5,
+  width: 1,
 });
-
-uiElement.render();
+gameUi.render();
 
 let time = 0;
 const loop = GameLoop({
@@ -170,7 +169,7 @@ const loop = GameLoop({
     bgSprites.forEach((s) => s.update());
     player.update(dt, time);
     monsterSprites.forEach((s) => s.update(dt, time));
-    uiElement.update();
+    gameUi.update();
     monsterBox.update();
     time += dt;
   },
@@ -180,7 +179,6 @@ const loop = GameLoop({
     monsterSprites.forEach((s) => {
       s.render();
     });
-    uiElement.render();
   },
 });
 
