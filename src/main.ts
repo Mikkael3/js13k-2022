@@ -25,10 +25,6 @@ const bgSprites = Array.from(Array(150).keys()).map((item) => {
   });
 });
 
-const getSkills = (monster: Monster) => {
-  return [monster.race.skills, monster.class.skills].flat();
-};
-
 const monsters = generateMonsterSet();
 
 const monsterBox = new MonsterBox({
@@ -62,12 +58,6 @@ const player = new Player({
     race: human,
     class: kid,
   },
-});
-
-console.log('monsters', monsters);
-console.log('skills:');
-monsters.forEach((monster) => {
-  console.log(getSkills(monster));
 });
 
 const gameUi = new GameUi({

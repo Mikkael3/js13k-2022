@@ -36,7 +36,6 @@ export class MonsterC extends SpriteClass {
 
   /// Mouse events
   public onDown() {
-    console.log('click down', this.text.text);
     if (this.handler) this.handler(this);
   }
 
