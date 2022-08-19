@@ -1,8 +1,9 @@
 import { GameLoop, Sprite, SpriteClass, Text, init, initPointer, track } from 'kontra';
 
 import { Monster } from './types';
+import { MonsterBox } from './monster-box';
+import { UiElement } from './ui';
 import { generateMonsterSet } from './monster-generator';
-import {UiElement} from "./ui";
 
 const { canvas } = init();
 initPointer();
@@ -25,6 +26,16 @@ const getSkills = (monster: Monster) => {
 };
 
 const monsters = generateMonsterSet();
+
+const monsterBox = new MonsterBox({
+  x: 0,
+  y: 0,
+  width: 0.3,
+  height: 0.2,
+  monster: monsters[0],
+});
+
+monsterBox.render();
 
 type MonsterProps = Partial<Sprite> & { monster: Monster };
 
@@ -154,11 +165,13 @@ uiElement.render();
 
 let time = 0;
 const loop = GameLoop({
+  blur: true,
   update: (dt) => {
     bgSprites.forEach((s) => s.update());
     player.update(dt, time);
     monsterSprites.forEach((s) => s.update(dt, time));
     uiElement.update();
+    monsterBox.update();
     time += dt;
   },
   render: () => {
