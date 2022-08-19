@@ -89,12 +89,16 @@ const player = new Player({
       name: 'kid',
       skills: [
         {
-          name: 'Bash',
-          dmg: 4,
+          name: 'cry',
+          dmg: 0,
         },
         {
-          name: 'Cleave',
-          dmg: 3,
+          name: 'scratch',
+          dmg: 2,
+        },
+        {
+          name: 'drool',
+          dmg: 0,
         },
       ],
     },
