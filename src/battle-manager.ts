@@ -21,7 +21,12 @@ export class BattleManager {
     monster.x = this.canvas.width / 2 - monster.width / 2;
     monster.y = this.canvas.height / 2 - monster.height / 2;
     monster.resetAnimation();
-    // todo move other monsters away
+    this.monsters.forEach((monster) => {
+      if (monster === this.monsterOpponent) {
+        return;
+      }
+      monster.y = -monster.height / 2;
+    });
   }
 
   getMonsterOpponent() {
