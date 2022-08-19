@@ -10,6 +10,7 @@ export type UiElementProps = {
 
 export class UiElement {
   public rootElement: HTMLDivElement;
+  public children: UiElement[] = [];
   public rendered = false;
   public canvas?: HTMLCanvasElement;
   public width: number;
@@ -43,8 +44,9 @@ export class UiElement {
     this.rootElement.style.left = `${rect.x + rect.width * this.x}px`;
   };
 
+  // This is not the same as GameObject's render. Don't call this every frame.
   render() {
-    document.body.insertAdjacentElement('afterbegin', this.rootElement);
+    document.body.appendChild(this.rootElement);
     this.rendered = true;
   }
 
@@ -55,5 +57,6 @@ export class UiElement {
 
   update() {
     if (this.rendered) this.fitElement();
+    this.children.forEach((child) => child.update());
   }
 }
