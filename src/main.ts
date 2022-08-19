@@ -2,6 +2,7 @@ import { GameLoop, Sprite, SpriteClass, Text, init, initPointer, track } from 'k
 
 import { Monster } from './types';
 import { generateMonsterSet } from './monster-generator';
+import {UiElement} from "./ui";
 
 const { canvas } = init();
 initPointer();
@@ -83,9 +84,31 @@ class MonsterC extends SpriteClass {
   }
 }
 
+class Player extends MonsterC {
+  update(dt: number, time: number) {
+    super.update(dt, time);
+  }
+
+  onDown() {
+    // handle on down events on the sprite
+    console.log('click down', this.text.text);
+    this.color = 'blue';
+  }
+
+  onUp() {
+    // handle on up events on the sprite
+    console.log('click up', this.text.text);
+    this.color = 'limegreen';
+  }
+
+  onOver() {
+    console.log('in', this.text.text);
+  }
+}
+
 const monsterSprites = monsters.map((monster: Monster, index) => {
   const x = (canvas.width / 4) * (index + 1);
-  const y = 100;
+  const y = 10;
   const width = 22;
   const height = 44;
 
@@ -100,24 +123,51 @@ const monsterSprites = monsters.map((monster: Monster, index) => {
   });
 });
 
+const player = new Player({
+  x: canvas.width / 2,
+  y: 100,
+  color: 'yellow',
+  width: 20,
+  height: 30,
+  monster: {
+    race: { name: 'human', skills: [{ name: 'struggle', dmg: 1 }] },
+    class: { name: 'kid', skills: [] },
+    hp: 5,
+  },
+});
+
 console.log('monsters', monsters);
 console.log('skills:');
 monsters.forEach((monster) => {
   console.log(getSkills(monster));
 });
 
+const uiElement = new UiElement({
+  x: 0,
+  y: 1,
+  canvas,
+  height: 0.1,
+  width: 0.5,
+});
+
+uiElement.render();
+
 let time = 0;
 const loop = GameLoop({
   update: (dt) => {
     bgSprites.forEach((s) => s.update());
+    player.update(dt, time);
     monsterSprites.forEach((s) => s.update(dt, time));
+    uiElement.update();
     time += dt;
   },
   render: () => {
     bgSprites.forEach((s) => s.render());
+    player.render();
     monsterSprites.forEach((s) => {
       s.render();
     });
+    uiElement.render();
   },
 });
 
