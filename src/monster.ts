@@ -28,17 +28,17 @@ export class MonsterC extends SpriteClass {
   }
 
   /// Mouse events
-  onDown() {
-    // handle on down events on the sprite
+  public onDown() {
     console.log('click down', this.text.text);
+    if (this.handler) this.handler(this);
     this.color = 'blue';
   }
 
+  public handler: ((monster: MonsterC) => void) | undefined;
+
   onUp() {
-    // handle on up events on the sprite
     console.log('click up', this.text.text);
     this.color = 'limegreen';
-    this.startBattle();
   }
 
   onOver() {
@@ -46,8 +46,8 @@ export class MonsterC extends SpriteClass {
   }
 
   onOut() {
-    // console.log('out', this.text.text);
-    // this.onUp();
+    console.log('out', this.text.text);
+    this.color = 'limegreen';
   }
 
   update(_dt?: number | undefined, time = 0): void {
@@ -60,9 +60,5 @@ export class MonsterC extends SpriteClass {
   draw(): void {
     super.draw();
     this.text.draw();
-  }
-
-  startBattle() {
-    
   }
 }

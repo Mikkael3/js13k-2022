@@ -131,6 +131,9 @@ class BattleManager {
   constructor(player: Player, monsters: MonsterC[]) {
     this.player = player;
     this.monsters = monsters;
+    monsters.forEach((monster => {
+      monster.handler = this.selectForBattle;
+    }))
   }
 
   selectForBattle(monster: MonsterC) {
