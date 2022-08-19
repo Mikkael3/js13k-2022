@@ -38,24 +38,9 @@ export class MonsterC extends SpriteClass {
   public onDown() {
     console.log('click down', this.text.text);
     if (this.handler) this.handler(this);
-    this.color = 'blue';
   }
 
   public handler: ((monster: MonsterC) => void) | undefined;
-
-  onUp() {
-    console.log('click up', this.text.text);
-    this.color = 'limegreen';
-  }
-
-  onOver() {
-    // console.log('in', this.text.text);
-  }
-
-  onOut() {
-    console.log('out', this.text.text);
-    this.color = 'limegreen';
-  }
 
   resetAnimation() {
     this.animationTime = 0;
