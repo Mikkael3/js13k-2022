@@ -6,6 +6,7 @@ import { Monster } from './types';
 import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
 import { generateMonsterSet } from './monster-generator';
+import {BattleManager} from "./battle-manager";
 
 const { canvas } = init();
 initPointer();
@@ -40,9 +41,9 @@ const monsterBox = new MonsterBox({
 
 monsterBox.render();
 
-class Player extends MonsterC {
-  update(dt: number, time: number) {
-    super.update(dt, time);
+export class Player extends MonsterC {
+  update(dt: number) {
+    super.update(dt);
   }
 
   onDown() {
@@ -108,44 +109,16 @@ const gameUi = new GameUi({
 });
 gameUi.render();
 
-class BattleManager {
-  player: Player;
-  monsterOpponent: MonsterC | null = null;
-  monsters: MonsterC[];
+const battleManager = new BattleManager(player, monsterSprites, canvas);
 
-  constructor(player: Player, monsters: MonsterC[]) {
-    this.player = player;
-    this.monsters = monsters;
-    monsters.forEach((monster => {
-      monster.handler = this.selectForBattle;
-    }))
-  }
-
-  selectForBattle(monster: MonsterC) {
-    this.monsterOpponent = monster;
-    monster.x = canvas.width / 2 - monster.width / 2;
-    monster.y = canvas.height / 2 - monster.height / 2;
-    monster.resetAnimation();
-    // todo move other monsters away
-  }
-
-  getMonsterOpponent() {
-    return this.monsterOpponent;
-  }
-}
-
-const battleManager = new BattleManager(player, monsterSprites);
-
-let time = 0;
 const loop = GameLoop({
   blur: true,
   update: (dt) => {
     bgSprites.forEach((s) => s.update());
-    player.update(dt, time);
+    player.update(dt);
     monsterSprites.forEach((s) => s.update(dt));
     gameUi.update();
     monsterBox.update();
-    time += dt;
   },
   render: () => {
     bgSprites.forEach((s) => s.render());
