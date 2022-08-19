@@ -15,11 +15,14 @@ export type Race = {
   name: string;
   skills: Skill[];
   stats: BaseStats;
+  height: number;
+  width: number;
 };
 
 export type Class = {
   name: string;
   skills: Skill[];
+  color: string;
 };
 
 export type Monster = {

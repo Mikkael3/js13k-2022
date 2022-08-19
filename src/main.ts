@@ -1,12 +1,13 @@
 import { GameLoop, Sprite, init, initPointer } from 'kontra';
 import { human, kid } from './data';
 
+import { BattleManager } from './battle-manager';
 import { GameUi } from './game-ui';
 import { Monster } from './types';
 import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
+import { Player } from './player';
 import { generateMonsterSet } from './monster-generator';
-import {BattleManager} from "./battle-manager";
 
 const { canvas } = init();
 initPointer();
@@ -41,40 +42,13 @@ const monsterBox = new MonsterBox({
 
 monsterBox.render();
 
-export class Player extends MonsterC {
-  update(dt: number) {
-    super.update(dt);
-  }
-
-  onDown() {
-    // handle on down events on the sprite
-    console.log('click down', this.text.text);
-    this.color = 'blue';
-  }
-
-  onUp() {
-    // handle on up events on the sprite
-    console.log('click up', this.text.text);
-    this.color = 'limegreen';
-  }
-
-  onOver() {
-    console.log('in', this.text.text);
-  }
-}
-
 const monsterSprites = monsters.map((monster: Monster, index) => {
   const x = (canvas.width / 4) * (index + 1);
   const y = 10;
-  const width = 22;
-  const height = 44;
 
   return new MonsterC({
     x,
     y,
-    color: 'limegreen',
-    width,
-    height,
     dx: 0,
     monster,
   });
@@ -83,9 +57,6 @@ const monsterSprites = monsters.map((monster: Monster, index) => {
 const player = new Player({
   x: canvas.width / 2,
   y: 110,
-  color: 'yellow',
-  width: 20,
-  height: 30,
   monster: {
     level: 1,
     race: human,

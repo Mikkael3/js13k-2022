@@ -1,5 +1,5 @@
 import { MonsterC } from './monster';
-import { Player } from './main';
+import { Player } from './player';
 
 export class BattleManager {
   canvas: HTMLCanvasElement;

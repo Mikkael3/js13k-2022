@@ -1,6 +1,7 @@
 import { Class, Race } from './types';
 
 export const kid = {
+  color: 'yellow',
   name: 'Kid',
   skills: [
     {
@@ -21,6 +22,7 @@ export const kid = {
 export const classes: Class[] = [
   kid,
   {
+    color: 'red',
     name: 'Barbarian',
     skills: [
       {
@@ -34,6 +36,7 @@ export const classes: Class[] = [
     ],
   },
   {
+    color: 'gold',
     name: 'Cleric',
     skills: [
       {
@@ -47,6 +50,7 @@ export const classes: Class[] = [
     ],
   },
   {
+    color: 'green',
     name: 'Rogue',
     skills: [
       {
@@ -61,7 +65,9 @@ export const classes: Class[] = [
   },
 ];
 
-export const human = {
+export const human: Race = {
+  width: 20,
+  height: 30,
   name: 'Human',
   stats: {
     hp: 3,
@@ -81,6 +87,8 @@ export const human = {
 export const races: Race[] = [
   human,
   {
+    width: 40,
+    height: 45,
     name: 'Gargoyle',
     stats: {
       hp: 10,
@@ -97,6 +105,8 @@ export const races: Race[] = [
     ],
   },
   {
+    width: 30,
+    height: 20,
     name: 'Dwarf',
     stats: {
       hp: 7,
@@ -113,6 +123,8 @@ export const races: Race[] = [
     ],
   },
   {
+    width: 22,
+    height: 44,
     name: 'Vampire',
     stats: {
       hp: 5,

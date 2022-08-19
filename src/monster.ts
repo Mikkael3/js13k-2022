@@ -13,14 +13,19 @@ export class MonsterC extends SpriteClass {
   // inBattle = false;
 
   constructor(props: MonsterProps) {
-    super(props);
+    super({
+      ...props,
+      color: props.monster.class.color,
+      width: props.monster.race.width,
+      height: props.monster.race.height,
+    });
     const { monster } = props;
     this.monsterData = monster;
     track(this);
     this.text = Text({
       text: `${monster.class.name} ${monster.race.name}`,
       font: '8px Arial',
-      color: 'red',
+      color: 'black',
       x: 0,
       y: 0,
       width: this.width,
