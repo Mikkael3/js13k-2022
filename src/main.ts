@@ -1,17 +1,7 @@
-import {
-  GameLoop,
-  GameObject,
-  init,
-  Sprite,
-  SpriteClass,
-  Text,
-  Animation,
-  track,
-  initPointer,
-} from 'kontra';
+import { GameLoop, Sprite, SpriteClass, Text, init, initPointer, track } from 'kontra';
 
-import { generateMonsterSet } from './monster-generator';
 import { Monster } from './types';
+import { generateMonsterSet } from './monster-generator';
 
 const { canvas } = init();
 initPointer();
@@ -35,44 +25,17 @@ const getSkills = (monster: Monster) => {
 
 const monsters = generateMonsterSet();
 
+type MonsterProps = Partial<Sprite> & { monster: Monster };
+
 class MonsterC extends SpriteClass {
   text: Text;
 
-  constructor(properties: {
-    /// Sprite object properties
-    color?: string;
-    image?: HTMLImageElement | HTMLCanvasElement;
-    animations?: { [name: string]: Animation };
-    x?: number;
-    y?: number;
-    width?: number;
-    height?: number;
-    context?: CanvasRenderingContext2D;
-    dx?: number;
-    dy?: number;
-    ddx?: number;
-    ddy?: number;
-    ttl?: number;
-    anchor?: { x: number; y: number };
-    children?: GameObject[];
-    opacity?: number;
-    rotation?: number;
-    scaleX?: number;
-    scaleY?: number;
-    update?: (dt?: number) => void;
-    render?: () => void;
-    [props: string]: unknown;
-    /// Added properties for monster
-    // Text on top of monster
-    text: string;
-  }) {
-    super({
-      ...properties,
-    });
-    // Init mouse events
+  constructor(props: MonsterProps) {
+    super(props);
+    const { monster } = props;
     track(this);
     this.text = Text({
-      text: properties.text,
+      text: `${monster.class.name} ${monster.race.name}`,
       font: '8px Arial',
       color: 'red',
       x: 0,
@@ -86,14 +49,14 @@ class MonsterC extends SpriteClass {
   /// Mouse events
   onDown() {
     // handle on down events on the sprite
-    console.log('click down', this.text.text)
-    this.color  = 'blue';
+    console.log('click down', this.text.text);
+    this.color = 'blue';
   }
 
   onUp() {
     // handle on up events on the sprite
-    console.log('click up', this.text.text)
-    this.color  = 'limegreen';
+    console.log('click up', this.text.text);
+    this.color = 'limegreen';
   }
 
   onOver() {
@@ -123,7 +86,6 @@ const monsterSprites = monsters.map((monster: Monster, index) => {
   const y = 100;
   const width = 22;
   const height = 44;
-  const text = `${monster.class.name}\n${monster.race.name}`;
 
   return new MonsterC({
     x,
@@ -132,7 +94,7 @@ const monsterSprites = monsters.map((monster: Monster, index) => {
     width,
     height,
     dx: 0,
-    text,
+    monster,
   });
 });
 
