@@ -30,7 +30,7 @@ export class UiElement {
     this.rootElement.style.background = color;
     this.rootElement.style.position = 'fixed';
     this.rootElement.style.overflow = 'hidden';
-    this.rootElement.style.fontSize = '2vw';
+    this.rootElement.style.fontSize = '2vmin';
     this.fitElement();
   }
 
