@@ -1,10 +1,10 @@
-import { GameLoop, Sprite, SpriteClass, Text, init, initPointer, track } from 'kontra';
+import { GameLoop, init, initPointer, Sprite } from 'kontra';
 
 import { Monster } from './types';
 import { MonsterBox } from './monster-box';
 import { generateMonsterSet } from './monster-generator';
 import { GameUi } from './game-ui';
-import {MonsterC} from "./monster";
+import { MonsterC } from './monster';
 
 const { canvas } = init();
 initPointer();
