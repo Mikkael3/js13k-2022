@@ -1,9 +1,20 @@
-import { GameLoop, GameObject, init, Sprite, SpriteClass, Text, Animation } from 'kontra';
+import {
+  GameLoop,
+  GameObject,
+  init,
+  Sprite,
+  SpriteClass,
+  Text,
+  Animation,
+  track,
+  initPointer,
+} from 'kontra';
 
 import { generateMonsterSet } from './monster-generator';
 import { Monster } from './types';
 
 const { canvas } = init();
+initPointer();
 
 const bgSprites = Array.from(Array(150).keys()).map((item) => {
   let color = 'darkslategray';
@@ -55,8 +66,11 @@ class MonsterC extends SpriteClass {
     // Text on top of monster
     text: string;
   }) {
-    super(properties);
-
+    super({
+      ...properties,
+    });
+    // Init mouse events
+    track(this);
     this.text = Text({
       text: properties.text,
       font: '8px Arial',
@@ -67,6 +81,28 @@ class MonsterC extends SpriteClass {
       anchor: { x: 0.5, y: 0.5 },
       textAlign: 'center',
     });
+  }
+
+  /// Mouse events
+  onDown() {
+    // handle on down events on the sprite
+    console.log('click down', this.text.text)
+    this.color  = 'blue';
+  }
+
+  onUp() {
+    // handle on up events on the sprite
+    console.log('click up', this.text.text)
+    this.color  = 'limegreen';
+  }
+
+  onOver() {
+    console.log('in', this.text.text);
+  }
+
+  onOut() {
+    console.log('out', this.text.text);
+    this.onUp();
   }
 
   update(_dt?: number | undefined, time = 0): void {
