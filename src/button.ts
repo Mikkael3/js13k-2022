@@ -8,6 +8,6 @@ export class Button extends UiElement {
     super(props);
     const button = document.createElement('button');
     button.textContent = props.text;
-    this.rootElement.insertAdjacentElement(button);
+    this.rootElement.appendChild(button);
   }
 }
