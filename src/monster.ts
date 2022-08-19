@@ -7,6 +7,8 @@ type MonsterProps = Partial<Sprite> & { monster: Monster };
 export class MonsterC extends SpriteClass {
   text: Text;
   monsterData: Monster;
+  // Used for animation
+  animationTime = 0;
 
   // inBattle = false;
 
@@ -50,11 +52,16 @@ export class MonsterC extends SpriteClass {
     this.color = 'limegreen';
   }
 
-  update(_dt?: number | undefined, time = 0): void {
+  resetAnimation() {
+    this.animationTime = 0;
+  }
+
+  update(dt: number): void {
     super.update();
+    this.animationTime += dt;
     // Make monster move a little
-    this.x += (Math.sign(Math.cos(time)) * Math.cos(time) ** 2) / 8;
-    this.y += Math.sin(time * 2.1) / 20;
+    this.x += (Math.sign(Math.cos(this.animationTime)) * Math.cos(this.animationTime) ** 2) / 8;
+    this.y += Math.sin(this.animationTime * 2.1) / 20;
   }
 
   draw(): void {

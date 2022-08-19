@@ -140,6 +140,8 @@ class BattleManager {
     this.monsterOpponent = monster;
     monster.x = canvas.width / 2 - monster.width / 2;
     monster.y = canvas.height / 2 - monster.height / 2;
+    monster.resetAnimation();
+    // todo move other monsters away
   }
 
   getMonsterOpponent() {
@@ -155,7 +157,7 @@ const loop = GameLoop({
   update: (dt) => {
     bgSprites.forEach((s) => s.update());
     player.update(dt, time);
-    monsterSprites.forEach((s) => s.update(dt, time));
+    monsterSprites.forEach((s) => s.update(dt));
     gameUi.update();
     monsterBox.update();
     time += dt;
