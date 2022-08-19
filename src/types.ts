@@ -3,9 +3,18 @@ type Skill = {
   dmg: number;
 };
 
+export type BaseStats = {
+  hp: number;
+  str: number;
+  int: number;
+  def: number;
+  stamina: number;
+};
+
 export type Race = {
   name: string;
   skills: Skill[];
+  stats: BaseStats;
 };
 
 export type Class = {
@@ -16,5 +25,5 @@ export type Class = {
 export type Monster = {
   race: Race;
   class: Class;
-  hp: number;
+  level: number;
 };

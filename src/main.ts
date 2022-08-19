@@ -1,4 +1,5 @@
 import { GameLoop, Sprite, init, initPointer } from 'kontra';
+import { human, kid } from './data';
 
 import { GameUi } from './game-ui';
 import { Monster } from './types';
@@ -85,25 +86,9 @@ const player = new Player({
   width: 20,
   height: 30,
   monster: {
-    race: { name: 'human', skills: [{ name: 'struggle', dmg: 1 }] },
-    class: {
-      name: 'kid',
-      skills: [
-        {
-          name: 'cry',
-          dmg: 0,
-        },
-        {
-          name: 'scratch',
-          dmg: 2,
-        },
-        {
-          name: 'drool',
-          dmg: 0,
-        },
-      ],
-    },
-    hp: 5,
+    level: 1,
+    race: human,
+    class: kid,
   },
 });
 
