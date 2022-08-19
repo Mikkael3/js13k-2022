@@ -65,14 +65,14 @@ class MonsterC extends SpriteClass {
       y: 0,
       width: this.width,
       anchor: { x: 0.5, y: 0.5 },
-      textAlign: 'center'
+      textAlign: 'center',
     });
   }
 
-  update(dt?: number | undefined, time = 0): void {
+  update(_dt?: number | undefined, time = 0): void {
     super.update();
     // Make monster move a little
-    this.x += Math.sign(Math.cos(time*1)) * Math.cos(time)**2 / 8;
+    this.x += (Math.sign(Math.cos(time)) * Math.cos(time) ** 2) / 8;
     this.y += Math.sin(time * 2.1) / 20;
   }
 
@@ -83,7 +83,7 @@ class MonsterC extends SpriteClass {
 }
 
 const monsterSprites = monsters.map((monster: Monster, index) => {
-  const x = canvas.width / 4 * (index + 1);
+  const x = (canvas.width / 4) * (index + 1);
   const y = 100;
   const width = 22;
   const height = 44;
@@ -116,7 +116,7 @@ const loop = GameLoop({
   render: () => {
     bgSprites.forEach((s) => s.render());
     monsterSprites.forEach((s) => {
-      s.render()
+      s.render();
     });
   },
 });
