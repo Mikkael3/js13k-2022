@@ -1,17 +1,20 @@
 import { UiElement, UiElementProps } from './ui';
+import { Monster } from './types';
 
-type GameUiProps = UiElementProps;
+type GameUiProps = UiElementProps & {
+  monster: Monster;
+};
 
 export class GameUi extends UiElement {
   constructor(props: GameUiProps) {
     super(props);
-    const uiElement = new UiElement({
-      x: 0,
-      y: 1,
-      canvas: props.canvas,
-      height: 0.1,
-      width: 1,
+    this.rootElement.style.display = 'flex';
+
+    [props.monster.race.skills, props.monster.class.skills].flat().forEach((skill) => {
+      const button = document.createElement('button');
+      button.style.flex = '1';
+      button.textContent = skill.name;
+      this.rootElement.appendChild(button);
     });
-    this.rootElement.appendChild(uiElement.rootElement);
   }
 }

@@ -142,7 +142,19 @@ const player = new Player({
   height: 30,
   monster: {
     race: { name: 'human', skills: [{ name: 'struggle', dmg: 1 }] },
-    class: { name: 'kid', skills: [] },
+    class: {
+      name: 'kid',
+      skills: [
+        {
+          name: 'Bash',
+          dmg: 4,
+        },
+        {
+          name: 'Cleave',
+          dmg: 3,
+        },
+      ],
+    },
     hp: 5,
   },
 });
@@ -159,6 +171,7 @@ const gameUi = new GameUi({
   canvas,
   height: 0.1,
   width: 1,
+  monster: player.monsterData,
 });
 gameUi.render();
 
