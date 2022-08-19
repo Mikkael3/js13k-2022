@@ -1,10 +1,9 @@
-import { GameLoop, init, Sprite, SpriteClass, Text } from 'kontra';
+import { GameLoop, GameObject, init, Sprite, SpriteClass, Text, Animation } from 'kontra';
 
 import { generateMonsterSet } from './monster-generator';
 import { Monster } from './types';
 
 const { canvas } = init();
-
 
 const bgSprites = Array.from(Array(150).keys()).map((item) => {
   let color = 'darkslategray';
@@ -19,18 +18,45 @@ const bgSprites = Array.from(Array(150).keys()).map((item) => {
   });
 });
 
-
 const getSkills = (monster: Monster) => {
   return [monster.race.skills, monster.class.skills].flat();
-}
+};
 
 const monsters = generateMonsterSet();
 
 class MonsterC extends SpriteClass {
   text: Text;
 
-  constructor(properties) {
+  constructor(properties: {
+    /// Sprite object properties
+    color?: string;
+    image?: HTMLImageElement | HTMLCanvasElement;
+    animations?: { [name: string]: Animation };
+    x?: number;
+    y?: number;
+    width?: number;
+    height?: number;
+    context?: CanvasRenderingContext2D;
+    dx?: number;
+    dy?: number;
+    ddx?: number;
+    ddy?: number;
+    ttl?: number;
+    anchor?: { x: number; y: number };
+    children?: GameObject[];
+    opacity?: number;
+    rotation?: number;
+    scaleX?: number;
+    scaleY?: number;
+    update?: (dt?: number) => void;
+    render?: () => void;
+    [props: string]: unknown;
+    /// Added properties for monster
+    // Text on top of monster
+    text: string;
+  }) {
     super(properties);
+
     this.text = Text({
       text: properties.text,
       font: '8px Arial',
