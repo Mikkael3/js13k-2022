@@ -29,10 +29,12 @@ type MonsterProps = Partial<Sprite> & { monster: Monster };
 
 class MonsterC extends SpriteClass {
   text: Text;
+  monsterData: Monster;
 
   constructor(props: MonsterProps) {
     super(props);
     const { monster } = props;
+    this.monsterData = monster;
     track(this);
     this.text = Text({
       text: `${monster.class.name} ${monster.race.name}`,
