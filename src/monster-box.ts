@@ -4,17 +4,28 @@ import { Monster } from './types';
 
 type Props = UiElementProps & { monster: Monster };
 
+/** Ui to show monster stats */
 export class MonsterBox extends UiElement {
   monster: Monster;
+
   constructor(props: Props) {
     super(props);
     this.rootElement.style.display = 'flex';
     this.rootElement.style.flexFlow = 'columnn';
     this.monster = props.monster;
+    this.setText();
+  }
 
-    this.addText(props.monster.race.name);
-    this.addText(props.monster.class.name);
-    this.addText(props.monster.race.stats.hp + '');
+  setMonster(monster: Monster) {
+    this.monster = monster;
+    this.setText();
+  }
+
+  setText() {
+    this.rootElement.innerHTML = '';
+    this.addText(this.monster.race.name);
+    this.addText(this.monster.class.name);
+    this.addText(this.monster.race.stats.hp + '');
   }
 
   addText(text: string) {

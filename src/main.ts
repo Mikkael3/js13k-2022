@@ -70,7 +70,7 @@ const gameUi = new GameUi({
 });
 gameUi.render();
 
-const battleManager = new BattleManager(player, monsterSprites, canvas);
+const battleManager = new BattleManager(player, monsterSprites, monsterBox, canvas);
 
 const loop = GameLoop({
   blur: true,
