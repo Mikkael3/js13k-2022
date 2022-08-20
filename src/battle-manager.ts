@@ -1,6 +1,8 @@
+import { Dialog } from './dialog';
 import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
 import { Player } from './player';
+import { UiElement } from './ui';
 import { monsterSprites } from './monster-sprites';
 
 export class BattleManager {
@@ -53,8 +55,44 @@ export class BattleManager {
       }),
       1,
     );
-    this.player.monsterData = this.monsterOpponent.monsterData;
-    this.monsterOpponent = undefined;
-    this.monsterBox.setMonster(undefined);
+    const options = [
+      {
+        title: this.player.monsterData.class.name,
+        handler: (e: UiElement) => () => {
+          if (this.monsterOpponent) {
+            this.player.monsterData = {
+              ...this.monsterOpponent.monsterData,
+              class: this.player.monsterData.class,
+            };
+            this.monsterOpponent = undefined;
+            this.monsterBox.setMonster(undefined);
+            e.unrender();
+          }
+        },
+      },
+      {
+        title: this.monsterOpponent.monsterData.class.name,
+        handler: (e: UiElement) => () => {
+          if (this.monsterOpponent) {
+            this.player.monsterData = this.monsterOpponent.monsterData;
+            this.monsterOpponent = undefined;
+            this.monsterBox.setMonster(undefined);
+            e.unrender();
+          }
+        },
+      },
+    ];
+    if (this.monsterBox.canvas) {
+      const dialog = new Dialog({
+        options,
+        text: 'Choose Class:',
+        x: 0.2,
+        y: 0.2,
+        width: 0.6,
+        height: 0.6,
+        canvas: this.monsterBox.canvas,
+      });
+      dialog.render();
+    }
   }
 }
