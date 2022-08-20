@@ -4,7 +4,7 @@ import { MonsterC } from './monster';
 import { Player } from './player';
 import { UiElement } from './ui';
 import { monsterSprites } from './monster-sprites';
-import {Skill} from "./types";
+import { Skill } from './types';
 
 export class BattleManager {
   canvas: HTMLCanvasElement;
@@ -12,6 +12,7 @@ export class BattleManager {
   monsterOpponent?: MonsterC = undefined;
   monsters: MonsterC[];
   monsterBox: MonsterBox;
+  classChooseDialogOpen = false;
 
   constructor(
     player: Player,
@@ -52,25 +53,26 @@ export class BattleManager {
   // Skill button clicked
   useSkill(skill: Skill) {
     if (!this.monsterOpponent) return;
-    // TODO reduce monster opponent health
     this.monsterOpponent.hp -= skill.dmg;
     this.monsterBox.setMonster(this.monsterOpponent);
     if (this.monsterOpponent.hp <= 0) {
       this.killMonster();
-      this.selectNextPlayerClass();
+      if (!this.classChooseDialogOpen) {
+        this.showChooseClassDialog();
+        this.classChooseDialogOpen = true;
+      }
     }
   }
 
   private killMonster() {
-    monsterSprites.splice(
-      monsterSprites.findIndex((m) => {
-        return m === this.monsterOpponent;
-      }),
-      1,
-    );
+    const index = monsterSprites.findIndex((m) => {
+      return m === this.monsterOpponent;
+    });
+    if (index < 0) return;
+    monsterSprites.splice(index, 1);
   }
 
-  private selectNextPlayerClass() {
+  private showChooseClassDialog() {
     if (!this.monsterOpponent) return;
     const options = [
       {
@@ -83,6 +85,7 @@ export class BattleManager {
             };
             this.monsterOpponent = undefined;
             this.monsterBox.setMonster(undefined);
+            this.classChooseDialogOpen = false;
             e.unrender();
             // Show other monsters again
             this.monsters.forEach((monster) => (monster.display = true));
@@ -96,6 +99,7 @@ export class BattleManager {
             this.player.monsterData = this.monsterOpponent.monsterData;
             this.monsterOpponent = undefined;
             this.monsterBox.setMonster(undefined);
+            this.classChooseDialogOpen = false;
             e.unrender();
             // Show other monsters again
             this.monsters.forEach((monster) => (monster.display = true));
