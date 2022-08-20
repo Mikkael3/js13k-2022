@@ -62,6 +62,25 @@ const gameUi = new GameUi({
   battleManager,
 });
 
+const fitCanvas = () => {
+  let width = innerWidth;
+  let height = innerHeight;
+
+  const maxHeight = innerHeight;
+  const maxWidth = innerWidth;
+  const aspectRatio = 3 / 2;
+
+  if (maxHeight * aspectRatio < maxWidth) {
+    height = maxHeight;
+    width = maxHeight * aspectRatio;
+  } else {
+    height = maxWidth / aspectRatio;
+  }
+
+  canvas.style.width = width + 'px';
+  canvas.style.height = height + 'px';
+};
+
 const loop = GameLoop({
   blur: true,
   update: (dt) => {
@@ -70,6 +89,7 @@ const loop = GameLoop({
     monsterSprites.forEach((s) => s.update(dt));
     gameUi.update();
     monsterBox.update();
+    fitCanvas();
   },
   render: () => {
     background.sprites.forEach((s) => s.render());
