@@ -1,7 +1,7 @@
+import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
 import { Player } from './player';
-import { MonsterBox } from './monster-box';
-import { monsterSprites } from './monsterSprites';
+import { monsterSprites } from './monster-sprites';
 
 export class BattleManager {
   canvas: HTMLCanvasElement;
