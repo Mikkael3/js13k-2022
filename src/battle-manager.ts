@@ -53,6 +53,7 @@ export class BattleManager {
       }),
       1,
     );
+    this.player.monsterData = this.monsterOpponent.monsterData;
     this.monsterOpponent = undefined;
     this.monsterBox.setMonster(undefined);
   }

@@ -6,20 +6,16 @@ type MonsterProps = Partial<Sprite> & { monster: Monster };
 
 export class MonsterC extends SpriteClass {
   text: Text;
-  monsterData: Monster;
+  private _monsterData!: Monster;
   // Used for animation
   animationTime = 0;
-
-  // inBattle = false;
 
   constructor(props: MonsterProps) {
     super({
       ...props,
-      color: props.monster.class.color,
-      width: props.monster.race.width,
-      height: props.monster.race.height,
     });
     const { monster } = props;
+    // this.monsterData = monster;
     this.monsterData = monster;
     track(this);
     this.text = Text({
@@ -32,6 +28,29 @@ export class MonsterC extends SpriteClass {
       anchor: { x: 0.5, y: 0.5 },
       textAlign: 'center',
     });
+  }
+
+  set monsterData(monster: Monster) {
+    console.log('setataan monsterdata', monster);
+    this._monsterData = monster;
+    this.color = monster.class.color;
+    this.width = monster.race.width;
+    this.height = monster.race.height;
+    this.text = Text({
+      text: `${monster.class.name} ${monster.race.name}`,
+      font: '8px Arial',
+      color: 'black',
+      x: 0,
+      y: 0,
+      width: this.width,
+      anchor: { x: 0.5, y: 0.5 },
+      textAlign: 'center',
+    });
+
+  }
+
+  get monsterData() {
+    return this._monsterData;
   }
 
   /// Mouse events
