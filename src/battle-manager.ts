@@ -36,8 +36,8 @@ export class BattleManager {
       if (monster === this.monsterOpponent) {
         return;
       }
-      // Move battling monster to middle
-      monster.y = -monster.height / 2;
+
+      monster.display = false;
     });
 
     // Set ui to show monster stats
@@ -56,6 +56,13 @@ export class BattleManager {
       }),
       1,
     );
+    this.selectNextPlayerClass();
+    // Show all monsters again
+    this.monsters.forEach((monster) => (monster.display = true));
+  }
+
+  private selectNextPlayerClass() {
+    if (!this.monsterOpponent) return;
     const options = [
       {
         title: this.player.monsterData.class.name,

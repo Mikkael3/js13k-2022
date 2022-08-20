@@ -6,6 +6,8 @@ type MonsterProps = Partial<Sprite> & { monster: Monster };
 
 export class MonsterC extends SpriteClass {
   text: Text;
+  // Show this sprite or not
+  display = true;
   private _monsterData!: Monster;
   // Used for animation
   animationTime = 0;
@@ -31,7 +33,6 @@ export class MonsterC extends SpriteClass {
   }
 
   set monsterData(monster: Monster) {
-    console.log('setataan monsterdata', monster);
     this._monsterData = monster;
     this.color = monster.class.color;
     this.width = monster.race.width;
@@ -73,6 +74,7 @@ export class MonsterC extends SpriteClass {
   }
 
   draw(): void {
+    if (!this.display) return;
     super.draw();
     this.text.draw();
   }
