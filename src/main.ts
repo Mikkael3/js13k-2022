@@ -1,7 +1,7 @@
-import { GameLoop, Sprite, init, initPointer } from 'kontra';
+import { GameLoop, init, initPointer } from 'kontra';
+import { background, initDefaultBackground } from './background-sprites';
 import { human, kid } from './data';
 
-import { monsterSprites } from './monsterSprites';
 import { BattleManager } from './battle-manager';
 import { GameUi } from './game-ui';
 import { Monster } from './types';
@@ -9,22 +9,10 @@ import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
 import { Player } from './player';
 import { generateMonsterSet } from './monster-generator';
+import { monsterSprites } from './monster-sprites';
 
 const { canvas } = init();
 initPointer();
-
-const bgSprites = Array.from(Array(150).keys()).map((item) => {
-  let color = 'darkslategray';
-  if (item % 2) color = 'lightgray';
-  return Sprite({
-    x: (item * 16) % 240,
-    y: Math.floor(item / 15) * 16,
-    color,
-    width: 16,
-    height: 16,
-    dx: 0,
-  });
-});
 
 const monsters = generateMonsterSet();
 
@@ -35,6 +23,8 @@ const monsterBox = new MonsterBox({
   height: 0.05,
   canvas,
 });
+
+initDefaultBackground();
 
 monsters.forEach((monster: Monster, index) => {
   const x = (canvas.width / 4) * (index + 1);
@@ -75,14 +65,14 @@ const gameUi = new GameUi({
 const loop = GameLoop({
   blur: true,
   update: (dt) => {
-    bgSprites.forEach((s) => s.update());
+    background.sprites.forEach((s) => s.update(dt));
     player.update(dt);
     monsterSprites.forEach((s) => s.update(dt));
     gameUi.update();
     monsterBox.update();
   },
   render: () => {
-    bgSprites.forEach((s) => s.render());
+    background.sprites.forEach((s) => s.render());
     player.render();
     monsterSprites.forEach((s) => {
       s.render();
