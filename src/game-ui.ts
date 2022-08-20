@@ -25,10 +25,10 @@ export class GameUi extends UiElement {
   changeSkills(skills: Skill[]): void {
     this.rootElement.innerHTML = '';
     skills.forEach((skill) => {
+      // Skill buttons
       const button = document.createElement('button');
       button.onclick = () => {
-        this.unrender();
-        this.battleManager.killCurrentMonster();
+        this.battleManager.useSkill(skill);
       };
       button.style.flex = '1';
       button.textContent = skill.name;
@@ -44,6 +44,7 @@ export class GameUi extends UiElement {
         this.render();
         this.changeSkills(this.battleManager.player.getSkills());
       } else {
+        this.unrender();
         this.rootElement.innerHTML = '';
       }
     }

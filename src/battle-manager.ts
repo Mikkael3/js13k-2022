@@ -4,6 +4,7 @@ import { MonsterC } from './monster';
 import { Player } from './player';
 import { UiElement } from './ui';
 import { monsterSprites } from './monster-sprites';
+import {Skill} from "./types";
 
 export class BattleManager {
   canvas: HTMLCanvasElement;
@@ -41,24 +42,34 @@ export class BattleManager {
     });
 
     // Set ui to show monster stats
-    this.monsterBox.setMonster(monster.monsterData);
+    this.monsterBox.setMonster(monster);
   }
 
   getMonsterOpponent() {
     return this.monsterOpponent;
   }
 
-  killCurrentMonster() {
+  // Skill button clicked
+  useSkill(skill: Skill) {
     if (!this.monsterOpponent) return;
+    // TODO reduce monster opponent health
+    this.monsterOpponent.hp -= skill.dmg;
+    this.monsterBox.setMonster(this.monsterOpponent);
+    if (this.monsterOpponent.hp <= 0) {
+      this.killMonster();
+      this.selectNextPlayerClass();
+      // Show all monsters again
+      this.monsters.forEach((monster) => (monster.display = true));
+    }
+  }
+
+  private killMonster() {
     monsterSprites.splice(
       monsterSprites.findIndex((m) => {
         return m === this.monsterOpponent;
       }),
       1,
     );
-    this.selectNextPlayerClass();
-    // Show all monsters again
-    this.monsters.forEach((monster) => (monster.display = true));
   }
 
   private selectNextPlayerClass() {

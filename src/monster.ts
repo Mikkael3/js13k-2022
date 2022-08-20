@@ -12,13 +12,17 @@ export class MonsterC extends SpriteClass {
   // Used for animation
   animationTime = 0;
 
+  // Current monster hp
+  hp: number;
+
   constructor(props: MonsterProps) {
     super({
       ...props,
     });
     const { monster } = props;
-    // this.monsterData = monster;
     this.monsterData = monster;
+    this.hp = monster.race.stats.hp;
+    // Init mouse events
     track(this);
     this.text = Text({
       text: `${monster.class.name} ${monster.race.name}`,
