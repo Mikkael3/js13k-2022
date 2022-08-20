@@ -36,6 +36,7 @@ export class BattleManager {
       if (monster === this.monsterOpponent) {
         return;
       }
+      // Move battling monster to middle
       monster.y = -monster.height / 2;
     });
 
@@ -82,17 +83,15 @@ export class BattleManager {
         },
       },
     ];
-    if (this.monsterBox.canvas) {
-      const dialog = new Dialog({
-        options,
-        text: 'Choose Class:',
-        x: 0.2,
-        y: 0.2,
-        width: 0.6,
-        height: 0.6,
-        canvas: this.monsterBox.canvas,
-      });
-      dialog.render();
-    }
+    const dialog = new Dialog({
+      options,
+      text: 'Choose Class:',
+      x: 0.2,
+      y: 0.2,
+      width: 0.6,
+      height: 0.6,
+      canvas: this.monsterBox.canvas,
+    });
+    dialog.render();
   }
 }

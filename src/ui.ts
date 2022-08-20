@@ -11,7 +11,7 @@ export type UiElementProps = {
 export class UiElement {
   public rootElement: HTMLDivElement;
   public rendered = false;
-  public canvas?: HTMLCanvasElement;
+  public canvas: HTMLCanvasElement;
   public width: number;
   public height: number;
   public x: number;
