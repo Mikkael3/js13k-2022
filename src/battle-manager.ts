@@ -1,15 +1,21 @@
 import { MonsterC } from './monster';
 import { Player } from './player';
-import {MonsterBox} from "./monster-box";
+import { MonsterBox } from './monster-box';
+import { monsterSprites } from './monsterSprites';
 
 export class BattleManager {
   canvas: HTMLCanvasElement;
   player: Player;
-  monsterOpponent: MonsterC | null = null;
+  monsterOpponent?: MonsterC = undefined;
   monsters: MonsterC[];
   monsterBox: MonsterBox;
 
-  constructor(player: Player, monsters: MonsterC[], monsterBox: MonsterBox, canvas: HTMLCanvasElement) {
+  constructor(
+    player: Player,
+    monsters: MonsterC[],
+    monsterBox: MonsterBox,
+    canvas: HTMLCanvasElement,
+  ) {
     this.canvas = canvas;
     this.player = player;
     this.monsters = monsters;
@@ -37,5 +43,17 @@ export class BattleManager {
 
   getMonsterOpponent() {
     return this.monsterOpponent;
+  }
+
+  killCurrentMonster() {
+    if (!this.monsterOpponent) return;
+    monsterSprites.splice(
+      monsterSprites.findIndex((m) => {
+        return m === this.monsterOpponent;
+      }),
+      1,
+    );
+    this.monsterOpponent = undefined;
+    this.monsterBox.setMonster(undefined);
   }
 }

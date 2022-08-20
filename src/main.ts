@@ -1,6 +1,7 @@
 import { GameLoop, Sprite, init, initPointer } from 'kontra';
 import { human, kid } from './data';
 
+import { monsterSprites } from './monsterSprites';
 import { BattleManager } from './battle-manager';
 import { GameUi } from './game-ui';
 import { Monster } from './types';
@@ -32,22 +33,21 @@ const monsterBox = new MonsterBox({
   y: 0,
   width: 0.3,
   height: 0.05,
-  monster: monsters[0],
   canvas,
 });
 
-monsterBox.render();
-
-const monsterSprites = monsters.map((monster: Monster, index) => {
+monsters.forEach((monster: Monster, index) => {
   const x = (canvas.width / 4) * (index + 1);
   const y = 10;
 
-  return new MonsterC({
-    x,
-    y,
-    dx: 0,
-    monster,
-  });
+  monsterSprites.push(
+    new MonsterC({
+      x,
+      y,
+      dx: 0,
+      monster,
+    }),
+  );
 });
 
 const player = new Player({
@@ -60,17 +60,17 @@ const player = new Player({
   },
 });
 
+const battleManager = new BattleManager(player, monsterSprites, monsterBox, canvas);
+
 const gameUi = new GameUi({
   x: 0,
-  y: 1,
+  y: 0.9,
   canvas,
   height: 0.1,
   width: 1,
   monster: player.monsterData,
+  battleManager,
 });
-gameUi.render();
-
-const battleManager = new BattleManager(player, monsterSprites, monsterBox, canvas);
 
 const loop = GameLoop({
   blur: true,

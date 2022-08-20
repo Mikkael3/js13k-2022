@@ -57,4 +57,8 @@ export class MonsterC extends SpriteClass {
     super.draw();
     this.text.draw();
   }
+
+  getSkills() {
+    return [this.monsterData.class.skills, this.monsterData.race.skills].flat();
+  }
 }

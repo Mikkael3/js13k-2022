@@ -1,20 +1,51 @@
 import { UiElement, UiElementProps } from './ui';
-import { Monster } from './types';
+import { Monster, Skill } from './types';
+import { BattleManager } from './battle-manager';
+import { MonsterC } from './monster';
 
 type GameUiProps = UiElementProps & {
   monster: Monster;
+  battleManager: BattleManager;
 };
 
 export class GameUi extends UiElement {
+  battleManager: BattleManager;
+  monster?: MonsterC;
+
   constructor(props: GameUiProps) {
     super(props);
+    this.battleManager = props.battleManager;
     this.rootElement.style.display = 'flex';
 
-    [props.monster.race.skills, props.monster.class.skills].flat().forEach((skill) => {
+    // [props.monster.race.skills, props.monster.class.skills].flat().forEach((skill) => {
+    // this.renderUi(skill);
+    // });
+  }
+
+  changeSkills(skills: Skill[]): void {
+    this.rootElement.innerHTML = '';
+    skills.forEach((skill) => {
       const button = document.createElement('button');
+      button.onclick = () => {
+        this.unrender();
+        this.battleManager.killCurrentMonster();
+      };
       button.style.flex = '1';
       button.textContent = skill.name;
       this.rootElement.appendChild(button);
     });
+  }
+
+  update() {
+    super.update();
+    if (this.monster !== this.battleManager.getMonsterOpponent()) {
+      this.monster = this.battleManager.getMonsterOpponent();
+      if (this.monster) {
+        this.render();
+        this.changeSkills(this.battleManager.player.getSkills());
+      } else {
+        this.rootElement.innerHTML = '';
+      }
+    }
   }
 }
