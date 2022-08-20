@@ -58,8 +58,6 @@ export class BattleManager {
     if (this.monsterOpponent.hp <= 0) {
       this.killMonster();
       this.selectNextPlayerClass();
-      // Show all monsters again
-      this.monsters.forEach((monster) => (monster.display = true));
     }
   }
 
@@ -86,6 +84,8 @@ export class BattleManager {
             this.monsterOpponent = undefined;
             this.monsterBox.setMonster(undefined);
             e.unrender();
+            // Show other monsters again
+            this.monsters.forEach((monster) => (monster.display = true));
           }
         },
       },
@@ -97,6 +97,8 @@ export class BattleManager {
             this.monsterOpponent = undefined;
             this.monsterBox.setMonster(undefined);
             e.unrender();
+            // Show other monsters again
+            this.monsters.forEach((monster) => (monster.display = true));
           }
         },
       },
