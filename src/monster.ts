@@ -92,14 +92,12 @@ export class MonsterC extends SpriteClass {
 
   update(dt: number): void {
     super.update();
-    this.animationTime += dt;
+    this.animationTime += 1.5 * dt;
     // Make monster move a little
     this.updateCanvasX(
-      (Math.sign(Math.cos(this.animationTime)) * Math.cos(this.animationTime) ** 2) /
-        8 /
-        getCanvas().width,
+      (Math.sign(Math.cos(this.animationTime)) * Math.cos(this.animationTime) ** 2) / 500 / 8
     );
-    this.updateCanvasY(Math.sin(this.animationTime * 2.1) / 20 / getCanvas().width);
+    this.updateCanvasY(Math.sin(this.animationTime * 2.8) / 500 / 20);
   }
 
   draw(): void {
