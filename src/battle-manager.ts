@@ -2,9 +2,9 @@ import { Dialog } from './dialog';
 import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
 import { Player } from './player';
-import { UiElement } from './ui';
-import { monsterSprites } from './monster-sprites';
 import { Skill } from './types';
+import { UiElement } from './ui';
+import { gameState } from './game-state';
 
 export class BattleManager {
   canvas: HTMLCanvasElement;
@@ -65,11 +65,11 @@ export class BattleManager {
   }
 
   private killMonster() {
-    const index = monsterSprites.findIndex((m) => {
+    const index = gameState.monsterSprites.findIndex((m) => {
       return m === this.monsterOpponent;
     });
     if (index < 0) return;
-    monsterSprites.splice(index, 1);
+    gameState.monsterSprites.splice(index, 1);
   }
 
   private showChooseClassDialog() {

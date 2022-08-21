@@ -1,11 +1,11 @@
-import { Sprite, SpriteClass, Text, track } from 'kontra';
+import { Sprite, SpriteClass, Text, getCanvas, track } from 'kontra';
 
 import { Monster } from './types';
 
 type MonsterProps = Partial<Sprite> & { monster: Monster };
 
 export class MonsterC extends SpriteClass {
-  text: Text;
+  text!: Text;
   // Show this sprite or not
   display = true;
   private _monsterData!: Monster;
@@ -15,47 +15,50 @@ export class MonsterC extends SpriteClass {
   // Current monster hp
   hp: number;
 
+  //canvas-scaling
+  canvasX: number;
+  canvasY: number;
+  fontSize = 1 / 50;
+
   constructor(props: MonsterProps) {
     super({
       ...props,
     });
+
+    this.canvasX = props.x ?? 0;
+    this.canvasY = props.y ?? 0;
+
     const { monster } = props;
     this.monsterData = monster;
     this.hp = monster.race.stats.hp;
     // Init mouse events
     track(this);
-    this.text = Text({
-      text: `${monster.class.name} ${monster.race.name}`,
-      font: '8px Arial',
-      color: 'black',
-      x: 0,
-      y: 0,
-      width: this.width,
-      anchor: { x: 0.5, y: 0.5 },
-      textAlign: 'center',
-    });
+    this.setText();
   }
 
   set monsterData(monster: Monster) {
     this._monsterData = monster;
     this.color = monster.class.color;
-    this.width = monster.race.width;
-    this.height = monster.race.height;
-    this.text = Text({
-      text: `${monster.class.name} ${monster.race.name}`,
-      font: '8px Arial',
-      color: 'black',
-      x: 0,
-      y: 0,
-      width: this.width,
-      anchor: { x: 0.5, y: 0.5 },
-      textAlign: 'center',
-    });
-
+    this.width = monster.race.width * getCanvas().width;
+    this.height = monster.race.height * getCanvas().height;
+    this.setText();
   }
 
   get monsterData() {
     return this._monsterData;
+  }
+
+  setText() {
+    this.text = Text({
+      text: `${this.monsterData.class.name} ${this.monsterData.race.name}`,
+      font: `${getCanvas().width * this.fontSize}px Arial`,
+      color: 'black',
+      x: 0,
+      y: 0,
+      width: this.width,
+      lineHeight: 10,
+      textAlign: 'center',
+    });
   }
 
   /// Mouse events
@@ -69,12 +72,34 @@ export class MonsterC extends SpriteClass {
     this.animationTime = 0;
   }
 
+  updateCanvasY(delta: number) {
+    this.canvasY += delta;
+    this.y = this.canvasY * getCanvas().height;
+  }
+
+  updateCanvasX(delta: number) {
+    this.canvasX += delta;
+    this.x = this.canvasX * getCanvas().width;
+  }
+
+  recalculateCanvas() {
+    this.height = this.monsterData.race.height * getCanvas().height;
+    this.width = this.monsterData.race.width * getCanvas().width;
+    this.updateCanvasX(0);
+    this.updateCanvasY(0);
+    this.setText();
+  }
+
   update(dt: number): void {
     super.update();
     this.animationTime += dt;
     // Make monster move a little
-    this.x += (Math.sign(Math.cos(this.animationTime)) * Math.cos(this.animationTime) ** 2) / 8;
-    this.y += Math.sin(this.animationTime * 2.1) / 20;
+    this.updateCanvasX(
+      (Math.sign(Math.cos(this.animationTime)) * Math.cos(this.animationTime) ** 2) /
+        8 /
+        getCanvas().width,
+    );
+    this.updateCanvasY(Math.sin(this.animationTime * 2.1) / 20 / getCanvas().width);
   }
 
   draw(): void {

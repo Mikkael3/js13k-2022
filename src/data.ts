@@ -66,8 +66,8 @@ export const classes: Class[] = [
 ];
 
 export const human: Race = {
-  width: 20,
-  height: 30,
+  width: 0.15,
+  height: 0.15,
   name: 'Human',
   stats: {
     hp: 3,
@@ -87,8 +87,8 @@ export const human: Race = {
 export const races: Race[] = [
   human,
   {
-    width: 40,
-    height: 45,
+    width: 0.2,
+    height: 0.25,
     name: 'Gargoyle',
     stats: {
       hp: 10,
@@ -105,8 +105,8 @@ export const races: Race[] = [
     ],
   },
   {
-    width: 30,
-    height: 20,
+    width: 0.2,
+    height: 0.1,
     name: 'Dwarf',
     stats: {
       hp: 7,
@@ -123,8 +123,8 @@ export const races: Race[] = [
     ],
   },
   {
-    width: 22,
-    height: 44,
+    width: 0.15,
+    height: 0.2,
     name: 'Vampire',
     stats: {
       hp: 5,

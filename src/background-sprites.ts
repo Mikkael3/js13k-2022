@@ -1,45 +1,38 @@
-import { Sprite, randInt } from 'kontra';
+import { getCanvas, randInt } from 'kontra';
 
-type Background = { sprites: Sprite[] };
-
-export const background: Background = {
-  sprites: [],
-};
+import { GameSprite } from './sprite';
+import { gameState } from './game-state';
 
 export const initDefaultBackground = () => {
-  const sky = Sprite({
+  const sky = new GameSprite({
     x: 0,
     y: 0,
     color: '#38205c',
-    width: 280,
-    height: 64,
-    dx: 0,
+    width: 1,
+    height: 64 / 160,
   });
 
-  const ground = Sprite({
+  const ground = new GameSprite({
     x: 0,
-    y: 64,
+    y: 64 / 160,
     color: 'darkslategrey',
-    width: 280,
-    height: 96,
-    dx: 0,
+    width: 1,
+    height: 96 / 160,
   });
 
-  const path = Sprite({
-    x: 100,
-    y: 64,
+  const path = new GameSprite({
+    x: 100 / 240,
+    y: 64 / 160,
     color: '#BC815F',
-    width: 40,
-    height: 96,
-    dx: 0,
+    width: 40 / 240,
+    height: 96 / 160,
   });
 
-  const moon = Sprite({
-    x: 120,
+  const moon = new GameSprite({
+    x: 0.5,
     y: 0,
     color: '#FEFCD7',
-    radius: 40,
-    dx: 0,
+    radius: 40 / 240,
     render: function () {
       if (!this.context || !this.color) return;
       this.context.fillStyle = this.color;
@@ -50,12 +43,11 @@ export const initDefaultBackground = () => {
   });
 
   const stars = Array.from(Array(12).keys()).map(() => {
-    return Sprite({
-      x: randInt(0, 100),
-      y: randInt(0, 30),
+    return new GameSprite({
+      x: randInt(0, 100) / 240,
+      y: randInt(0, 30) / 160,
       color: '#FEFCD7',
       radius: randInt(0, 4),
-      dx: 0,
       render: function () {
         if (!this.context || !this.color) return;
         this.context.fillStyle = this.color;
@@ -65,7 +57,7 @@ export const initDefaultBackground = () => {
       },
       update(dt?) {
         if (this.radius !== 0) this.radius += dt;
-        if (this.radius > 3) {
+        if (this.radius > getCanvas().width / 100) {
           this.radius = 0;
           setTimeout(() => {
             this.radius = dt;
@@ -75,9 +67,9 @@ export const initDefaultBackground = () => {
     });
   });
 
-  background.sprites.push(sky);
-  background.sprites.push(ground);
-  background.sprites.push(path);
-  background.sprites.push(moon);
-  background.sprites = [...background.sprites, ...stars];
+  gameState.backgroundSprites.push(sky);
+  gameState.backgroundSprites.push(ground);
+  gameState.backgroundSprites.push(path);
+  gameState.backgroundSprites.push(moon);
+  gameState.backgroundSprites = [...gameState.backgroundSprites, ...stars];
 };

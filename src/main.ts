@@ -1,17 +1,21 @@
 import { GameLoop, init, initPointer } from 'kontra';
-import { background, initDefaultBackground } from './background-sprites';
 import { human, kid } from './data';
 
 import { BattleManager } from './battle-manager';
+import { CanvasUtils } from './canvas-utils';
 import { GameUi } from './game-ui';
 import { Monster } from './types';
 import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
 import { Player } from './player';
+import { gameState } from './game-state';
 import { generateMonsterSet } from './monster-generator';
-import { monsterSprites } from './monster-sprites';
+import { initDefaultBackground } from './background-sprites';
 
 const { canvas } = init();
+
+export const canvasUtils = new CanvasUtils(canvas);
+
 initPointer();
 
 const monsters = generateMonsterSet();
@@ -27,10 +31,11 @@ const monsterBox = new MonsterBox({
 initDefaultBackground();
 
 monsters.forEach((monster: Monster, index) => {
-  const x = (canvas.width / 4) * (index + 1);
-  const y = 10;
+  //relative to canvas 0-1
+  const x = 0.33 * (index + 0.15);
+  const y = 0.1;
 
-  monsterSprites.push(
+  gameState.monsterSprites.push(
     new MonsterC({
       x,
       y,
@@ -41,8 +46,8 @@ monsters.forEach((monster: Monster, index) => {
 });
 
 const player = new Player({
-  x: canvas.width / 2,
-  y: 110,
+  x: 0.5,
+  y: 11 / 16,
   monster: {
     level: 1,
     race: human,
@@ -50,7 +55,9 @@ const player = new Player({
   },
 });
 
-const battleManager = new BattleManager(player, monsterSprites, monsterBox, canvas);
+gameState.monsterSprites.push(player);
+
+const battleManager = new BattleManager(player, gameState.monsterSprites, monsterBox, canvas);
 
 const gameUi = new GameUi({
   x: 0,
@@ -62,39 +69,19 @@ const gameUi = new GameUi({
   battleManager,
 });
 
-const fitCanvas = () => {
-  let width = innerWidth;
-  let height = innerHeight;
-
-  const maxHeight = innerHeight;
-  const maxWidth = innerWidth;
-  const aspectRatio = 3 / 2;
-
-  if (maxHeight * aspectRatio < maxWidth) {
-    height = maxHeight;
-    width = maxHeight * aspectRatio;
-  } else {
-    height = maxWidth / aspectRatio;
-  }
-
-  canvas.style.width = width + 'px';
-  canvas.style.height = height + 'px';
-};
-
 const loop = GameLoop({
   blur: true,
   update: (dt) => {
-    background.sprites.forEach((s) => s.update(dt));
-    player.update(dt);
-    monsterSprites.forEach((s) => s.update(dt));
+    gameState.backgroundSprites.forEach((s) => s.update(dt));
+    gameState.monsterSprites.forEach((s) => s.update(dt));
     gameUi.update();
     monsterBox.update();
-    fitCanvas();
+    canvasUtils.fitCanvas();
   },
   render: () => {
-    background.sprites.forEach((s) => s.render());
+    gameState.backgroundSprites.forEach((s) => s.render());
     player.render();
-    monsterSprites.forEach((s) => {
+    gameState.monsterSprites.forEach((s) => {
       s.render();
     });
   },
