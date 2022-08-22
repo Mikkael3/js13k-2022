@@ -1,10 +1,6 @@
 import { Sprite, randInt } from 'kontra';
 
-type Background = { sprites: Sprite[] };
-
-export const background: Background = {
-  sprites: [],
-};
+import { gameState } from './game-state';
 
 export const initDefaultBackground = () => {
   const sky = Sprite({
@@ -75,9 +71,9 @@ export const initDefaultBackground = () => {
     });
   });
 
-  background.sprites.push(sky);
-  background.sprites.push(ground);
-  background.sprites.push(path);
-  background.sprites.push(moon);
-  background.sprites = [...background.sprites, ...stars];
+  gameState.backgroundSprites.push(sky);
+  gameState.backgroundSprites.push(ground);
+  gameState.backgroundSprites.push(path);
+  gameState.backgroundSprites.push(moon);
+  gameState.backgroundSprites = [...gameState.backgroundSprites, ...stars];
 };

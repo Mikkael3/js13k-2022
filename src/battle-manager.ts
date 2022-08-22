@@ -1,30 +1,20 @@
 import { Dialog } from './dialog';
 import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
-import { Player } from './player';
-import { UiElement } from './ui';
-import { monsterSprites } from './monster-sprites';
 import { Skill } from './types';
+import { UiElement } from './ui';
+import { gameState } from './game-state';
 
 export class BattleManager {
   canvas: HTMLCanvasElement;
-  player: Player;
   monsterOpponent?: MonsterC = undefined;
-  monsters: MonsterC[];
   monsterBox: MonsterBox;
   classChooseDialogOpen = false;
 
-  constructor(
-    player: Player,
-    monsters: MonsterC[],
-    monsterBox: MonsterBox,
-    canvas: HTMLCanvasElement,
-  ) {
+  constructor(monsterBox: MonsterBox, canvas: HTMLCanvasElement) {
     this.canvas = canvas;
-    this.player = player;
-    this.monsters = monsters;
     this.monsterBox = monsterBox;
-    monsters.forEach((monster) => {
+    gameState.monsterSprites.forEach((monster) => {
       monster.handler = () => this.selectForBattle(monster);
     });
   }
@@ -34,7 +24,7 @@ export class BattleManager {
     monster.x = this.canvas.width / 2 - monster.width / 2;
     monster.y = this.canvas.height / 2 - monster.height / 2;
     monster.resetAnimation();
-    this.monsters.forEach((monster) => {
+    gameState.monsterSprites.forEach((monster) => {
       if (monster === this.monsterOpponent) {
         return;
       }
@@ -65,30 +55,31 @@ export class BattleManager {
   }
 
   private killMonster() {
-    const index = monsterSprites.findIndex((m) => {
+    const index = gameState.monsterSprites.findIndex((m) => {
       return m === this.monsterOpponent;
     });
     if (index < 0) return;
-    monsterSprites.splice(index, 1);
+    gameState.monsterSprites.splice(index, 1);
   }
 
   private showChooseClassDialog() {
-    if (!this.monsterOpponent) return;
+    const { player } = gameState;
+    if (!this.monsterOpponent || !player) return;
     const options = [
       {
-        title: this.player.monsterData.class.name,
+        title: player.monsterData.class.name,
         handler: (e: UiElement) => () => {
           if (this.monsterOpponent) {
-            this.player.monsterData = {
+            player.monsterData = {
               ...this.monsterOpponent.monsterData,
-              class: this.player.monsterData.class,
+              class: player.monsterData.class,
             };
             this.monsterOpponent = undefined;
             this.monsterBox.setMonster(undefined);
             this.classChooseDialogOpen = false;
             e.unrender();
             // Show other monsters again
-            this.monsters.forEach((monster) => (monster.display = true));
+            gameState.monsterSprites.forEach((monster) => (monster.display = true));
           }
         },
       },
@@ -96,13 +87,13 @@ export class BattleManager {
         title: this.monsterOpponent.monsterData.class.name,
         handler: (e: UiElement) => () => {
           if (this.monsterOpponent) {
-            this.player.monsterData = this.monsterOpponent.monsterData;
+            player.monsterData = this.monsterOpponent.monsterData;
             this.monsterOpponent = undefined;
             this.monsterBox.setMonster(undefined);
             this.classChooseDialogOpen = false;
             e.unrender();
             // Show other monsters again
-            this.monsters.forEach((monster) => (monster.display = true));
+            gameState.monsterSprites.forEach((monster) => (monster.display = true));
           }
         },
       },

@@ -1,5 +1,4 @@
 import { GameLoop, init, initPointer } from 'kontra';
-import { background, initDefaultBackground } from './background-sprites';
 import { human, kid } from './data';
 
 import { BattleManager } from './battle-manager';
@@ -8,8 +7,9 @@ import { Monster } from './types';
 import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
 import { Player } from './player';
+import { gameState } from './game-state';
 import { generateMonsterSet } from './monster-generator';
-import { monsterSprites } from './monster-sprites';
+import { initDefaultBackground } from './background-sprites';
 
 const { canvas } = init();
 initPointer();
@@ -30,7 +30,7 @@ monsters.forEach((monster: Monster, index) => {
   const x = (canvas.width / 4) * (index + 1);
   const y = 10;
 
-  monsterSprites.push(
+  gameState.monsterSprites.push(
     new MonsterC({
       x,
       y,
@@ -40,7 +40,7 @@ monsters.forEach((monster: Monster, index) => {
   );
 });
 
-const player = new Player({
+gameState.player = new Player({
   x: canvas.width / 2,
   y: 110,
   monster: {
@@ -50,7 +50,7 @@ const player = new Player({
   },
 });
 
-const battleManager = new BattleManager(player, monsterSprites, monsterBox, canvas);
+const battleManager = new BattleManager(monsterBox, canvas);
 
 const gameUi = new GameUi({
   x: 0,
@@ -58,7 +58,7 @@ const gameUi = new GameUi({
   canvas,
   height: 0.1,
   width: 1,
-  monster: player.monsterData,
+  monster: gameState.player.monsterData,
   battleManager,
 });
 
@@ -84,17 +84,17 @@ const fitCanvas = () => {
 const loop = GameLoop({
   blur: true,
   update: (dt) => {
-    background.sprites.forEach((s) => s.update(dt));
-    player.update(dt);
-    monsterSprites.forEach((s) => s.update(dt));
+    gameState.backgroundSprites.forEach((s) => s.update(dt));
+    gameState.player?.update(dt);
+    gameState.monsterSprites.forEach((s) => s.update(dt));
     gameUi.update();
     monsterBox.update();
     fitCanvas();
   },
   render: () => {
-    background.sprites.forEach((s) => s.render());
-    player.render();
-    monsterSprites.forEach((s) => {
+    gameState.backgroundSprites.forEach((s) => s.render());
+    gameState.player?.render();
+    gameState.monsterSprites.forEach((s) => {
       s.render();
     });
   },
