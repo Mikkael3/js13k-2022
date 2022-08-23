@@ -5,7 +5,7 @@ import { Monster } from './types';
 type MonsterProps = Partial<Sprite> & { monster: Monster };
 
 export class MonsterC extends SpriteClass {
-  text: Text;
+  text!: Text;
   // Show this sprite or not
   display = true;
   private _monsterData!: Monster;
@@ -25,16 +25,6 @@ export class MonsterC extends SpriteClass {
     this.hp = monster.race.stats.hp;
     // Init mouse events
     track(this);
-    this.text = Text({
-      text: `${monster.class.name} ${monster.race.name}`,
-      font: '8px Arial',
-      color: 'black',
-      x: 0,
-      y: 0,
-      width: this.width,
-      anchor: { x: 0.5, y: 0.5 },
-      textAlign: 'center',
-    });
   }
 
   set monsterData(monster: Monster) {
@@ -42,16 +32,6 @@ export class MonsterC extends SpriteClass {
     this.width = monster.race.width;
     this.height = monster.race.height;
     this.monsterSprite();
-    this.text = Text({
-      text: `${monster.class.name} ${monster.race.name}`,
-      font: '8px Arial',
-      color: 'black',
-      x: 0,
-      y: 0,
-      width: this.width,
-      anchor: { x: 0.5, y: 0.5 },
-      textAlign: 'center',
-    });
   }
 
   get monsterData() {
@@ -60,25 +40,34 @@ export class MonsterC extends SpriteClass {
 
   monsterSprite() {
     const sprite = this.monsterData.race.sprite;
+
     this.children = [];
-    try {
-      sprite.forEach((row, i) =>
-        row.forEach((cell, j) => {
-          if (!cell) return;
-          this.addChild(
-            Sprite({
-              y: i * 4,
-              x: j * 4,
-              width: 4,
-              height: 4,
-              color: this.monsterData.class.color,
-            }),
-          );
-        }),
-      );
-    } catch (e) {
-      console.log(e);
-    }
+
+    sprite.forEach((row, i) =>
+      row.forEach((cell, j) => {
+        if (!cell) return;
+        this.addChild(
+          Sprite({
+            y: i * 4,
+            x: j * 4,
+            width: 4,
+            height: 4,
+            color: this.monsterData.class.color,
+          }),
+        );
+      }),
+    );
+    this.text = Text({
+      text: `${this.monsterData.class.name} ${this.monsterData.race.name}`,
+      font: '8px Arial',
+      color: 'black',
+      x: 0,
+      y: 0,
+      width: this.width,
+      anchor: { x: 0, y: 0 },
+      textAlign: 'center',
+    });
+    this.addChild(this.text);
   }
 
   /// Mouse events
@@ -101,9 +90,12 @@ export class MonsterC extends SpriteClass {
   }
 
   draw(): void {
-    if (!this.display) return;
     super.draw();
-    this.text.draw();
+  }
+
+  render(): void {
+    if (!this.display) return;
+    super.render();
   }
 
   getSkills() {
