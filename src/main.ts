@@ -89,7 +89,7 @@ const loop = GameLoop({
     gameState.monsterSprites.forEach((s) => s.update(dt));
     gameUi.update();
     monsterBox.update();
-    fitCanvas();
+    // fitCanvas();
   },
   render: () => {
     gameState.backgroundSprites.forEach((s) => s.render());
