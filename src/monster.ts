@@ -60,6 +60,7 @@ export class MonsterC extends SpriteClass {
 
   monsterSprite() {
     const sprite = this.monsterData.race.sprite;
+    this.children = [];
     try {
       sprite.forEach((row, i) =>
         row.forEach((cell, j) => {
