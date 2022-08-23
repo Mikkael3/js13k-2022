@@ -17,6 +17,7 @@ export type Race = {
   stats: BaseStats;
   height: number;
   width: number;
+  sprite: number[][];
 };
 
 export type Class = {

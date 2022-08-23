@@ -18,6 +18,7 @@ export class MonsterC extends SpriteClass {
   constructor(props: MonsterProps) {
     super({
       ...props,
+      color: undefined,
     });
     const { monster } = props;
     this.monsterData = monster;
@@ -38,9 +39,9 @@ export class MonsterC extends SpriteClass {
 
   set monsterData(monster: Monster) {
     this._monsterData = monster;
-    this.color = monster.class.color;
     this.width = monster.race.width;
     this.height = monster.race.height;
+    this.monsterSprite();
     this.text = Text({
       text: `${monster.class.name} ${monster.race.name}`,
       font: '8px Arial',
@@ -51,11 +52,32 @@ export class MonsterC extends SpriteClass {
       anchor: { x: 0.5, y: 0.5 },
       textAlign: 'center',
     });
-
   }
 
   get monsterData() {
     return this._monsterData;
+  }
+
+  monsterSprite() {
+    const sprite = this.monsterData.race.sprite;
+    try {
+      sprite.forEach((row, i) =>
+        row.forEach((cell, j) => {
+          if (!cell) return;
+          this.addChild(
+            Sprite({
+              y: i * 4,
+              x: j * 4,
+              width: 4,
+              height: 4,
+              color: this.monsterData.class.color,
+            }),
+          );
+        }),
+      );
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   /// Mouse events

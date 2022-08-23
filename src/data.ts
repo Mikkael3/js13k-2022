@@ -1,6 +1,6 @@
 import { Class, Race } from './types';
 
-export const kid = {
+export const kid: Class = {
   color: 'yellow',
   name: 'Kid',
   skills: [
@@ -65,9 +65,11 @@ export const classes: Class[] = [
   },
 ];
 
+const size = (size: number) => size * 4;
+
 export const human: Race = {
-  width: 20,
-  height: 30,
+  width: size(4),
+  height: size(5),
   name: 'Human',
   stats: {
     hp: 3,
@@ -82,13 +84,30 @@ export const human: Race = {
       dmg: 1,
     },
   ],
+  sprite: [
+    [0, 1, 1, 0],
+    [1, 1, 1, 1],
+    [0, 1, 1, 0],
+    [1, 1, 1, 1],
+    [1, 0, 0, 1],
+  ],
 };
 
 export const races: Race[] = [
   human,
   {
-    width: 40,
-    height: 45,
+    width: size(5),
+    height: size(8),
+    sprite: [
+      [1, 1, 0, 1, 1],
+      [1, 1, 1, 1, 1],
+      [0, 1, 1, 1, 0],
+      [1, 1, 1, 1, 1],
+      [1, 0, 0, 0, 1],
+      [1, 1, 0, 1, 1],
+      [1, 1, 0, 1, 1],
+      [0, 1, 0, 1, 0],
+    ],
     name: 'Gargoyle',
     stats: {
       hp: 10,
@@ -105,8 +124,14 @@ export const races: Race[] = [
     ],
   },
   {
-    width: 30,
-    height: 20,
+    width: size(5),
+    height: size(4),
+    sprite: [
+      [0, 1, 1, 1, 0],
+      [1, 0, 1, 0, 1],
+      [1, 1, 1, 1, 1],
+      [1, 0, 0, 0, 1],
+    ],
     name: 'Dwarf',
     stats: {
       hp: 7,
@@ -123,8 +148,17 @@ export const races: Race[] = [
     ],
   },
   {
-    width: 22,
-    height: 44,
+    width: size(4),
+    height: size(7),
+    sprite: [
+      [0, 1, 1, 0],
+      [0, 1, 1, 0],
+      [1, 1, 1, 1],
+      [0, 1, 1, 0],
+      [1, 1, 1, 1],
+      [1, 0, 0, 1],
+      [1, 0, 0, 1],
+    ],
     name: 'Vampire',
     stats: {
       hp: 5,
