@@ -1,4 +1,4 @@
-import { Sprite, randInt } from 'kontra';
+import { Sprite, randInt, GameObjectClass } from 'kontra';
 
 import { gameState } from './game-state';
 
@@ -71,9 +71,16 @@ export const initDefaultBackground = () => {
     });
   });
 
-  gameState.backgroundSprites.push(sky);
-  gameState.backgroundSprites.push(ground);
-  gameState.backgroundSprites.push(path);
-  gameState.backgroundSprites.push(moon);
-  gameState.backgroundSprites = [...gameState.backgroundSprites, ...stars];
+  const backGround = new BackGround({
+    scaleX: 2,
+    scaleY: 2,
+  });
+  backGround.addChild(sky);
+  backGround.addChild(ground);
+  backGround.addChild(path);
+  backGround.addChild(moon);
+  stars.forEach((star) => backGround.addChild(star));
+  gameState.background = backGround;
 };
+
+export class BackGround extends GameObjectClass {}

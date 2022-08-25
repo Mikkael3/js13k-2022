@@ -84,7 +84,7 @@ const fitCanvas = () => {
 const loop = GameLoop({
   blur: true,
   update: (dt) => {
-    gameState.backgroundSprites.forEach((s) => s.update(dt));
+    gameState.background.update(dt);
     gameState.player?.update(dt);
     gameState.monsterSprites.forEach((s) => s.update(dt));
     gameUi.update();
@@ -92,7 +92,7 @@ const loop = GameLoop({
     fitCanvas();
   },
   render: () => {
-    gameState.backgroundSprites.forEach((s) => s.render());
+    gameState.background.render();
     gameState.player?.render();
     gameState.monsterSprites.forEach((s) => {
       s.render();

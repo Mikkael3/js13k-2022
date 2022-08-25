@@ -1,13 +1,13 @@
 import { MonsterC } from './monster';
-import { Sprite } from 'kontra';
+import { BackGround } from './background-sprites';
 
 type GameState = {
-  backgroundSprites: Sprite[];
+  background: BackGround;
   monsterSprites: MonsterC[];
   player?: MonsterC;
 };
 
 export const gameState: GameState = {
-  backgroundSprites: [],
+  background: new BackGround(),
   monsterSprites: [],
 };
