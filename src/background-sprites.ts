@@ -1,6 +1,6 @@
-import { Sprite, randInt, GameObjectClass } from 'kontra';
+import { GameObjectClass, Sprite, randInt } from 'kontra';
 
-import { gameState } from './game-state';
+import { GameState } from './game-state';
 
 export const initDefaultBackground = () => {
   const sky = Sprite({
@@ -80,7 +80,7 @@ export const initDefaultBackground = () => {
   backGround.addChild(path);
   backGround.addChild(moon);
   stars.forEach((star) => backGround.addChild(star));
-  gameState.background = backGround;
+  GameState.instance.background = backGround;
 };
 
 export class BackGround extends GameObjectClass {}

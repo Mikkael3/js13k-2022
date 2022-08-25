@@ -1,9 +1,9 @@
 import { Dialog } from './dialog';
+import { GameState } from './game-state';
 import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
 import { Skill } from './types';
 import { UiElement } from './ui';
-import { gameState } from './game-state';
 
 export class BattleManager {
   canvas: HTMLCanvasElement;
@@ -14,7 +14,7 @@ export class BattleManager {
   constructor(monsterBox: MonsterBox, canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     this.monsterBox = monsterBox;
-    gameState.monsterSprites.forEach((monster) => {
+    GameState.instance.monsterSprites.forEach((monster) => {
       monster.handler = () => this.selectForBattle(monster);
     });
   }
@@ -24,7 +24,7 @@ export class BattleManager {
     monster.x = this.canvas.width / 2 - monster.width / 2;
     monster.y = this.canvas.height / 2 - monster.height / 2;
     monster.resetAnimation();
-    gameState.monsterSprites.forEach((monster) => {
+    GameState.instance.monsterSprites.forEach((monster) => {
       if (monster === this.monsterOpponent) {
         return;
       }
@@ -55,6 +55,7 @@ export class BattleManager {
   }
 
   private killMonster() {
+    const gameState = GameState.instance;
     const index = gameState.monsterSprites.findIndex((m) => {
       return m === this.monsterOpponent;
     });
@@ -63,7 +64,7 @@ export class BattleManager {
   }
 
   private showChooseClassDialog() {
-    const { player } = gameState;
+    const { player } = GameState.instance;
     if (!this.monsterOpponent || !player) return;
     const options = [
       {
@@ -79,7 +80,7 @@ export class BattleManager {
             this.classChooseDialogOpen = false;
             e.unrender();
             // Show other monsters again
-            gameState.monsterSprites.forEach((monster) => (monster.display = true));
+            GameState.instance.monsterSprites.forEach((monster) => (monster.display = true));
           }
         },
       },
@@ -93,7 +94,7 @@ export class BattleManager {
             this.classChooseDialogOpen = false;
             e.unrender();
             // Show other monsters again
-            gameState.monsterSprites.forEach((monster) => (monster.display = true));
+            GameState.instance.monsterSprites.forEach((monster) => (monster.display = true));
           }
         },
       },

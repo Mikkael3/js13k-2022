@@ -2,8 +2,8 @@ import { Monster, Skill } from './types';
 import { UiElement, UiElementProps } from './ui';
 
 import { BattleManager } from './battle-manager';
+import { GameState } from './game-state';
 import { MonsterC } from './monster';
-import { gameState } from './game-state';
 
 type GameUiProps = UiElementProps & {
   monster: Monster;
@@ -44,7 +44,7 @@ export class GameUi extends UiElement {
       this.monster = this.battleManager.getMonsterOpponent();
       if (this.monster) {
         this.render();
-        this.changeSkills(gameState.player?.getSkills() || []);
+        this.changeSkills(GameState.instance.player.getSkills() || []);
       } else {
         this.unrender();
         this.rootElement.innerHTML = '';

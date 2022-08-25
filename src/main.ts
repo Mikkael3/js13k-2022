@@ -1,13 +1,11 @@
 import { GameLoop, init, initPointer } from 'kontra';
-import { human, kid } from './data';
 
 import { BattleManager } from './battle-manager';
+import { GameState } from './game-state';
 import { GameUi } from './game-ui';
 import { Monster } from './types';
 import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
-import { Player } from './player';
-import { gameState } from './game-state';
 import { generateMonsterSet } from './monster-generator';
 import { initDefaultBackground } from './background-sprites';
 
@@ -26,6 +24,8 @@ const monsterBox = new MonsterBox({
 
 initDefaultBackground();
 
+const gameState = GameState.instance;
+
 monsters.forEach((monster: Monster, index) => {
   const x = (canvas.width / 4) * (index + 1);
   const y = 10;
@@ -38,16 +38,6 @@ monsters.forEach((monster: Monster, index) => {
       monster,
     }),
   );
-});
-
-gameState.player = new Player({
-  x: canvas.width / 2,
-  y: 110,
-  monster: {
-    level: 1,
-    race: human,
-    class: kid,
-  },
 });
 
 const battleManager = new BattleManager(monsterBox, canvas);
