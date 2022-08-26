@@ -5,12 +5,15 @@ import { MonsterC } from './monster';
 import { Player } from './player';
 import {getCanvas, init, initPointer} from 'kontra';
 import {MonsterBox} from "./monster-box";
+import {BattleManager} from "./battle-manager";
 
 type GameStateI = {
   background: BackGround;
   monsterSprites: MonsterC[];
   player: Player;
   playerBox: MonsterBox;
+  monsterBox: MonsterBox;
+  battleManager: BattleManager;
 };
 
 export class GameState implements GameStateI {
@@ -18,6 +21,8 @@ export class GameState implements GameStateI {
   public monsterSprites: MonsterC[];
   public player: Player;
   public playerBox: MonsterBox;
+  public monsterBox: MonsterBox;
+  public battleManager: BattleManager;
 
   private static _instance: GameState;
 
@@ -44,6 +49,15 @@ export class GameState implements GameStateI {
       canvas: getCanvas(),
     });
     this.playerBox.setMonster(this.player);
+
+    this.monsterBox = new MonsterBox({
+      x: 0,
+      y: 0,
+      width: 0.3,
+      height: 0.05,
+      canvas: getCanvas(),
+    });
+    this.battleManager = new BattleManager(this.monsterBox, getCanvas());
   }
 
   public static get instance() {

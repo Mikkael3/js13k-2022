@@ -16,9 +16,6 @@ export class BattleManager {
   constructor(monsterBox: MonsterBox, canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     this.monsterBox = monsterBox;
-    GameState.instance.monsterSprites.forEach((monster) => {
-      monster.handler = () => this.selectForBattle(monster);
-    });
   }
 
   selectForBattle(monster: MonsterC) {
