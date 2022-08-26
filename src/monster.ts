@@ -1,6 +1,6 @@
 import { Sprite, SpriteClass, Text, track } from 'kontra';
 
-import { Monster } from './types';
+import {Monster, Skill} from './types';
 
 type MonsterProps = Partial<Sprite> & { monster: Monster };
 
@@ -100,5 +100,9 @@ export class MonsterC extends SpriteClass {
 
   getSkills() {
     return [this.monsterData.class.skills, this.monsterData.race.skills].flat();
+  }
+
+  attack(skill: Skill, target: MonsterC) {
+    target.hp -= skill.dmg;
   }
 }
