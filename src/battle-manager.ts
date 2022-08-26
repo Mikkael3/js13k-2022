@@ -5,7 +5,7 @@ import { MonsterC } from './monster';
 import { Skill } from './types';
 import { UiElement } from './ui';
 import { GameUi } from './game-ui';
-import {GameObject} from "kontra";
+import { GameObject } from 'kontra';
 
 export class BattleManager {
   canvas: HTMLCanvasElement;
@@ -42,18 +42,19 @@ export class BattleManager {
     return this.monsterOpponent;
   }
 
-  shakeObject(object: GameObject) {
+  shakeObject(object: GameObject, timeout = 0) {
     setTimeout(() => {
-      object.x += 20;
-    }, 100);
-    setTimeout(() => {
-      object.x -= 40;
-    }, 300);
-    setTimeout(() => {
-      object.x += 20;
-    }, 500);
+      setTimeout(() => {
+        object.x += 20;
+      }, 100);
+      setTimeout(() => {
+        object.x -= 40;
+      }, 300);
+      setTimeout(() => {
+        object.x += 20;
+      }, 500);
+    }, timeout);
   }
-
 
   // Skill button clicked
   useSkill(skill: Skill, gameUi: GameUi) {
@@ -70,7 +71,8 @@ export class BattleManager {
       return;
     }
     // Shake background when taking a hit
-    this.shakeObject(gameState.background);
+    this.shakeObject(this.monsterOpponent);
+    this.shakeObject(gameState.background, 500);
     // Get control back after enemy finishes
     setTimeout(() => {
       gameUi.render();
