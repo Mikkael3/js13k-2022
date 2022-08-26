@@ -15,7 +15,7 @@ export class GameState implements GameStateI {
   public monsterSprites: MonsterC[];
   public player: Player;
 
-  private static _instance!: GameState;
+  private static _instance: GameState;
 
   private constructor() {
     this.background = new BackGround();
