@@ -5,7 +5,7 @@ import { MonsterC } from './monster';
 import { Skill } from './types';
 import { UiElement } from './ui';
 import { GameUi } from './game-ui';
-import {GameObject, randInt} from 'kontra';
+import { GameObject, randInt } from 'kontra';
 
 export class BattleManager {
   canvas: HTMLCanvasElement;
@@ -65,6 +65,7 @@ export class BattleManager {
 
     this.monsterBox.setMonster(this.monsterOpponent);
     if (this.monsterOpponent.hp <= 0) {
+      gameState.player.hp = this.monsterOpponent.monsterData.race.stats.hp;
       this.killMonster();
       if (!this.classChooseDialogOpen) {
         this.showChooseClassDialog();
@@ -77,10 +78,11 @@ export class BattleManager {
     this.shakeObject(gameState.background, 500);
     setTimeout(() => {
       if (!this.monsterOpponent) return;
-      const randomSkill = this.monsterOpponent.getSkills()[randInt(0, this.monsterOpponent.getSkills().length - 1)];
+      const randomSkill =
+        this.monsterOpponent.getSkills()[randInt(0, this.monsterOpponent.getSkills().length - 1)];
       this.monsterOpponent.attack(randomSkill, gameState.player);
       gameState.playerBox.setMonster(gameState.player);
-    })
+    });
     // Get control back after enemy finishes
     setTimeout(() => {
       gameUi.render();
