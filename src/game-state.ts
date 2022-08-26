@@ -19,16 +19,16 @@ export class GameState implements GameStateI {
 
   private constructor() {
     this.background = new BackGround();
-    (this.monsterSprites = []),
-      (this.player = new Player({
-        x: 240,
-        y: 110,
-        monster: {
-          level: 1,
-          race: human,
-          class: kid,
-        },
-      }));
+    this.monsterSprites = [];
+    this.player = new Player({
+      x: 240,
+      y: 110,
+      monster: {
+        level: 1,
+        race: human,
+        class: kid,
+      },
+    });
   }
 
   public static get instance() {
