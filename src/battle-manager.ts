@@ -4,6 +4,7 @@ import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
 import { Skill } from './types';
 import { UiElement } from './ui';
+import {GameUi} from "./game-ui";
 
 export class BattleManager {
   canvas: HTMLCanvasElement;
@@ -41,8 +42,9 @@ export class BattleManager {
   }
 
   // Skill button clicked
-  useSkill(skill: Skill) {
+  useSkill(skill: Skill, gameUi: GameUi) {
     if (!this.monsterOpponent) return;
+    gameUi.unrender();
     this.monsterOpponent.hp -= skill.dmg;
     this.monsterBox.setMonster(this.monsterOpponent);
     if (this.monsterOpponent.hp <= 0) {
@@ -51,7 +53,11 @@ export class BattleManager {
         this.showChooseClassDialog();
         this.classChooseDialogOpen = true;
       }
+      return;
     }
+    setTimeout(() => {
+      gameUi.render();
+    }, 1000);
   }
 
   private killMonster() {

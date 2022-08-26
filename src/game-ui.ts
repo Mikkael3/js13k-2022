@@ -30,7 +30,7 @@ export class GameUi extends UiElement {
       // Skill buttons
       const button = document.createElement('button');
       button.onclick = () => {
-        this.battleManager.useSkill(skill);
+        this.battleManager.useSkill(skill, this);
       };
       button.style.flex = '1';
       button.textContent = skill.name;
