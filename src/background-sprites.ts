@@ -7,7 +7,7 @@ export const initDefaultBackground = () => {
     x: 0,
     y: 0,
     color: '#38205c',
-    width: 280,
+    width: 240,
     height: 64,
     dx: 0,
   });
@@ -16,7 +16,7 @@ export const initDefaultBackground = () => {
     x: 0,
     y: 64,
     color: 'darkslategrey',
-    width: 280,
+    width: 240,
     height: 96,
     dx: 0,
   });
