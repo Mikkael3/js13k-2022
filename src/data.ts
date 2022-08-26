@@ -11,13 +11,13 @@ export const kid: Class = {
     },
     {
       name: 'scratch',
-      dmg: 2,
+      dmg: 0.1,
       type: 'str',
     },
     {
       name: 'drool',
-      dmg: 0,
-      type: 'str',
+      dmg: 0.5,
+      type: 'int',
     },
   ],
 };
@@ -30,12 +30,12 @@ export const classes: Class[] = [
     skills: [
       {
         name: 'Bash',
-        dmg: 4,
+        dmg: 0.4,
         type: 'str',
       },
       {
         name: 'Cleave',
-        dmg: 3,
+        dmg: 0.3,
         type: 'str',
       },
     ],
@@ -46,12 +46,12 @@ export const classes: Class[] = [
     skills: [
       {
         name: 'Sacred Flame',
-        dmg: 4,
+        dmg: 0.4,
         type: 'int',
       },
       {
         name: 'Banishment',
-        dmg: 5,
+        dmg: 0.5,
         type: 'int',
       },
     ],
@@ -62,12 +62,12 @@ export const classes: Class[] = [
     skills: [
       {
         name: 'Sinister Strike',
-        dmg: 6,
+        dmg: 0.6,
         type: 'str',
       },
       {
         name: 'Wound Poison',
-        dmg: 3,
+        dmg: 0.3,
         type: 'int',
       },
     ],
@@ -82,15 +82,15 @@ export const human: Race = {
   name: 'Human',
   stats: {
     hp: 3,
-    str: 3,
-    int: 3,
-    def: 3,
+    str: 4,
+    int: 4,
+    def: 4,
     stamina: 3,
   },
   skills: [
     {
       name: 'Struggle',
-      dmg: 1,
+      dmg: 0.1,
       type: 'str',
     },
   ],
@@ -129,7 +129,7 @@ export const races: Race[] = [
     skills: [
       {
         name: 'Claw',
-        dmg: 3,
+        dmg: 0.3,
         type: 'str',
       },
     ],
@@ -154,7 +154,7 @@ export const races: Race[] = [
     skills: [
       {
         name: 'Dig',
-        dmg: 2,
+        dmg: 0.2,
         type: 'str',
       },
     ],
