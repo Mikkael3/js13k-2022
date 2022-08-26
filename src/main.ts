@@ -1,4 +1,4 @@
-import { GameLoop, init, initPointer } from 'kontra';
+import { GameLoop, getCanvas } from 'kontra';
 
 import { BattleManager } from './battle-manager';
 import { GameState } from './game-state';
@@ -9,8 +9,7 @@ import { MonsterC } from './monster';
 import { generateMonsterSet } from './monster-generator';
 import { initDefaultBackground } from './background-sprites';
 
-const { canvas } = init();
-initPointer();
+const canvas = getCanvas();
 
 const monsters = generateMonsterSet();
 

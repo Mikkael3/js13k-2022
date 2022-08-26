@@ -3,6 +3,7 @@ import { human, kid } from './data';
 import { BackGround } from './background-sprites';
 import { MonsterC } from './monster';
 import { Player } from './player';
+import {init, initPointer} from 'kontra';
 
 type GameStateI = {
   background: BackGround;
@@ -18,6 +19,8 @@ export class GameState implements GameStateI {
   private static _instance: GameState;
 
   private constructor() {
+    init();
+    initPointer();
     this.background = new BackGround();
     this.monsterSprites = [];
     this.player = new Player({
@@ -36,3 +39,5 @@ export class GameState implements GameStateI {
     return this._instance;
   }
 }
+
+export default GameState.instance;
