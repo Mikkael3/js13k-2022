@@ -6,15 +6,18 @@ export const kid: Class = {
   skills: [
     {
       name: 'cry',
-      dmg: 0,
+      dmg: 100,
+      type: 'int',
     },
     {
       name: 'scratch',
       dmg: 2,
+      type: 'str',
     },
     {
       name: 'drool',
       dmg: 0,
+      type: 'str',
     },
   ],
 };
@@ -28,10 +31,12 @@ export const classes: Class[] = [
       {
         name: 'Bash',
         dmg: 4,
+        type: 'str',
       },
       {
         name: 'Cleave',
         dmg: 3,
+        type: 'str',
       },
     ],
   },
@@ -42,10 +47,12 @@ export const classes: Class[] = [
       {
         name: 'Sacred Flame',
         dmg: 4,
+        type: 'int',
       },
       {
         name: 'Banishment',
         dmg: 5,
+        type: 'int',
       },
     ],
   },
@@ -56,10 +63,12 @@ export const classes: Class[] = [
       {
         name: 'Sinister Strike',
         dmg: 6,
+        type: 'str',
       },
       {
         name: 'Wound Poison',
         dmg: 3,
+        type: 'int',
       },
     ],
   },
@@ -82,6 +91,7 @@ export const human: Race = {
     {
       name: 'Struggle',
       dmg: 1,
+      type: 'str',
     },
   ],
   sprite: [
@@ -120,6 +130,7 @@ export const races: Race[] = [
       {
         name: 'Claw',
         dmg: 3,
+        type: 'str',
       },
     ],
   },
@@ -144,6 +155,7 @@ export const races: Race[] = [
       {
         name: 'Dig',
         dmg: 2,
+        type: 'str',
       },
     ],
   },
@@ -171,6 +183,7 @@ export const races: Race[] = [
       {
         name: 'Hypnotic Magnetic Glare',
         dmg: 0,
+        type: 'int',
       },
     ],
   },

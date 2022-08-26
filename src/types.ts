@@ -1,6 +1,7 @@
 export type Skill = {
   name: string;
   dmg: number;
+  type: 'int' | 'str'
 };
 
 export type BaseStats = {

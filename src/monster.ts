@@ -1,6 +1,6 @@
 import { Sprite, SpriteClass, Text, track } from 'kontra';
 
-import {Monster, Skill} from './types';
+import { BaseStats, Monster, Skill } from './types';
 
 type MonsterProps = Partial<Sprite> & { monster: Monster };
 
@@ -11,9 +11,7 @@ export class MonsterC extends SpriteClass {
   private _monsterData!: Monster;
   // Used for animation
   animationTime = 0;
-
-  // Current monster hp
-  hp: number;
+  stats: BaseStats;
 
   constructor(props: MonsterProps) {
     super({
@@ -22,9 +20,16 @@ export class MonsterC extends SpriteClass {
     });
     const { monster } = props;
     this.monsterData = monster;
-    this.hp = monster.race.stats.hp;
     // Init mouse events
     track(this);
+
+    this.stats = { ...this.monsterData.race.stats };
+    Object.keys(this.stats).forEach((stringKey) => {
+      if (stringKey in this.stats) {
+        const key = stringKey as keyof BaseStats;
+        this.stats[key] *= 10;
+      }
+    });
   }
 
   set monsterData(monster: Monster) {
@@ -103,6 +108,6 @@ export class MonsterC extends SpriteClass {
   }
 
   attack(skill: Skill, target: MonsterC) {
-    target.hp -= skill.dmg;
+    target.stats.hp -= skill.dmg;
   }
 }

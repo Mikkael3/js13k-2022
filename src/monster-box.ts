@@ -27,7 +27,7 @@ export class MonsterBox extends UiElement {
     if (!this.monster) return;
     this.addText(this.monster.monsterData.race.name);
     this.addText(this.monster.monsterData.class.name);
-    this.addText(this.monster.hp + '');
+    this.addText(this.monster.stats.hp + '');
   }
 
   addText(text: string) {

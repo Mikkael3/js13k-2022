@@ -61,7 +61,7 @@ export class BattleManager {
     gameState.player.attack(skill, this.monsterOpponent);
 
     this.monsterBox.setMonster(this.monsterOpponent);
-    if (this.monsterOpponent.hp <= 0) {
+    if (this.monsterOpponent.stats.hp <= 0) {
       gameState.player.hp = this.monsterOpponent.monsterData.race.stats.hp;
       this.killMonster();
       if (!this.classChooseDialogOpen) {
