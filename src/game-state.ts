@@ -3,7 +3,7 @@ import { human, kid } from './data';
 import { BackGround } from './background-sprites';
 import { MonsterC } from './monster';
 import { Player } from './player';
-import {init, initPointer} from 'kontra';
+import {getCanvas, init, initPointer} from 'kontra';
 
 type GameStateI = {
   background: BackGround;
@@ -25,7 +25,7 @@ export class GameState implements GameStateI {
     this.monsterSprites = [];
     this.player = new Player({
       x: 240,
-      y: 110,
+      y: getCanvas().height / 1.5,
       monster: {
         level: 1,
         race: human,

@@ -27,7 +27,7 @@ const gameState = GameState.instance;
 
 monsters.forEach((monster: Monster, index) => {
   const x = (canvas.width / 4) * (index + 1);
-  const y = 10;
+  const y = 100;
 
   gameState.monsterSprites.push(
     new MonsterC({
@@ -69,6 +69,14 @@ const fitCanvas = () => {
   canvas.style.width = width + 'px';
   canvas.style.height = height + 'px';
 };
+
+const battleLog = new BattleLog();
+
+class BattleLog {
+  addLine(text: string) {
+    console.log(text);
+  }
+}
 
 const loop = GameLoop({
   blur: true,
