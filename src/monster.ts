@@ -36,6 +36,13 @@ export class MonsterC extends SpriteClass {
     this._monsterData = monster;
     this.width = monster.race.width;
     this.height = monster.race.height;
+    this.stats = { ...this.monsterData.race.stats };
+    Object.keys(this.stats).forEach((stringKey) => {
+      if (stringKey in this.stats) {
+        const key = stringKey as keyof BaseStats;
+        this.stats[key] *= 10;
+      }
+    });
     this.monsterSprite();
   }
 
@@ -110,7 +117,7 @@ export class MonsterC extends SpriteClass {
   attack(skill: Skill, target: MonsterC) {
     const type = skill.type;
     const protection = (target.stats.def + target.stats[type]) / 2;
-    const baseStat = this.stats[type] / protection * 10;
+    const baseStat = (this.stats[type] / protection) * 10;
     const damage = Math.ceil(skill.dmg * baseStat);
     target.stats.hp -= damage;
   }
