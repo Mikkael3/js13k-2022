@@ -70,14 +70,6 @@ const fitCanvas = () => {
   canvas.style.height = height + 'px';
 };
 
-const battleLog = new BattleLog();
-
-class BattleLog {
-  addLine(text: string) {
-    console.log(text);
-  }
-}
-
 const loop = GameLoop({
   blur: true,
   update: (dt) => {
