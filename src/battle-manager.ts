@@ -100,6 +100,7 @@ export class BattleManager {
               ...this.monsterOpponent.monsterData,
               class: player.monsterData.class,
             };
+            gameState.playerBox.setMonster(gameState.player);
             this.monsterOpponent = undefined;
             this.monsterBox.setMonster(undefined);
             this.classChooseDialogOpen = false;
@@ -116,6 +117,7 @@ export class BattleManager {
             player.monsterData = this.monsterOpponent.monsterData;
             this.monsterOpponent = undefined;
             this.monsterBox.setMonster(undefined);
+            gameState.playerBox.setMonster(gameState.player);
             this.classChooseDialogOpen = false;
             e.unrender();
             // Show other monsters again

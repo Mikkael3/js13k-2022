@@ -4,17 +4,20 @@ import { BackGround } from './background-sprites';
 import { MonsterC } from './monster';
 import { Player } from './player';
 import {getCanvas, init, initPointer} from 'kontra';
+import {MonsterBox} from "./monster-box";
 
 type GameStateI = {
   background: BackGround;
   monsterSprites: MonsterC[];
   player: Player;
+  playerBox: MonsterBox;
 };
 
 export class GameState implements GameStateI {
   public background: BackGround;
   public monsterSprites: MonsterC[];
   public player: Player;
+  public playerBox: MonsterBox;
 
   private static _instance: GameState;
 
@@ -32,6 +35,15 @@ export class GameState implements GameStateI {
         class: kid,
       },
     });
+
+    this.playerBox = new MonsterBox({
+      x: 0.7,
+      y: 0.85,
+      width: 0.3,
+      height: 0.05,
+      canvas: getCanvas(),
+    });
+    this.playerBox.setMonster(this.player);
   }
 
   public static get instance() {
