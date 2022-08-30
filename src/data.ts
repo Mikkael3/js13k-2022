@@ -1,4 +1,4 @@
-import { Class, Race } from './types';
+import { Class, ClassProps, RaceProps } from './types';
 
 export const kid: Class = {
   color: 'yellow',
@@ -7,7 +7,7 @@ export const kid: Class = {
     {
       name: 'cry',
       dmg: 100,
-      type: 'int',
+      type: 'fixed',
     },
     {
       name: 'scratch',
@@ -22,7 +22,7 @@ export const kid: Class = {
   ],
 };
 
-export const classes: Class[] = [
+export const classes: ClassProps[] = [
   kid,
   {
     color: 'red',
@@ -35,8 +35,12 @@ export const classes: Class[] = [
       },
       {
         name: 'Cleave',
-        dmg: 0.3,
+        dmg: 0.2,
         type: 'str',
+      },
+      {
+        name: 'Fury',
+        type: 'boost',
       },
     ],
   },
@@ -54,6 +58,10 @@ export const classes: Class[] = [
         dmg: 0.5,
         type: 'int',
       },
+      {
+        name: 'Blessing',
+        type: 'boost',
+      },
     ],
   },
   {
@@ -70,15 +78,15 @@ export const classes: Class[] = [
         dmg: 0.3,
         type: 'int',
       },
+      {
+        name: 'Backstab',
+        type: 'status',
+      },
     ],
   },
 ];
 
-const size = (size: number) => size * 4;
-
-export const human: Race = {
-  width: size(4),
-  height: size(5),
+export const human: RaceProps = {
   name: 'Human',
   stats: {
     hp: 3,
@@ -103,11 +111,10 @@ export const human: Race = {
   ],
 };
 
-export const races: Race[] = [
+export const races: RaceProps[] = [
   human,
   {
-    width: size(5),
-    height: size(8),
+    name: 'Gargoyle',
     sprite: [
       [1, 1, 0, 1, 1],
       [1, 1, 1, 1, 1],
@@ -118,7 +125,6 @@ export const races: Race[] = [
       [1, 1, 0, 1, 1],
       [0, 1, 0, 1, 0],
     ],
-    name: 'Gargoyle',
     stats: {
       hp: 10,
       str: 10,
@@ -135,15 +141,13 @@ export const races: Race[] = [
     ],
   },
   {
-    width: size(5),
-    height: size(4),
+    name: 'Dwarf',
     sprite: [
       [0, 1, 1, 1, 0],
       [1, 0, 1, 0, 1],
       [1, 1, 1, 1, 1],
       [1, 0, 0, 0, 1],
     ],
-    name: 'Dwarf',
     stats: {
       hp: 7,
       str: 7,
@@ -160,18 +164,17 @@ export const races: Race[] = [
     ],
   },
   {
-    width: size(4),
-    height: size(7),
-    sprite: [
-      [0, 1, 1, 0],
-      [0, 1, 1, 0],
-      [1, 1, 1, 1],
-      [0, 1, 1, 0],
-      [1, 1, 1, 1],
-      [1, 0, 0, 1],
-      [1, 0, 0, 1],
-    ],
     name: 'Vampire',
+    sprite: [
+      [0, 0, 1, 1, 1, 0, 0],
+      [1, 0, 1, 1, 1, 0, 1],
+      [0, 1, 1, 1, 1, 1, 0],
+      [0, 0, 1, 1, 1, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0],
+      [0, 1, 0, 1, 0, 1, 0],
+      [0, 1, 1, 1, 1, 1, 0],
+      [0, 0, 1, 0, 1, 0, 0],
+    ],
     stats: {
       hp: 5,
       str: 8,
@@ -182,8 +185,64 @@ export const races: Race[] = [
     skills: [
       {
         name: 'Hypnotic Magnetic Glare',
-        dmg: 0,
-        type: 'int',
+        type: 'status',
+      },
+    ],
+  },
+  {
+    name: 'Minotaur',
+    sprite: [
+      [0, 0, 1, 0, 0, 0, 1, 0],
+      [0, 0, 1, 1, 0, 1, 1, 0],
+      [0, 0, 1, 1, 1, 1, 0, 0],
+      [0, 0, 0, 1, 1, 0, 0, 0],
+      [0, 0, 0, 1, 1, 0, 0, 0],
+      [0, 1, 1, 1, 1, 1, 1, 0],
+      [0, 1, 0, 1, 1, 0, 1, 0],
+      [0, 1, 0, 1, 1, 0, 1, 0],
+      [0, 0, 0, 1, 1, 0, 0, 0],
+      [0, 0, 0, 1, 1, 0, 0, 0],
+      [0, 0, 0, 1, 1, 0, 0, 0],
+    ],
+    stats: {
+      hp: 6,
+      str: 10,
+      int: 1,
+      def: 4,
+      stamina: 2,
+    },
+    skills: [
+      {
+        name: 'Stomp',
+        dmg: 0.75,
+        type: 'str',
+      },
+    ],
+  },
+  {
+    name: 'Mummy',
+    sprite: [
+      [0, 0, 0, 1, 1, 0, 0],
+      [0, 0, 1, 1, 1, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0],
+      [0, 1, 1, 1, 1, 1, 0],
+      [1, 0, 0, 1, 0, 1, 0],
+      [0, 1, 0, 1, 0, 1, 0],
+      [1, 0, 0, 1, 0, 0, 1],
+      [0, 0, 1, 0, 1, 0, 0],
+      [0, 0, 1, 0, 1, 1, 1],
+    ],
+    stats: {
+      hp: 6,
+      str: 2,
+      int: 2,
+      def: 7,
+      stamina: 4,
+    },
+    skills: [
+      {
+        name: 'Bandages',
+        type: 'status',
       },
     ],
   },

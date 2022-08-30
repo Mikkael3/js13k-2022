@@ -7,9 +7,9 @@ import { initDefaultBackground } from './background-sprites';
 
 const canvas = getCanvas();
 
-initDefaultBackground();
-
 const gameState = GameState.instance;
+
+initDefaultBackground();
 
 createMonsterSprites(generateMonsterSet());
 

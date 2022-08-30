@@ -1,6 +1,5 @@
-import { Sprite, SpriteClass, Text, track } from 'kontra';
-
 import { BaseStats, Monster, Skill } from './types';
+import { Sprite, SpriteClass, Text, track } from 'kontra';
 
 type MonsterProps = Partial<Sprite> & { monster: Monster };
 
@@ -116,9 +115,12 @@ export class MonsterC extends SpriteClass {
 
   attack(skill: Skill, target: MonsterC) {
     const type = skill.type;
-    const protection = (target.stats.def + target.stats[type]) / 2;
-    const baseStat = (this.stats[type] / protection) * 10;
-    const damage = Math.ceil(skill.dmg * baseStat);
+    let damage = skill.dmg;
+    if (type === 'int' || type === 'str') {
+      const protection = (target.stats.def + target.stats[type]) / 2;
+      const baseStat = (this.stats[type] / protection) * 10;
+      damage = Math.ceil(skill.dmg * baseStat);
+    }
     target.stats.hp -= damage;
   }
 }
