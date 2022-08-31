@@ -115,11 +115,20 @@ export class MonsterC extends SpriteClass {
 
   attack(skill: Skill, target: MonsterC) {
     const type = skill.type;
-    let damage = skill.dmg;
+    let damage = skill.value;
     if (type === 'int' || type === 'str') {
       const protection = (target.stats.def + target.stats[type]) / 2;
       const baseStat = (this.stats[type] / protection) * 10;
-      damage = Math.ceil(skill.dmg * baseStat);
+      damage = Math.ceil(skill.value * baseStat);
+    }
+    if (type === 'boost') {
+      this.stats[skill.effect] = Math.ceil(skill.value * this.stats[skill.effect]);
+      return;
+    }
+    if (type === 'status') {
+      target.stats[skill.effect] = Math.floor(skill.value * target.stats[skill.effect]);
+      if (target.stats[skill.effect] <= 0) target.stats[skill.effect] = 10;
+      return;
     }
     target.stats.hp -= damage;
   }

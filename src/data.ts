@@ -1,23 +1,25 @@
-import { Class, ClassProps, RaceProps } from './types';
+import { ClassProps, RaceProps } from './types';
 
-export const kid: Class = {
+export const kid: ClassProps = {
   color: 'yellow',
   name: 'Kid',
   skills: [
     {
       name: 'cry',
-      dmg: 100,
-      type: 'fixed',
-    },
-    {
-      name: 'scratch',
-      dmg: 0.1,
-      type: 'str',
+      value: 0.9,
+      type: 'status',
+      effect: 'def',
     },
     {
       name: 'drool',
-      dmg: 0.5,
-      type: 'int',
+      type: 'boost',
+      effect: 'str',
+      value: 1.1,
+    },
+    {
+      name: 'scratch',
+      value: 0.2,
+      type: 'str',
     },
   ],
 };
@@ -30,17 +32,19 @@ export const classes: ClassProps[] = [
     skills: [
       {
         name: 'Bash',
-        dmg: 0.4,
+        value: 0.4,
         type: 'str',
       },
       {
         name: 'Cleave',
-        dmg: 0.2,
+        value: 0.2,
         type: 'str',
       },
       {
         name: 'Fury',
         type: 'boost',
+        value: 1.2,
+        effect: 'str',
       },
     ],
   },
@@ -50,17 +54,19 @@ export const classes: ClassProps[] = [
     skills: [
       {
         name: 'Sacred Flame',
-        dmg: 0.4,
+        value: 0.4,
         type: 'int',
       },
       {
         name: 'Banishment',
-        dmg: 0.5,
+        value: 0.5,
         type: 'int',
       },
       {
         name: 'Blessing',
         type: 'boost',
+        value: 1.2,
+        effect: 'hp',
       },
     ],
   },
@@ -70,17 +76,19 @@ export const classes: ClassProps[] = [
     skills: [
       {
         name: 'Sinister Strike',
-        dmg: 0.6,
+        value: 0.6,
         type: 'str',
       },
       {
         name: 'Wound Poison',
-        dmg: 0.3,
+        value: 0.3,
         type: 'int',
       },
       {
         name: 'Backstab',
         type: 'status',
+        value: 0.8,
+        effect: 'int',
       },
     ],
   },
@@ -98,7 +106,7 @@ export const human: RaceProps = {
   skills: [
     {
       name: 'Struggle',
-      dmg: 0.1,
+      value: 0.1,
       type: 'str',
     },
   ],
@@ -135,7 +143,7 @@ export const races: RaceProps[] = [
     skills: [
       {
         name: 'Claw',
-        dmg: 0.3,
+        value: 0.3,
         type: 'str',
       },
     ],
@@ -158,7 +166,7 @@ export const races: RaceProps[] = [
     skills: [
       {
         name: 'Dig',
-        dmg: 0.2,
+        value: 0.2,
         type: 'str',
       },
     ],
@@ -186,6 +194,8 @@ export const races: RaceProps[] = [
       {
         name: 'Hypnotic Magnetic Glare',
         type: 'status',
+        value: 0.7,
+        effect: 'int',
       },
     ],
   },
@@ -214,7 +224,7 @@ export const races: RaceProps[] = [
     skills: [
       {
         name: 'Stomp',
-        dmg: 0.75,
+        value: 0.75,
         type: 'str',
       },
     ],
@@ -243,6 +253,8 @@ export const races: RaceProps[] = [
       {
         name: 'Bandages',
         type: 'status',
+        value: 0.8,
+        effect: 'str',
       },
     ],
   },
@@ -269,7 +281,7 @@ export const races: RaceProps[] = [
       {
         name: 'Ooze',
         type: 'fixed',
-        dmg: 2,
+        value: 2,
       },
     ],
   },
@@ -300,6 +312,8 @@ export const races: RaceProps[] = [
       {
         name: 'Osteoporosis',
         type: 'status',
+        value: 0.7,
+        effect: 'def',
       },
     ],
   },

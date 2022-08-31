@@ -1,3 +1,4 @@
+import { buildClass, buildRace } from './types';
 import { getCanvas, init, initPointer } from 'kontra';
 import { human, kid } from './data';
 
@@ -6,7 +7,6 @@ import { BattleManager } from './battle-manager';
 import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
 import { Player } from './player';
-import { buildRace } from './types';
 
 type GameStateI = {
   background: BackGround;
@@ -38,7 +38,7 @@ export class GameState implements GameStateI {
       monster: {
         level: 1,
         race: buildRace(human),
-        class: kid,
+        class: buildClass(kid),
       },
     });
 

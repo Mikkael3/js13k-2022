@@ -2,8 +2,9 @@ export const size = (size: number) => size * 4;
 
 export type Skill = {
   name: string;
-  dmg: number;
+  value: number;
   type: 'int' | 'str' | 'fixed' | 'status' | 'boost';
+  effect: keyof BaseStats;
 };
 
 export type BaseStats = {
@@ -43,8 +44,9 @@ export type RaceProps = Partial<
 export const buildSkill = (data: Partial<Skill>): Skill => {
   return {
     name: 'Skill',
-    dmg: 0.0,
+    value: 0.0,
     type: 'int',
+    effect: 'stamina',
     ...data,
   };
 };

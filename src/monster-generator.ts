@@ -28,7 +28,6 @@ export const createMonsterSprites = (monsters: Monster[]) => {
         monster,
       }),
     );
-    console.log('sprietes mosnter: ', gameState.monsterSprites);
     gameState.monsterSprites.forEach((monster) => {
       monster.handler = () => gameState.battleManager.selectForBattle(monster);
     });
