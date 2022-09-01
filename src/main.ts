@@ -1,7 +1,8 @@
 import { GameLoop, getCanvas } from 'kontra';
+import { createMonsterSprites, generateMonsterSet } from './monster-generator';
+
 import { GameState } from './game-state';
 import { GameUi } from './game-ui';
-import { createMonsterSprites, generateMonsterSet } from './monster-generator';
 import { initDefaultBackground } from './background-sprites';
 
 const canvas = getCanvas();
