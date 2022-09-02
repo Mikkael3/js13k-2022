@@ -52,6 +52,7 @@ const loop = GameLoop({
     gameUi.update();
     gameState.monsterBox.update();
     gameState.playerBox.update();
+    gameState.battleLog.update();
     fitCanvas();
     if (gameState.monsterSprites.length === 0) {
       console.log('monsers len 0');

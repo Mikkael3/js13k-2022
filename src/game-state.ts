@@ -8,6 +8,7 @@ import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
 import { Player } from './player';
 import {UiElement} from "./ui";
+import {BattleLog} from "./battle-log";
 
 type GameStateI = {
   background: BackGround;
@@ -17,6 +18,7 @@ type GameStateI = {
   monsterBox: MonsterBox;
   battleManager: BattleManager;
   uiElements: UiElement[];
+  battleLog: BattleLog;
 };
 
 export class GameState implements GameStateI {
@@ -27,6 +29,7 @@ export class GameState implements GameStateI {
   public monsterBox: MonsterBox;
   public battleManager: BattleManager;
   public uiElements: UiElement[];
+  public battleLog: BattleLog;
 
   private static _instance: GameState;
 
@@ -36,6 +39,15 @@ export class GameState implements GameStateI {
     this.background = new BackGround();
     this.monsterSprites = [];
     this.uiElements = [];
+    this.battleLog = new BattleLog({
+      x: 0,
+      y: 0.5,
+      height: 0.4,
+      width: 0.3,
+      canvas: getCanvas(),
+      color: 'lightgray',
+    });
+    this.battleLog.render();
     this.player = new Player({
       x: 240,
       y: getCanvas().height / 1.5,

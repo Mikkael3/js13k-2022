@@ -58,6 +58,8 @@ export class BattleManager {
     gameUi.unrender();
 
     gameState.player.attack(skill, this.monsterOpponent);
+    const attackerName = 'player';
+    gameState.battleLog.addLine(attackerName + ' used ' + skill.name);
 
     this.monsterBox.setMonster(this.monsterOpponent);
     if (this.monsterOpponent.stats.hp <= 0) {
@@ -77,8 +79,10 @@ export class BattleManager {
       const randomSkill =
         this.monsterOpponent.getSkills()[randInt(0, this.monsterOpponent.getSkills().length - 1)];
       this.monsterOpponent.attack(randomSkill, gameState.player);
+      const attackerName = this.monsterOpponent.monsterData.race.name;
+      gameState.battleLog.addLine(attackerName + ' used ' + randomSkill.name);
       gameState.playerBox.setMonster(gameState.player);
-    });
+    }, 500);
     // Get control back after enemy finishes
     setTimeout(() => {
       gameUi.render();
