@@ -102,31 +102,34 @@ export class BattleManager {
     const options = [
       ...player.monsterData.class.skills,
       ...this.monsterOpponent.monsterData.class.skills,
-    ].filter((skill, index, skills) => {
-      return skills.findIndex((s) => {
-        return s.name === skill.name;
-      }) === index;
-    })
-        .map((skill) => {
-      return {
-        title: skill.name,
-        handler: (e: UiElement) => () => {
-          // halutaan skils
-          player.skills.push(skill);
-          if (player.skills.length >= 3 && this.monsterOpponent) {
-            player.monsterData = this.monsterOpponent.monsterData;
-            player.monsterData.class.skills = player.skills;
-            this.monsterOpponent = undefined;
-            this.monsterBox.setMonster(undefined);
-            gameState.playerBox.setMonster(gameState.player);
-            this.classChooseDialogOpen = false;
-            e.unrender();
-            // Show other monsters again
-            GameState.instance.monsterSprites.forEach((monster) => (monster.display = true));
-          }
-        },
-      };
-    });
+    ]
+      .filter((skill, index, skills) => {
+        return (
+          skills.findIndex((s) => {
+            return s.name === skill.name;
+          }) === index
+        );
+      })
+      .map((skill) => {
+        return {
+          title: skill.name,
+          handler: (e: UiElement) => () => {
+            // halutaan skils
+            player.skills.push(skill);
+            if (player.skills.length >= 3 && this.monsterOpponent) {
+              player.monsterData = this.monsterOpponent.monsterData;
+              player.monsterData.class.skills = player.skills;
+              this.monsterOpponent = undefined;
+              this.monsterBox.setMonster(undefined);
+              gameState.playerBox.setMonster(gameState.player);
+              this.classChooseDialogOpen = false;
+              e.unrender();
+              // Show other monsters again
+              GameState.instance.monsterSprites.forEach((monster) => (monster.display = true));
+            }
+          },
+        };
+      });
     const dialog = new Dialog({
       options,
       text: 'Choose Class:',
