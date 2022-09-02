@@ -119,6 +119,7 @@ export class BattleManager {
             if (player.skills.length >= 3 && this.monsterOpponent) {
               player.monsterData = this.monsterOpponent.monsterData;
               player.monsterData.class.skills = player.skills;
+              player.monsterData.class.name = 'BodySnatcher';
               this.monsterOpponent = undefined;
               this.monsterBox.setMonster(undefined);
               gameState.playerBox.setMonster(gameState.player);

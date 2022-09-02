@@ -2,7 +2,7 @@ import { UiElement, UiElementProps } from './ui';
 
 type Option = {
   title: string;
-  handler: (e: UiElement) => () => void;
+  handler: (e: Dialog) => () => void;
 };
 
 type Props = UiElementProps & { options: Option[]; text: string };
