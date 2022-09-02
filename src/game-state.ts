@@ -41,7 +41,7 @@ export class GameState implements GameStateI {
     this.uiElements = [];
     this.battleLog = new BattleLog({
       x: 0,
-      y: 0.5,
+      y: 0.45,
       height: 0.4,
       width: 0.3,
       canvas: getCanvas(),
