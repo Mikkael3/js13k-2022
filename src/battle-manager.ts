@@ -3,7 +3,6 @@ import gameState, { GameState } from './game-state';
 import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
 import { Skill } from './types';
-import { UiElement } from './ui';
 import { GameUi } from './game-ui';
 import { GameObject, randInt } from 'kontra';
 
@@ -113,9 +112,10 @@ export class BattleManager {
       .map((skill) => {
         return {
           title: skill.name,
-          handler: (e: UiElement) => () => {
-            // halutaan skils
+          handler: (e: Dialog) => () => {
             player.skills.push(skill);
+            e.options = e.options.filter((option) => option.title !== skill.name);
+            e.setOptions();
             if (player.skills.length >= 3 && this.monsterOpponent) {
               player.monsterData = this.monsterOpponent.monsterData;
               player.monsterData.class.skills = player.skills;
