@@ -102,7 +102,12 @@ export class BattleManager {
     const options = [
       ...player.monsterData.class.skills,
       ...this.monsterOpponent.monsterData.class.skills,
-    ].map((skill) => {
+    ].filter((skill, index, skills) => {
+      return skills.findIndex((s) => {
+        return s.name === skill.name;
+      }) === index;
+    })
+        .map((skill) => {
       return {
         title: skill.name,
         handler: (e: UiElement) => () => {
