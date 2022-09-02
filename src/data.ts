@@ -21,6 +21,11 @@ export const kid: ClassProps = {
       value: 0.2,
       type: 'str',
     },
+    {
+      name: 'kill',
+      value: 100,
+      type: 'fixed',
+    },
   ],
 };
 

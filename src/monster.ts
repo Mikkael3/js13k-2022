@@ -113,9 +113,12 @@ export class MonsterC extends SpriteClass {
     return [this.monsterData.class.skills, this.monsterData.race.skills].flat();
   }
 
+  // This monster attacks target with a skill
   attack(skill: Skill, target: MonsterC) {
     const type = skill.type;
     let damage = skill.value;
+    const attackerName = this.monsterData.race.name;
+    const targetName = target.monsterData.race.name;
     if (type === 'int' || type === 'str') {
       const protection = (target.stats.def + target.stats[type]) / 2;
       const baseStat = (this.stats[type] / protection) * 10;
@@ -123,13 +126,16 @@ export class MonsterC extends SpriteClass {
     }
     if (type === 'boost') {
       this.stats[skill.effect] = Math.ceil(skill.value * this.stats[skill.effect]);
+      console.log(attackerName + ' boosted itself: ' + skill.name);
       return;
     }
     if (type === 'status') {
       target.stats[skill.effect] = Math.floor(skill.value * target.stats[skill.effect]);
       if (target.stats[skill.effect] <= 0) target.stats[skill.effect] = 10;
+      console.log(attackerName + ' used status effect: ' + skill.name);
       return;
     }
+    console.log(attackerName + ' used ' + skill.name + ' and dealt ' + damage + ' damage to ' + targetName);
     target.stats.hp -= damage;
   }
 }

@@ -48,6 +48,7 @@ const loop = GameLoop({
     gameState.background.update(dt);
     gameState.player?.update(dt);
     gameState.monsterSprites.forEach((s) => s.update(dt));
+    gameState.uiElements.forEach((element) => element.update());
     gameUi.update();
     gameState.monsterBox.update();
     gameState.playerBox.update();

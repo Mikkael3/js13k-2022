@@ -98,30 +98,19 @@ export class BattleManager {
   private showChooseClassDialog() {
     const { player } = GameState.instance;
     if (!this.monsterOpponent || !player) return;
+    player.skills = [];
     const options = [
-      {
-        title: player.monsterData.class.name,
+      ...player.monsterData.class.skills,
+      ...this.monsterOpponent.monsterData.class.skills,
+    ].map((skill) => {
+      return {
+        title: skill.name,
         handler: (e: UiElement) => () => {
-          if (this.monsterOpponent) {
-            player.monsterData = {
-              ...this.monsterOpponent.monsterData,
-              class: player.monsterData.class,
-            };
-            gameState.playerBox.setMonster(gameState.player);
-            this.monsterOpponent = undefined;
-            this.monsterBox.setMonster(undefined);
-            this.classChooseDialogOpen = false;
-            e.unrender();
-            // Show other monsters again
-            GameState.instance.monsterSprites.forEach((monster) => (monster.display = true));
-          }
-        },
-      },
-      {
-        title: this.monsterOpponent.monsterData.class.name,
-        handler: (e: UiElement) => () => {
-          if (this.monsterOpponent) {
+          // halutaan skils
+          player.skills.push(skill);
+          if (player.skills.length >= 3 && this.monsterOpponent) {
             player.monsterData = this.monsterOpponent.monsterData;
+            player.monsterData.class.skills = player.skills;
             this.monsterOpponent = undefined;
             this.monsterBox.setMonster(undefined);
             gameState.playerBox.setMonster(gameState.player);
@@ -131,8 +120,8 @@ export class BattleManager {
             GameState.instance.monsterSprites.forEach((monster) => (monster.display = true));
           }
         },
-      },
-    ];
+      };
+    });
     const dialog = new Dialog({
       options,
       text: 'Choose Class:',
@@ -143,5 +132,7 @@ export class BattleManager {
       canvas: this.monsterBox.canvas,
     });
     dialog.render();
+    // TODO clean previous dialog elements
+    gameState.uiElements.push(dialog);
   }
 }
