@@ -83,7 +83,7 @@ export class MonsterC extends SpriteClass {
 
   /// Mouse events
   public onDown() {
-    if (this.handler) this.handler(this);
+    if (this.handler && this.display) this.handler(this);
   }
 
   public handler: ((monster: MonsterC) => void) | undefined;
