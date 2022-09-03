@@ -7,8 +7,8 @@ import { BattleManager } from './battle-manager';
 import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
 import { Player } from './player';
-import {UiElement} from "./ui";
-import {BattleLog} from "./battle-log";
+import { UiElement } from './ui';
+import { BattleLog } from './battle-log';
 
 type GameStateI = {
   background: BackGround;
