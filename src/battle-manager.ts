@@ -58,7 +58,7 @@ export class BattleManager {
     gameUi.unrender();
 
     gameState.player.attack(skill, this.monsterOpponent);
-    const attackerName = 'player';
+    const attackerName = 'Player';
     gameState.battleLog.addLine(attackerName + ' used ' + skill.name);
 
     this.monsterBox.setMonster(this.monsterOpponent);
