@@ -2,7 +2,7 @@ import { Dialog } from './dialog';
 import gameState, { GameState } from './game-state';
 import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
-import { Skill } from './types';
+import { Skill, StatNames } from './types';
 import { GameUi } from './game-ui';
 import { GameObject, randInt } from 'kontra';
 
@@ -57,9 +57,9 @@ export class BattleManager {
     if (!this.monsterOpponent) return;
     gameUi.unrender();
 
-    gameState.player.attack(skill, this.monsterOpponent);
-    const attackerName = 'Player';
-    gameState.battleLog.addLine(attackerName + ' used ' + skill.name);
+    const damage = gameState.player.attack(skill, this.monsterOpponent);
+    const skillText = getSkillText(skill, damage, 'You');
+    gameState.battleLog.addLine(skillText);
 
     this.monsterBox.setMonster(this.monsterOpponent);
     if (this.monsterOpponent.stats.hp <= 0) {
@@ -78,9 +78,9 @@ export class BattleManager {
       if (!this.monsterOpponent) return;
       const randomSkill =
         this.monsterOpponent.getSkills()[randInt(0, this.monsterOpponent.getSkills().length - 1)];
-      this.monsterOpponent.attack(randomSkill, gameState.player);
-      const attackerName = this.monsterOpponent.monsterData.race.name;
-      gameState.battleLog.addLine(attackerName + ' used ' + randomSkill.name);
+      const damage = this.monsterOpponent.attack(randomSkill, gameState.player);
+      const skillText = getSkillText(randomSkill, damage, this.monsterOpponent.monsterData.race.name);
+      gameState.battleLog.addLine(skillText);
       gameState.playerBox.setMonster(gameState.player);
     }, 500);
     // Get control back after enemy finishes
@@ -148,4 +148,24 @@ export class BattleManager {
     // TODO clean previous dialog elements
     gameState.uiElements.push(dialog);
   }
+}
+
+function getSkillText(skill: Skill, damage: number, attackerName: string) {
+  let skillText = '';
+  switch (skill.type) {
+    case 'str':
+    case 'int':
+    case 'fixed':
+      skillText = 'It dealt ' + damage + ' damage.';
+      break;
+    case 'boost':
+      skillText = StatNames[skill.effect] + ' increased.';
+      break;
+    case 'status':
+      skillText = "Opponent's " + StatNames[skill.effect] + ' fell.';
+      break;
+    default:
+      skillText = 'pieleen meni. ' + skill.type;
+  }
+  return attackerName + ' used ' + skill.name + '. ' + skillText;
 }

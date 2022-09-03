@@ -15,6 +15,14 @@ export type BaseStats = {
   stamina: number;
 };
 
+export const StatNames = {
+  hp: 'Health',
+  str: 'Strength',
+  int: 'Intelligence',
+  def: 'Defence',
+  stamina: 'Stamina',
+};
+
 export type Race = {
   name: string;
   skills: Skill[];
