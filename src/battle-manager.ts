@@ -82,6 +82,7 @@ export class BattleManager {
       const skillText = getSkillText(randomSkill, damage, this.monsterOpponent.monsterData.race.name);
       gameState.battleLog.addLine(skillText);
       gameState.playerBox.setMonster(gameState.player);
+      gameState.monsterBox.setMonster(this.monsterOpponent);
     }, 500);
     // Get control back after enemy finishes
     setTimeout(() => {
