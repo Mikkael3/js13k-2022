@@ -137,7 +137,7 @@ export class BattleManager {
       });
     const dialog = new Dialog({
       options,
-      text: 'Choose Class:',
+      text: 'Choose your skills',
       x: 0.2,
       y: 0.2,
       width: 0.6,
