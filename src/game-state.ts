@@ -9,6 +9,7 @@ import { MonsterC } from './monster';
 import { Player } from './player';
 import { UiElement } from './ui';
 import { BattleLog } from './battle-log';
+import {PlayerBox} from "./player-box";
 
 type GameStateI = {
   background: BackGround;
@@ -58,11 +59,11 @@ export class GameState implements GameStateI {
       },
     });
 
-    this.playerBox = new MonsterBox({
+    this.playerBox = new PlayerBox({
       x: 0.7,
-      y: 0.85,
+      y: 0.70,
       width: 0.3,
-      height: 0.05,
+      height: 0.20,
       canvas: getCanvas(),
     });
     this.playerBox.setMonster(this.player);

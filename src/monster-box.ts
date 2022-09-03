@@ -1,7 +1,7 @@
 import { UiElement, UiElementProps } from './ui';
 
 import { Monster } from './types';
-import {MonsterC} from "./monster";
+import { MonsterC } from './monster';
 
 type Props = UiElementProps & { monster?: Monster };
 
@@ -11,29 +11,30 @@ export class MonsterBox extends UiElement {
 
   constructor(props: Props) {
     super(props);
-    this.rootElement.style.display = 'flex';
-    this.rootElement.style.flexFlow = 'columnn';
   }
 
   setMonster(monster?: MonsterC) {
     if (!monster) this.unrender();
     else this.render();
     this.monster = monster;
-    this.setText();
-  }
-
-  setText() {
+    const container = document.createElement('div');
+    container.style.display = 'flex';
     this.rootElement.innerHTML = '';
-    if (!this.monster) return;
-    this.addText(this.monster.monsterData.race.name);
-    this.addText(this.monster.monsterData.class.name);
-    this.addText(this.monster.stats.hp + '');
+    this.rootElement.appendChild(container);
+    this.setText(container);
   }
 
-  addText(text: string) {
+  setText(container: HTMLElement) {
+    if (!this.monster) return;
+    this.addText(this.monster.monsterData.race.name, container);
+    this.addText(this.monster.monsterData.class.name, container);
+    this.addText(this.monster.stats.hp + '', container);
+  }
+
+  addText(text: string, container: HTMLElement) {
     const race = document.createElement('div');
+    container.appendChild(race);
     race.textContent = text;
-    this.rootElement.appendChild(race);
     race.style.flex = '1';
     race.style.textAlign = 'center';
   }
