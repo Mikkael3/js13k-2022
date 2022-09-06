@@ -1,10 +1,11 @@
-import { Dialog } from './dialog';
+import { GameObject, randInt } from 'kontra';
+import { Skill, StatNames } from './types';
 import gameState, { GameState } from './game-state';
+
+import { Dialog } from './dialog';
+import { GameUi } from './game-ui';
 import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
-import { Skill, StatNames } from './types';
-import { GameUi } from './game-ui';
-import { GameObject, randInt } from 'kontra';
 
 export class BattleManager {
   canvas: HTMLCanvasElement;
@@ -79,7 +80,11 @@ export class BattleManager {
       const randomSkill =
         this.monsterOpponent.getSkills()[randInt(0, this.monsterOpponent.getSkills().length - 1)];
       const damage = this.monsterOpponent.attack(randomSkill, gameState.player);
-      const skillText = getSkillText(randomSkill, damage, this.monsterOpponent.monsterData.race.name);
+      const skillText = getSkillText(
+        randomSkill,
+        damage,
+        this.monsterOpponent.monsterData.race.name,
+      );
       gameState.battleLog.addLine(skillText);
       gameState.playerBox.setMonster(gameState.player);
       gameState.monsterBox.setMonster(this.monsterOpponent);

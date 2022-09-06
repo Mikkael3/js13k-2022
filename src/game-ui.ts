@@ -4,6 +4,7 @@ import { UiElement, UiElementProps } from './ui';
 import { BattleManager } from './battle-manager';
 import { GameState } from './game-state';
 import { MonsterC } from './monster';
+import { getButton } from './elements';
 
 type GameUiProps = UiElementProps & {
   monster: Monster;
@@ -18,22 +19,19 @@ export class GameUi extends UiElement {
     super(props);
     this.battleManager = props.battleManager;
     this.rootElement.style.display = 'flex';
-
-    // [props.monster.race.skills, props.monster.class.skills].flat().forEach((skill) => {
-    // this.renderUi(skill);
-    // });
   }
 
   changeSkills(skills: Skill[]): void {
     this.rootElement.innerHTML = '';
     skills.forEach((skill) => {
       // Skill buttons
-      const button = document.createElement('button');
+      const button = getButton(skill.name);
+      button.style.flex = '1';
+
       button.onclick = () => {
         this.battleManager.useSkill(skill, this);
       };
-      button.style.flex = '1';
-      button.textContent = skill.name;
+
       this.rootElement.appendChild(button);
     });
   }

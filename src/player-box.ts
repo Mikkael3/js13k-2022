@@ -1,25 +1,25 @@
+import { BaseStats, Monster, StatNames } from './types';
+
 import { MonsterBox } from './monster-box';
-import { UiElementProps } from './ui';
-import {BaseStats, Monster, StatNames} from './types';
 import { MonsterC } from './monster';
+import { UiElementProps } from './ui';
+import { setStyles } from './elements';
 
 type Props = UiElementProps & { monster?: Monster };
 
 export class PlayerBox extends MonsterBox {
   constructor(props: Props) {
     super(props);
-    // this.rootElement.style.display = 'flex';
-    // this.rootElement.style.flexDirection = 'column';
+    setStyles(this.rootElement);
   }
 
   setMonster(monster?: MonsterC) {
-    console.log('rendering playerbox');
     super.setMonster(monster);
     const stats = document.createElement('div');
+    stats.style.flex = '1';
     stats.style.display = 'flex';
     stats.style.flexDirection = 'column';
     this.rootElement.appendChild(stats);
-    this.addStat('hp', stats);
     this.addStat('str', stats);
     this.addStat('int', stats);
     this.addStat('def', stats);
@@ -27,7 +27,9 @@ export class PlayerBox extends MonsterBox {
 
   addStat(statName: keyof BaseStats, container: HTMLElement) {
     const stat = document.createElement('span');
-    stat.textContent = StatNames[statName] + ': ' +  this.monster?.stats[statName] + '';
+    stat.style.flex = '1';
+    stat.style.fontSize = '1.5vmin';
+    stat.textContent = StatNames[statName] + ': ' + this.monster?.stats[statName] + '';
     container.appendChild(stat);
   }
 }

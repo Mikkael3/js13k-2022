@@ -3,13 +3,13 @@ import { getCanvas, init, initPointer } from 'kontra';
 import { human, kid } from './data';
 
 import { BackGround } from './background-sprites';
+import { BattleLog } from './battle-log';
 import { BattleManager } from './battle-manager';
 import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
 import { Player } from './player';
+import { PlayerBox } from './player-box';
 import { UiElement } from './ui';
-import { BattleLog } from './battle-log';
-import {PlayerBox} from "./player-box";
 
 type GameStateI = {
   background: BackGround;
@@ -61,9 +61,9 @@ export class GameState implements GameStateI {
 
     this.playerBox = new PlayerBox({
       x: 0.7,
-      y: 0.70,
+      y: 0.7,
       width: 0.3,
-      height: 0.20,
+      height: 0.125,
       canvas: getCanvas(),
     });
     this.playerBox.setMonster(this.player);
