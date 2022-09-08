@@ -10,7 +10,7 @@ import { MonsterC } from './monster';
 import { Player } from './player';
 import { PlayerBox } from './player-box';
 import { UiElement } from './ui';
-import { createMonsterSprites, generateMonsterSet } from './monster-generator';
+// import { createMonsterSprites, generateMonsterSet } from './monster-generator';
 import { GameUi } from './game-ui';
 
 type GameStateI = {
@@ -109,16 +109,38 @@ export class GameState implements GameStateI {
     fitCanvas();
     if (this.monsterSprites.length === 0) {
       console.log('monsers len 0');
-      createMonsterSprites(generateMonsterSet());
+      // createMonsterSprites(generateMonsterSet());
     }
   }
 
   public render() {
     this.background.render();
-    this.player?.render();
+    // this.player?.render();
     this.monsterSprites.forEach((s) => {
       s.render();
     });
+  }
+
+  /**
+   * Remove ui elements
+   */
+  public unrender() {
+    this.playerBox.unrender();
+    this.monsterBox.unrender();
+    this.uiElements.forEach((element) => element.unrender());
+    this.battleLog.unrender();
+    this.gameUi.unrender();
+  }
+
+  /**
+   * Add back ui elements
+   */
+  public rerender() {
+    this.playerBox.render();
+    this.monsterBox.render();
+    this.uiElements.forEach((element) => element.render());
+    this.battleLog.render();
+    this.gameUi.render();
   }
 }
 

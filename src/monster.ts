@@ -1,7 +1,7 @@
 import { BaseStats, Monster, Skill } from './types';
 import { Sprite, SpriteClass, Text, track } from 'kontra';
 
-type MonsterProps = Partial<Sprite> & { monster: Monster };
+export type MonsterProps = Partial<Sprite> & { monster: Monster };
 
 export class MonsterC extends SpriteClass {
   text!: Text;
@@ -78,7 +78,7 @@ export class MonsterC extends SpriteClass {
       anchor: { x: 0, y: 0 },
       textAlign: 'center',
     });
-    this.addChild(this.text);
+    // this.addChild(this.text);
   }
 
   /// Mouse events
