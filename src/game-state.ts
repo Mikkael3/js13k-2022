@@ -35,6 +35,7 @@ export class GameState implements GameStateI {
   public uiElements: UiElement[];
   public battleLog: BattleLog;
   public gameUi: GameUi;
+  public showPlayer = false;
 
   private static _instance: GameState;
 
@@ -114,7 +115,10 @@ export class GameState implements GameStateI {
 
   public render() {
     this.background.render();
-    // this.player?.render();
+    if (this.showPlayer) {
+      this.player?.render();
+
+    }
     this.monsterSprites.forEach((s) => {
       s.render();
     });
@@ -136,10 +140,10 @@ export class GameState implements GameStateI {
    */
   public renderUi() {
     this.playerBox.render();
-    this.monsterBox.render();
+    // this.monsterBox.render();
     this.uiElements.forEach((element) => element.render());
     this.battleLog.render();
-    this.gameUi.render();
+    // this.gameUi.render();
   }
 }
 

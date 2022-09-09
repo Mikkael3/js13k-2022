@@ -6,10 +6,14 @@ export const storyTransitions = {
   scene3: (): void => {
     throw 'extra close scene missing';
   },
+  startGame: (): void => {
+    throw 'no start game';
+  }
 };
 
 export const story = [
   "I'm just a little girl, helpful and nice.",
+  () => storyTransitions.startGame(),
   "Life is always fun, every day is nice.",
   () => storyTransitions.scene2(),
   'Helping others is what I love to do.',
@@ -31,5 +35,4 @@ export const story = [
   "No, I don't want to kill.",
   'You just have to save them. Like you saved me.',
   'Yes, I want to help! I want to save.',
-  // () => {console.log('start game');},
 ];

@@ -7,7 +7,8 @@ import { girlRace, kid } from './data';
 
 import { GameState } from './game-state';
 import { initDefaultBackground } from './background-sprites';
-import {story, storyTransitions} from './story';
+import { story, storyTransitions } from './story';
+import { createMonsterSprites, generateMonsterSet } from './monster-generator';
 
 initDefaultBackground();
 
@@ -91,24 +92,33 @@ const house = new House({
 });
 gameState.background.setScale(3, 3);
 
+gameState.background.addChild(house);
+gameState.background.addChild(girl);
+
 // Second scene.
 storyTransitions.scene2 = () => {
   girl.y -= 18;
   gameState.background.setScale(5, 5);
   gameState.background.y -= 80;
   gameState.background.x -= 80;
-}
+};
 ///////////////
 // Third scene
 storyTransitions.scene3 = () => {
-gameState.background.setScale(16, 16);
-gameState.background.y -= 600;
-gameState.background.x -= 520;
-}
+  gameState.background.setScale(16, 16);
+  gameState.background.y -= 600;
+  gameState.background.x -= 520;
+};
 //////////////
-
-gameState.background.addChild(house);
-gameState.background.addChild(girl);
+// Start Game scene
+storyTransitions.startGame = () => {
+  gameState.renderUi();
+  createMonsterSprites(generateMonsterSet());
+  gameState.background.removeChild(house);
+  gameState.background.removeChild(girl);
+  gameState.background.setScale(2,2,);
+  gameState.showPlayer = true;
+};
 
 type StoryProps = UiElementProps;
 
@@ -164,9 +174,6 @@ const storyBox = new StoryBox({
 });
 
 storyBox.render();
-
-// gameState.renderUi();
-// createMonsterSprites(generateMonsterSet());
 const loop = GameLoop({
   blur: true,
   update: (dt) => {
