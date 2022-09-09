@@ -1,4 +1,4 @@
-import { BaseStats, Monster, Skill } from './types';
+import { BaseStats, Monster, Skill, size } from './types';
 import { Sprite, SpriteClass, Text, track } from 'kontra';
 
 export type MonsterProps = Partial<Sprite> & { monster: Monster };
@@ -33,7 +33,7 @@ export class MonsterC extends SpriteClass {
 
   set monsterData(monster: Monster) {
     this._monsterData = monster;
-    this.width = monster.race.width;
+    this.width = size(monster.race.width);
     this.height = monster.race.height;
     this.stats = { ...this.monsterData.race.stats };
     Object.keys(this.stats).forEach((stringKey) => {
@@ -50,7 +50,13 @@ export class MonsterC extends SpriteClass {
   }
 
   monsterSprite() {
-    const sprite = this.monsterData.race.sprite;
+    const spriteraw = this.monsterData.race.sprite.split('').map((i) => +i);
+
+    const sprite = [];
+
+    for (let i = 0; i < spriteraw.length; i += this.monsterData.race.width) {
+      sprite.push(spriteraw.slice(i, i + this.monsterData.race.width));
+    }
 
     this.children = [];
 

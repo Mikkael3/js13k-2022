@@ -29,7 +29,7 @@ export type Race = {
   stats: BaseStats;
   height: number;
   width: number;
-  sprite: number[][];
+  sprite: string;
 };
 
 export type Class = {
@@ -82,9 +82,9 @@ export const buildStats = (data: Partial<BaseStats>): BaseStats => {
 export const buildRace = (data: RaceProps): Race => {
   return {
     name: 'Race',
-    height: size(data.sprite?.length ?? 1),
-    width: size(data.sprite ? data.sprite[0].length : 1),
-    sprite: [],
+    height: size(data.sprite && data.width ? data.sprite.length / data.width : 1),
+    sprite: '1001',
+    width: 4,
     ...data,
     stats: buildStats({ ...data.stats }),
     skills: data.skills?.map((skill) => buildSkill(skill)) ?? [],
