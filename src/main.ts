@@ -109,16 +109,6 @@ storyTransitions.scene3 = () => {
   gameState.background.y -= 600;
   gameState.background.x -= 520;
 };
-//////////////
-// Start Game scene
-storyTransitions.startGame = () => {
-  gameState.renderUi();
-  createMonsterSprites(generateMonsterSet());
-  gameState.background.removeChild(house);
-  gameState.background.removeChild(girl);
-  gameState.background.setScale(2,2,);
-  gameState.showPlayer = true;
-};
 
 type StoryProps = UiElementProps;
 
@@ -174,6 +164,19 @@ const storyBox = new StoryBox({
 });
 
 storyBox.render();
+
+//////////////
+// Start Game scene
+storyTransitions.startGame = () => {
+  gameState.renderUi();
+  createMonsterSprites(generateMonsterSet());
+  gameState.background.removeChild(house);
+  gameState.background.removeChild(girl);
+  gameState.background.setScale(2,2,);
+  gameState.showPlayer = true;
+  storyBox.unrender();
+  // todo unrender story box
+};
 const loop = GameLoop({
   blur: true,
   update: (dt) => {
