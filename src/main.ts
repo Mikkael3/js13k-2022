@@ -7,7 +7,7 @@ import { girlRace, kid } from './data';
 
 import { GameState } from './game-state';
 import { initDefaultBackground } from './background-sprites';
-import { story } from './story';
+import {story, storyTransitions} from './story';
 
 initDefaultBackground();
 
@@ -65,6 +65,7 @@ class Girl extends MonsterC {
   constructor(props: MonsterProps) {
     super(props);
   }
+
   update(dt: number) {
     super.update(dt * 8);
   }
@@ -91,31 +92,36 @@ const house = new House({
 gameState.background.setScale(3, 3);
 
 // Second scene.
-// girl.y -= 18;
-// gameState.background.setScale(5, 5);
-// gameState.background.y -= 80;
-// gameState.background.x -= 80;
-///////////////
+storyTransitions.scene2 = () => {
+  girl.y -= 18;
+  gameState.background.setScale(5, 5);
+  gameState.background.y -= 80;
+  gameState.background.x -= 80;
+}
 ///////////////
 // Third scene
-// gameState.background.setScale(16, 16);
-// gameState.background.y -= 600;
-// gameState.background.x -= 520;
+storyTransitions.scene3 = () => {
+gameState.background.setScale(16, 16);
+gameState.background.y -= 600;
+gameState.background.x -= 520;
+}
 //////////////
 
 gameState.background.addChild(house);
 gameState.background.addChild(girl);
 
-type StoryProps = UiElementProps & { text: string };
+type StoryProps = UiElementProps;
+
 class StoryBox extends UiElement {
   textElement: HTMLParagraphElement;
   continueElement: HTMLParagraphElement;
   text: string;
   lastBlink = performance.now();
+  storyIndex = 0;
 
   constructor(props: StoryProps) {
     super(props);
-    this.text = props.text;
+    this.text = story[0] as string;
     const s = this.rootElement.style;
     this.textElement = document.createElement('p');
     this.textElement.textContent = this.text;
@@ -125,7 +131,16 @@ class StoryBox extends UiElement {
     s.color = 'magenta';
     s.padding = '1vmin';
     this.rootElement.onclick = () => {
-      console.log('ei toimi');
+      const handleEvent = () => {
+        const storyEvent = story[++this.storyIndex];
+        if (typeof storyEvent === 'string') {
+          this.text = storyEvent;
+        } else {
+          storyEvent();
+          handleEvent();
+        }
+      };
+      handleEvent();
     };
   }
 
@@ -135,6 +150,7 @@ class StoryBox extends UiElement {
       this.lastBlink = performance.now();
       this.continueElement.textContent = this.continueElement.textContent ? '' : 'Continue';
     }
+    this.textElement.textContent = this.text;
   }
 }
 
@@ -143,7 +159,6 @@ const storyBox = new StoryBox({
   y: 0,
   width: 0.4,
   height: 0.166,
-  text: story[0],
   color: 'black',
   canvas: getCanvas(),
 });
