@@ -1,9 +1,12 @@
-import { GameLoop, Sprite, SpriteClass } from 'kontra';
+import {GameLoop, getCanvas, Sprite, SpriteClass} from 'kontra';
 import { GameState } from './game-state';
 import { initDefaultBackground } from './background-sprites';
 import { MonsterC, MonsterProps } from './monster';
 import { girlRace, kid } from './data';
 import { buildClass, buildRace } from './types';
+// import {createMonsterSprites, generateMonsterSet} from "./monster-generator";
+import {UiElement, UiElementProps} from "./ui";
+import {story} from "./story";
 
 initDefaultBackground();
 
@@ -102,16 +105,43 @@ gameState.background.setScale(3, 3);
 gameState.background.addChild(house);
 gameState.background.addChild(girl);
 
+
+type StoryProps = UiElementProps & { text: string };
+class StoryBox extends UiElement{
+  text: string;
+  constructor(props: StoryProps) {
+    super(props);
+    this.text = props.text;
+    const s = this.rootElement.style;
+    this.rootElement.textContent = this.text;
+    s.color = 'magenta';
+    s.padding = '1vmin';
+  }
+}
+
+const storyBox = new StoryBox({
+  x: 0.6,
+  y: 0,
+  width: 0.4,
+  height: 0.166,
+  text: story[0],
+  color: 'black',
+  canvas: getCanvas(),
+})
+
+// gameState.renderUi();
 // createMonsterSprites(generateMonsterSet());
 const loop = GameLoop({
   blur: true,
   update: (dt) => {
     gameState.update(dt);
+    storyBox.update();
     // house.update();
     // girl.update();
   },
   render: () => {
     gameState.render();
+    storyBox.render();
     // house.render();
     // girl.render();
   },
