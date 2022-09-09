@@ -108,7 +108,6 @@ export class GameState implements GameStateI {
     this.battleLog.update();
     fitCanvas();
     if (this.monsterSprites.length === 0) {
-      console.log('monsers len 0');
       // createMonsterSprites(generateMonsterSet());
     }
   }
