@@ -126,6 +126,27 @@ storyTransitions.brokenHouse = () => {
   gameState.background.removeChild(girl);
 };
 ///////////////
+// Fifth scene
+// todo zoom onto broken door
+storyTransitions.doorZoom = () => {
+  gameState.background.setScale(8, 8);
+  gameState.background.x = -300;
+  gameState.background.y = -250;
+};
+const blackness = Sprite({
+  width: 10000,
+  height: 10000,
+  color: 'black',
+});
+///////////////
+// Sixth scene
+// todo zoom onto blackness or make black background
+// todo tee iso black rect ja append child
+storyTransitions.blackness = () => {
+  gameState.background.addChild(blackness);
+  gameState.background.setScale(2, 2);
+};
+//////////////
 
 type StoryProps = UiElementProps;
 
@@ -192,7 +213,6 @@ storyTransitions.startGame = () => {
   gameState.background.setScale(2, 2);
   gameState.showPlayer = true;
   storyBox.unrender();
-  // todo unrender story box
 };
 const loop = GameLoop({
   blur: true,
