@@ -1,26 +1,30 @@
-
 export const storyTransitions = {
-  scene2: (): void => {
+  zoom: (): void => {
     throw 'little zoom scene missing';
   },
-  scene3: (): void => {
+  extraZoom: (): void => {
     throw 'extra close scene missing';
+  },
+  brokenHouse: (): void => {
+    throw 'broken house missing';
   },
   startGame: (): void => {
     throw 'no start game';
-  }
+  },
 };
 
 export const story = [
-  "I'm just a little girl, helpful and nice.",
+  "I'm just a little girl, helpful and kind.",
   () => storyTransitions.startGame(),
-  "Life is always fun, every day is nice.",
-  () => storyTransitions.scene2(),
+  'Life is always fun, every day is nice.',
+  () => storyTransitions.zoom(),
   'Helping others is what I love to do.',
   'I have a little secret. I can trade my life for another.',
-  () => storyTransitions.scene3(),
-  "It's my dearest precious dream. To save a life, even if it costs my own.",
-  'But then came the disaster. Goblins attacked us.',
+  () => storyTransitions.extraZoom(),
+  "It's my dearest dream. To save a life, even if it costs my own.",
+  // todo show broken house. zoom out
+  () => storyTransitions.brokenHouse(),
+  'But then came the misfortune. Goblins attacked us.',
   "I was too late. I couldn't save anyone.",
   'The bloodied goblin rose. He wanted my life.',
   () => {

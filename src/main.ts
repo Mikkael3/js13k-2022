@@ -15,6 +15,9 @@ initDefaultBackground();
 const gameState = GameState.instance;
 
 class House extends SpriteClass {
+  public doorColor = 'sienna';
+  public windowColor = 'white';
+
   constructor(props: Partial<Sprite>) {
     super({
       ...props,
@@ -44,9 +47,11 @@ class House extends SpriteClass {
     this.context.lineTo(110, 0);
     this.context.closePath();
     this.context.fill();
-    this.context.fillStyle = 'sienna';
+    // door
+    this.context.fillStyle = this.doorColor;
     this.context.fillRect(60, 30, 25, 40);
-    this.context.fillStyle = 'white';
+    // window
+    this.context.fillStyle = this.windowColor;
     this.context.fillRect(25, 30, 20, 20);
   }
 
@@ -96,7 +101,7 @@ gameState.background.addChild(house);
 gameState.background.addChild(girl);
 
 // Second scene.
-storyTransitions.scene2 = () => {
+storyTransitions.zoom = () => {
   girl.y -= 18;
   gameState.background.setScale(5, 5);
   gameState.background.y -= 80;
@@ -104,11 +109,23 @@ storyTransitions.scene2 = () => {
 };
 ///////////////
 // Third scene
-storyTransitions.scene3 = () => {
+storyTransitions.extraZoom = () => {
   gameState.background.setScale(16, 16);
   gameState.background.y -= 600;
   gameState.background.x -= 520;
 };
+///////////////
+// Fourth scene
+// todo door to black
+storyTransitions.brokenHouse = () => {
+  house.doorColor = 'black';
+  house.windowColor = 'black';
+  gameState.background.setScale(3, 3);
+  gameState.background.y = 0;
+  gameState.background.x = 0;
+  gameState.background.removeChild(girl);
+};
+///////////////
 
 type StoryProps = UiElementProps;
 
@@ -172,7 +189,7 @@ storyTransitions.startGame = () => {
   createMonsterSprites(generateMonsterSet());
   gameState.background.removeChild(house);
   gameState.background.removeChild(girl);
-  gameState.background.setScale(2,2,);
+  gameState.background.setScale(2, 2);
   gameState.showPlayer = true;
   storyBox.unrender();
   // todo unrender story box
