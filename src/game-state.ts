@@ -124,7 +124,7 @@ export class GameState implements GameStateI {
   /**
    * Remove ui elements
    */
-  public unrender() {
+  public unrenderUi() {
     this.playerBox.unrender();
     this.monsterBox.unrender();
     this.uiElements.forEach((element) => element.unrender());
@@ -133,9 +133,9 @@ export class GameState implements GameStateI {
   }
 
   /**
-   * Add back ui elements
+   * Add ui elements back
    */
-  public rerender() {
+  public renderUi() {
     this.playerBox.render();
     this.monsterBox.render();
     this.uiElements.forEach((element) => element.render());

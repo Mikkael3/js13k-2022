@@ -53,7 +53,7 @@ class Intro extends GameObjectClass {
   // }
 }
 
-gameState.unrender();
+gameState.unrenderUi();
 gameState.monsterSprites = [];
 
 class Girl extends MonsterC {
