@@ -1,70 +1,149 @@
-import { GameLoop, getCanvas } from 'kontra';
-import { createMonsterSprites, generateMonsterSet } from './monster-generator';
-
+import {GameLoop, getCanvas, Sprite, SpriteClass} from 'kontra';
 import { GameState } from './game-state';
-import { GameUi } from './game-ui';
 import { initDefaultBackground } from './background-sprites';
-
-const canvas = getCanvas();
+import { MonsterC, MonsterProps } from './monster';
+import { girlRace, kid } from './data';
+import { buildClass, buildRace } from './types';
+// import {createMonsterSprites, generateMonsterSet} from "./monster-generator";
+import {UiElement, UiElementProps} from "./ui";
+import {story} from "./story";
 
 initDefaultBackground();
 
 const gameState = GameState.instance;
 
-createMonsterSprites(generateMonsterSet());
-
-const gameUi = new GameUi({
-  x: 0,
-  y: 0.9,
-  canvas,
-  height: 0.1,
-  width: 1,
-  monster: gameState.player.monsterData,
-  battleManager: gameState.battleManager,
-});
-
-const fitCanvas = () => {
-  let width = innerWidth;
-  let height = innerHeight;
-
-  const maxHeight = innerHeight;
-  const maxWidth = innerWidth;
-  const aspectRatio = 3 / 2;
-
-  if (maxHeight * aspectRatio < maxWidth) {
-    height = maxHeight;
-    width = maxHeight * aspectRatio;
-  } else {
-    height = maxWidth / aspectRatio;
+class House extends SpriteClass {
+  constructor(props: Partial<Sprite>) {
+    super({
+      ...props,
+      color: '#FEFCD7',
+      radius: 40,
+      dx: 0,
+    });
   }
 
-  canvas.style.width = width + 'px';
-  canvas.style.height = height + 'px';
-};
+  draw() {
+    super.draw();
+    if (!this.context || !this.color) return;
+    // house wall
+    this.context.fillStyle = 'darkred';
+    this.context.beginPath();
+    this.context.lineTo(0, 0);
+    this.context.lineTo(0, 70);
+    this.context.lineTo(100, 70);
+    this.context.lineTo(100, 0);
+    this.context.closePath();
+    this.context.fill();
+    // roof
+    this.context.fillStyle = 'grey';
+    this.context.beginPath();
+    this.context.lineTo(-10, 0);
+    this.context.lineTo(50, -50);
+    this.context.lineTo(110, 0);
+    this.context.closePath();
+    this.context.fill();
+    this.context.fillStyle = 'sienna';
+    this.context.fillRect(60, 30, 25, 40);
+    this.context.fillStyle = 'white';
+    this.context.fillRect(25, 30, 20, 20);
+  }
 
+  // draw() {
+  //   this.context.fillStyle = this.color;
+  //   this.context.beginPath();
+  //   // this.context.to
+  //   this.context.arc(this.x ?? 0, this.y ?? 0, this.radius, 0, 2 * Math.PI);
+  //   this.context.fill();
+  // }
+}
+
+gameState.unrenderUi();
+gameState.monsterSprites = [];
+
+class Girl extends MonsterC {
+  constructor(props: MonsterProps) {
+    super(props);
+  }
+  update(dt: number) {
+    super.update(dt*8);
+  }
+}
+
+const girl = new Girl({
+  x: 40,
+  y: 68,
+  scaleX: 0.5,
+  scaleY: 0.5,
+  monster: {
+    race: buildRace(girlRace),
+    class: { ...buildClass(kid), color: 'violet' },
+    level: 1,
+  },
+});
+
+const house = new House({
+  x: 32,
+  y: 30,
+  scaleX: 0.6,
+  scaleY: 0.6,
+});
+gameState.background.setScale(3, 3);
+
+// Second scene.
+// girl.y -= 18;
+// gameState.background.setScale(5, 5);
+// gameState.background.y -= 80;
+// gameState.background.x -= 80;
+///////////////
+///////////////
+// Third scene
+// gameState.background.setScale(16, 16);
+// gameState.background.y -= 600;
+// gameState.background.x -= 520;
+//////////////
+
+gameState.background.addChild(house);
+gameState.background.addChild(girl);
+
+
+type StoryProps = UiElementProps & { text: string };
+class StoryBox extends UiElement{
+  text: string;
+  constructor(props: StoryProps) {
+    super(props);
+    this.text = props.text;
+    const s = this.rootElement.style;
+    this.rootElement.textContent = this.text;
+    s.color = 'magenta';
+    s.padding = '1vmin';
+  }
+}
+
+const storyBox = new StoryBox({
+  x: 0.6,
+  y: 0,
+  width: 0.4,
+  height: 0.166,
+  text: story[0],
+  color: 'black',
+  canvas: getCanvas(),
+})
+
+// gameState.renderUi();
+// createMonsterSprites(generateMonsterSet());
 const loop = GameLoop({
   blur: true,
   update: (dt) => {
-    gameState.background.update(dt);
-    gameState.player?.update(dt);
-    gameState.monsterSprites.forEach((s) => s.update(dt));
-    gameState.uiElements.forEach((element) => element.update());
-    gameUi.update();
-    gameState.monsterBox.update();
-    gameState.playerBox.update();
-    gameState.battleLog.update();
-    fitCanvas();
-    if (gameState.monsterSprites.length === 0) {
-      console.log('monsers len 0');
-      createMonsterSprites(generateMonsterSet());
-    }
+    gameState.update(dt);
+    storyBox.update();
+    // house.update();
+    // girl.update();
   },
   render: () => {
-    gameState.background.render();
-    gameState.player?.render();
-    gameState.monsterSprites.forEach((s) => {
-      s.render();
-    });
+    gameState.render();
+    storyBox.render();
+    // house.render();
+    // girl.render();
   },
 });
 
