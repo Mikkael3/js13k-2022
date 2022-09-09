@@ -1,47 +1,48 @@
-import { GameLoop, GameObjectClass } from 'kontra';
+import { GameLoop, Sprite, SpriteClass } from 'kontra';
 import { GameState } from './game-state';
 import { initDefaultBackground } from './background-sprites';
 import { MonsterC, MonsterProps } from './monster';
-import { girl, kid } from './data';
+import { girlRace, kid } from './data';
 import { buildClass, buildRace } from './types';
 
 initDefaultBackground();
 
 const gameState = GameState.instance;
 
-class Intro extends GameObjectClass {
-  constructor() {
+class House extends SpriteClass {
+  constructor(props: Partial<Sprite>) {
     super({
-      x: 80,
-      y: 100,
+      ...props,
       color: '#FEFCD7',
       radius: 40,
       dx: 0,
-      render: function () {
-        if (!this.context || !this.color) return;
-        // house wall
-        this.context.fillStyle = 'darkred';
-        this.context.beginPath();
-        this.context.lineTo(0, 0);
-        this.context.lineTo(0, 70);
-        this.context.lineTo(100, 70);
-        this.context.lineTo(100, 0);
-        this.context.closePath();
-        this.context.fill();
-        // roof
-        this.context.fillStyle = 'grey';
-        this.context.beginPath();
-        this.context.lineTo(-10, 0);
-        this.context.lineTo(50, -50);
-        this.context.lineTo(110, 0);
-        this.context.closePath();
-        this.context.fill();
-        this.context.fillStyle = 'sienna';
-        this.context.fillRect(60, 30, 25, 40);
-        this.context.fillStyle = 'white';
-        this.context.fillRect(25, 30, 20, 20);
-      },
     });
+  }
+
+  draw() {
+    super.draw();
+    if (!this.context || !this.color) return;
+    // house wall
+    this.context.fillStyle = 'darkred';
+    this.context.beginPath();
+    this.context.lineTo(0, 0);
+    this.context.lineTo(0, 70);
+    this.context.lineTo(100, 70);
+    this.context.lineTo(100, 0);
+    this.context.closePath();
+    this.context.fill();
+    // roof
+    this.context.fillStyle = 'grey';
+    this.context.beginPath();
+    this.context.lineTo(-10, 0);
+    this.context.lineTo(50, -50);
+    this.context.lineTo(110, 0);
+    this.context.closePath();
+    this.context.fill();
+    this.context.fillStyle = 'sienna';
+    this.context.fillRect(60, 30, 25, 40);
+    this.context.fillStyle = 'white';
+    this.context.fillRect(25, 30, 20, 20);
   }
 
   // draw() {
@@ -60,41 +61,55 @@ class Girl extends MonsterC {
   constructor(props: MonsterProps) {
     super(props);
   }
+  update(dt: number) {
+    super.update(dt*8);
+  }
 }
 
-const girlC = new Girl({
-  x: 100,
-  y: 180,
+const girl = new Girl({
+  x: 40,
+  y: 68,
+  scaleX: 0.5,
+  scaleY: 0.5,
   monster: {
-    race: buildRace(girl),
-    class: {...buildClass(kid), color: 'violet'},
+    race: buildRace(girlRace),
+    class: { ...buildClass(kid), color: 'violet' },
     level: 1,
   },
 });
-// const roof = Sprite({
-//   x: 0,
-//   y: 64,
-//   color: 'black',
-//   width: 240,
-//   height: 240,
-//   dx: 0,
-// });
 
-const intro = new Intro();
-// intro.addChild(ground);
+const house = new House({
+  x: 32,
+  y: 30,
+  scaleX: 0.6,
+  scaleY: 0.6,
+});
+gameState.background.setScale(3, 3);
+
+// Second scene.
+girl.y -= 18;
+gameState.background.setScale(5, 5);
+gameState.background.y -= 80;
+gameState.background.x -= 80;
+///////////////
+
+
+
+gameState.background.addChild(house);
+gameState.background.addChild(girl);
 
 // createMonsterSprites(generateMonsterSet());
 const loop = GameLoop({
   blur: true,
   update: (dt) => {
     gameState.update(dt);
-    intro.update();
-    // girlC.update();
+    // house.update();
+    // girl.update();
   },
   render: () => {
     gameState.render();
-    intro.render();
-    girlC.render();
+    // house.render();
+    // girl.render();
   },
 });
 

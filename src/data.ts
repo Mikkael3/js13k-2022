@@ -324,7 +324,7 @@ export const races: RaceProps[] = [
   },
 ];
 
-export const girl: RaceProps = {
+export const girlRace: RaceProps = {
   name: 'Girl',
   sprite: [
     [0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0],
