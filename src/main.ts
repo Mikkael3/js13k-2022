@@ -87,13 +87,17 @@ const house = new House({
 gameState.background.setScale(3, 3);
 
 // Second scene.
-girl.y -= 18;
-gameState.background.setScale(5, 5);
-gameState.background.y -= 80;
-gameState.background.x -= 80;
+// girl.y -= 18;
+// gameState.background.setScale(5, 5);
+// gameState.background.y -= 80;
+// gameState.background.x -= 80;
 ///////////////
-
-
+///////////////
+// Third scene
+// gameState.background.setScale(16, 16);
+// gameState.background.y -= 600;
+// gameState.background.x -= 520;
+//////////////
 
 gameState.background.addChild(house);
 gameState.background.addChild(girl);
