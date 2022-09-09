@@ -119,7 +119,28 @@ export const human: RaceProps = {
   sprite: '01101111011011111001',
 };
 
+export const goblin: RaceProps = {
+  name: 'Goblin',
+  stats: {
+    hp: 2,
+    str: 3,
+    int: 1,
+    def: 5,
+    stamina: 4,
+  },
+  skills: [
+    {
+      name: 'Stumble',
+      value: 0.1,
+      type: 'str',
+    },
+  ],
+  width: 4,
+  sprite: '00101111010011111001',
+};
+
 export const races: RaceProps[] = [
+  goblin,
   human,
   {
     name: 'Gargoyle',
