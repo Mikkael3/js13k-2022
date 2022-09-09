@@ -1,12 +1,13 @@
-import {GameLoop, getCanvas, Sprite, SpriteClass} from 'kontra';
+import { GameLoop, Sprite, SpriteClass, getCanvas } from 'kontra';
+import { MonsterC, MonsterProps } from './monster';
+// import {createMonsterSprites, generateMonsterSet} from "./monster-generator";
+import { UiElement, UiElementProps } from './ui';
+import { buildClass, buildRace } from './types';
+import { girlRace, kid } from './data';
+
 import { GameState } from './game-state';
 import { initDefaultBackground } from './background-sprites';
-import { MonsterC, MonsterProps } from './monster';
-import { girlRace, kid } from './data';
-import { buildClass, buildRace } from './types';
-// import {createMonsterSprites, generateMonsterSet} from "./monster-generator";
-import {UiElement, UiElementProps} from "./ui";
-import {story} from "./story";
+import { story } from './story';
 
 initDefaultBackground();
 
@@ -65,7 +66,7 @@ class Girl extends MonsterC {
     super(props);
   }
   update(dt: number) {
-    super.update(dt*8);
+    super.update(dt * 8);
   }
 }
 
@@ -105,17 +106,35 @@ gameState.background.setScale(3, 3);
 gameState.background.addChild(house);
 gameState.background.addChild(girl);
 
-
 type StoryProps = UiElementProps & { text: string };
-class StoryBox extends UiElement{
+class StoryBox extends UiElement {
+  textElement: HTMLParagraphElement;
+  continueElement: HTMLParagraphElement;
   text: string;
+  lastBlink = performance.now();
+
   constructor(props: StoryProps) {
     super(props);
     this.text = props.text;
     const s = this.rootElement.style;
-    this.rootElement.textContent = this.text;
+    this.textElement = document.createElement('p');
+    this.textElement.textContent = this.text;
+    this.rootElement.appendChild(this.textElement);
+    this.continueElement = document.createElement('p');
+    this.rootElement.appendChild(this.continueElement);
     s.color = 'magenta';
     s.padding = '1vmin';
+    this.rootElement.onclick = () => {
+      console.log('ei toimi');
+    };
+  }
+
+  update() {
+    super.update();
+    if (performance.now() - this.lastBlink > 300) {
+      this.lastBlink = performance.now();
+      this.continueElement.textContent = this.continueElement.textContent ? '' : 'Continue';
+    }
   }
 }
 
@@ -127,7 +146,9 @@ const storyBox = new StoryBox({
   text: story[0],
   color: 'black',
   canvas: getCanvas(),
-})
+});
+
+storyBox.render();
 
 // gameState.renderUi();
 // createMonsterSprites(generateMonsterSet());
@@ -141,7 +162,6 @@ const loop = GameLoop({
   },
   render: () => {
     gameState.render();
-    storyBox.render();
     // house.render();
     // girl.render();
   },
