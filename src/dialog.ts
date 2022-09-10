@@ -8,6 +8,9 @@ type Option = {
 
 type Props = UiElementProps & { options: Option[]; text: string };
 
+/**
+ * Box with a title and a list of buttons.
+ */
 export class Dialog extends UiElement {
   options: Option[];
   text: string;

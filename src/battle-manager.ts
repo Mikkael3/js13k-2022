@@ -12,6 +12,7 @@ export class BattleManager {
   monsterOpponent?: MonsterC = undefined;
   monsterBox: MonsterBox;
   classChooseDialogOpen = false;
+  battleEnded = false;
 
   constructor(monsterBox: MonsterBox, canvas: HTMLCanvasElement) {
     this.canvas = canvas;
@@ -53,6 +54,27 @@ export class BattleManager {
     }, timeout);
   }
 
+  battleEndCb() {
+    this.battleEnded = true;
+    // TODO set battleEnded back to true
+    if (!this.monsterOpponent) return;
+    gameState.player.hp = this.monsterOpponent.monsterData.race.stats.hp;
+    this.killMonster();
+    if (!this.classChooseDialogOpen) {
+      this.showChooseClassDialog();
+      this.classChooseDialogOpen = true;
+    }
+  }
+
+  skillsChosenCb() {
+    gameState.player.monsterData = this.monsterOpponent!.monsterData;
+    console.log('skills chose cb, skills', gameState.player.skills);
+    this.setPlayerSkills(gameState.player.skills);
+    this.monsterOpponent = undefined;
+    this.monsterBox.setMonster(undefined);
+    // todo jotain muuta pitaa kutsua
+  }
+
   // Skill button clicked
   useSkill(skill: Skill, gameUi: GameUi) {
     if (!this.monsterOpponent) return;
@@ -64,12 +86,7 @@ export class BattleManager {
 
     this.monsterBox.setMonster(this.monsterOpponent);
     if (this.monsterOpponent.stats.hp <= 0) {
-      gameState.player.hp = this.monsterOpponent.monsterData.race.stats.hp;
-      this.killMonster();
-      if (!this.classChooseDialogOpen) {
-        this.showChooseClassDialog();
-        this.classChooseDialogOpen = true;
-      }
+      this.battleEndCb();
       return;
     }
     // Set player status immediately after using skill
@@ -90,19 +107,26 @@ export class BattleManager {
       gameState.battleLog.addLine(skillText);
       gameState.playerBox.setMonster(gameState.player);
       gameState.monsterBox.setMonster(this.monsterOpponent);
+      if (this.monsterOpponent.stats.hp <= 0) {
+        this.battleEndCb();
+        return;
+      }
     }, 500);
     // Get control back after enemy finishes
     setTimeout(() => {
-      gameUi.render();
+      // todo
+      if (!this.battleEnded) gameUi.render();
     }, 1000);
   }
 
-  private killMonster() {
+  public killMonster() {
+    console.log('killing mons')
     const gameState = GameState.instance;
     const index = gameState.monsterSprites.findIndex((m) => {
       return m === this.monsterOpponent;
     });
     if (index < 0) return;
+    console.log('spicing monster')
     gameState.monsterSprites.splice(index, 1);
   }
 
@@ -110,10 +134,14 @@ export class BattleManager {
     const { player } = GameState.instance;
     if (!this.monsterOpponent || !player) return;
     player.skills = [];
+    // Meilla on lista nappeja dialog elementissa
+    // pitasko skill list olla dialog elementissa
+    // options lista josta tehaan napit
     const options = [
       ...player.monsterData.class.skills,
       ...this.monsterOpponent.monsterData.class.skills,
     ]
+      // Remove duplicate skills
       .filter((skill, index, skills) => {
         return (
           skills.findIndex((s) => {
@@ -129,11 +157,9 @@ export class BattleManager {
             // Remove this skill from choosable skills
             e.options = e.options.filter((option) => option.title !== skill.name);
             e.setOptions();
+            // Last skill was chosen. Continue
             if (player.skills.length >= 3 && this.monsterOpponent) {
-              player.monsterData = this.monsterOpponent.monsterData;
-              this.setPlayerSkills(player.skills);
-              this.monsterOpponent = undefined;
-              this.monsterBox.setMonster(undefined);
+              this.skillsChosenCb();
               this.classChooseDialogOpen = false;
               e.unrender();
               // Show other monsters again
@@ -158,7 +184,7 @@ export class BattleManager {
 
   public setPlayerSkills(skills: Skill[]) {
     const player = gameState.player;
-    player.monsterData.class.skills = skills
+    player.monsterData.class.skills = skills;
     player.monsterData.class.name = 'BodySnatcher';
     gameState.playerBox.setMonster(gameState.player);
   }

@@ -2,7 +2,7 @@ import { GameLoop, getCanvas, Sprite, SpriteClass } from 'kontra';
 import { MonsterC, MonsterProps } from './monster';
 // import {createMonsterSprites, generateMonsterSet} from "./monster-generator";
 import { UiElement, UiElementProps } from './ui';
-import { buildClass, buildRace, Monster } from './types';
+import { buildClass, buildRace, Monster, Skill } from './types';
 import { girlRace, goblin, kid } from './data';
 
 import { GameState } from './game-state';
@@ -164,17 +164,33 @@ storyTransitions.introBattle = () => {
   gameState.renderUi();
   gameState.battleManager.selectForBattle(gameState.monsterSprites[0]);
   console.log(girl);
-  gameState.background.setScale(2,2);
+  gameState.background.setScale(2, 2);
   gameState.background.x = 0;
   gameState.background.y = 0;
-  girl.setScale(0.25,0.25);
+  girl.setScale(0.25, 0.25);
   girl.x = 115;
   girl.y = 110;
-  // gameState.background.removeChild(blackness);
   gameState.background.addChild(girl);
-  // TODO remove selecting next skills
-  // TODO make enemy die when health decreases on its own turn
+  const oldBattleEndCb = gameState.battleManager.battleEndCb;
+  // Change battle end to skill choosing skills for this intro
+  gameState.battleManager.battleEndCb = () => {
+    storyBox.render();
+    gameState.battleManager.monsterOpponent!.rotation = Math.PI / 2;
+    gameState.battleManager.monsterOpponent!.color = 'red';
+    gameState.battleManager.monsterOpponent!.stopped = true;
+    // Restore battleManager to regular
+    gameState.battleManager.battleEndCb = oldBattleEndCb;
+  };
 };
+
+storyTransitions.becomeGoblin = () => {
+  gameState.player.skills = kid.skills as Skill[];
+  gameState.player.monsterData = gameState.battleManager.monsterOpponent!.monsterData;
+  gameState.battleManager.killMonster();
+  gameState.battleManager.skillsChosenCb();
+  gameState.showPlayer = true;
+  gameState.background.removeChild(girl);
+}
 
 type StoryProps = UiElementProps;
 
@@ -234,6 +250,7 @@ storyBox.render();
 //////////////
 // Start Game scene
 storyTransitions.startGame = () => {
+  gameState.background.removeChild(blackness);
   gameState.renderUi();
   createMonsterSprites(generateMonsterSet());
   gameState.background.removeChild(house);

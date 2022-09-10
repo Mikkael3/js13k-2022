@@ -11,6 +11,7 @@ export class MonsterC extends SpriteClass {
   // Used for animation
   animationTime = 0;
   stats: BaseStats;
+  stopped = false;
 
   constructor(props: MonsterProps) {
     super({
@@ -100,7 +101,7 @@ export class MonsterC extends SpriteClass {
 
   update(dt: number): void {
     super.update();
-    this.animationTime += dt;
+    if (!this.stopped) this.animationTime += dt;
     // Make monster move a little
     this.x += (Math.sign(Math.cos(this.animationTime)) * Math.cos(this.animationTime) ** 2) / 8;
     this.y += Math.sin(this.animationTime * 2.1) / 20;

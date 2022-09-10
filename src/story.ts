@@ -20,6 +20,9 @@ export const storyTransitions = {
   startGame: (): void => {
     throw 'no start game';
   },
+  becomeGoblin: (): void => {
+    throw 'no become goblin scene';
+  }
 };
 
 export const story = [
@@ -39,6 +42,7 @@ export const story = [
   () => storyTransitions.introBattle(),
   "Oh no. I didn't mean to. Even if you killed my parents.",
   "I don't want you to die. I will save your life. I'll trade my own.",
+  () => storyTransitions.becomeGoblin(),
   'But why am I a goblin now.',
   'They left me for dead.',
   'Oh no. What should I do.',
