@@ -1,5 +1,5 @@
 import { Monster, buildClass, buildRace } from './types';
-import { advancedRaces, classes, entryRaces, lordChimera } from './data';
+import { advancedRaces, classes, entryRaces } from './data';
 import { getCanvas, randInt } from 'kontra';
 
 import { MonsterC } from './monster';
