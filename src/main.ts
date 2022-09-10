@@ -160,10 +160,20 @@ storyTransitions.introBattle = () => {
   createMonsterSprites([woundedGoblin]);
   gameState.player.monsterData = girl.monsterData;
   gameState.battleManager.setPlayerSkills([]);
-  console.log('plaeyr', GameState.instance.player);
   storyBox.unrender();
   gameState.renderUi();
   gameState.battleManager.selectForBattle(gameState.monsterSprites[0]);
+  console.log(girl);
+  gameState.background.setScale(2,2);
+  gameState.background.x = 0;
+  gameState.background.y = 0;
+  girl.setScale(0.25,0.25);
+  girl.x = 115;
+  girl.y = 110;
+  // gameState.background.removeChild(blackness);
+  gameState.background.addChild(girl);
+  // TODO remove selecting next skills
+  // TODO make enemy die when health decreases on its own turn
 };
 
 type StoryProps = UiElementProps;
@@ -237,13 +247,9 @@ const loop = GameLoop({
   update: (dt) => {
     gameState.update(dt);
     storyBox.update();
-    // house.update();
-    // girl.update();
   },
   render: () => {
     gameState.render();
-    // house.render();
-    // girl.render();
   },
 });
 
