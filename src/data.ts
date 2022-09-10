@@ -118,6 +118,12 @@ export const skills: Record<string, Partial<Skill>> = {
     type: 'int',
     cost: 5,
   },
+  thunderStorm: {
+    name: 'Thunderstorm',
+    value: 75,
+    type: 'int',
+    cost: 5,
+  },
   // start of fixed moves
   ooze: {
     name: 'Ooze',
@@ -168,6 +174,13 @@ export const skills: Record<string, Partial<Skill>> = {
     effect: 'wp',
     cost: 2,
   },
+  rollingStone: {
+    name: 'Rolling stone',
+    type: 'boost',
+    value: 3,
+    effect: 'wp',
+    cost: 2,
+  },
   //int
   scienceMagazine: {
     name: 'Science Magazine',
@@ -206,6 +219,13 @@ export const skills: Record<string, Partial<Skill>> = {
     effect: 'def',
     cost: 1,
   },
+  mudSpin: {
+    name: 'Mud spin',
+    type: 'boost',
+    value: 3,
+    effect: 'def',
+    cost: 2,
+  },
   //start of statuses
   cry: {
     name: 'cry',
@@ -227,6 +247,13 @@ export const skills: Record<string, Partial<Skill>> = {
     value: -1,
     effect: 'wp',
     cost: 1,
+  },
+  spook: {
+    name: 'Spook',
+    type: 'status',
+    value: -3,
+    effect: 'wp',
+    cost: 3,
   },
   backstab: {
     name: 'Backstab',
@@ -467,7 +494,7 @@ export const entryRaces: RaceProps[] = [
   },
 ];
 
-export const races: RaceProps[] = [
+export const advancedRaces: RaceProps[] = [
   {
     name: 'Gargoyle',
     width: 5,
@@ -547,11 +574,68 @@ export const races: RaceProps[] = [
       hp: 5,
       str: 5,
       int: 3,
-      def: 6,
+      def: 7,
       stamina: 4,
       wp: 4,
     },
     skills: [skills.osteoporosis],
+  },
+  {
+    name: 'Ghost',
+    width: 5,
+    sprite: '011101111110101111111111110101',
+    stats: {
+      hp: 5,
+      str: 1,
+      int: 5,
+      def: 3,
+      stamina: 5,
+      wp: 10,
+    },
+    skills: [skills.spook],
+  },
+  {
+    name: 'Varaha',
+    width: 7,
+    sprite: '001001000111100101101011111100011000111111111111000111100011110001001000100100',
+    stats: {
+      hp: 10,
+      str: 5,
+      int: 1,
+      def: 5,
+      stamina: 5,
+      wp: 4,
+    },
+    skills: [skills.mudSpin],
+  },
+  {
+    name: 'Roc',
+    width: 11,
+    sprite:
+      '100000000001100000000001000000001011011100110010100011000111111100000011000011100110011001111111100',
+    stats: {
+      hp: 7,
+      str: 5,
+      int: 10,
+      def: 5,
+      stamina: 3,
+      wp: 5,
+    },
+    skills: [skills.thunderStorm],
+  },
+  {
+    name: 'Troll',
+    width: 6,
+    sprite: '100000110011100011100111100111111111000101',
+    stats: {
+      hp: 10,
+      str: 3,
+      int: 3,
+      def: 7,
+      stamina: 5,
+      wp: 7,
+    },
+    skills: [skills.rollingStone],
   },
 ];
 

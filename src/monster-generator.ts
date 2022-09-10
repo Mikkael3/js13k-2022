@@ -1,14 +1,15 @@
 import { Monster, buildClass, buildRace } from './types';
-import { classes, entryRaces, lordChimera, races } from './data';
+import { advancedRaces, classes, entryRaces, lordChimera } from './data';
 import { getCanvas, randInt } from 'kontra';
 
 import { MonsterC } from './monster';
 import gameState from './game-state';
 
 export const generateMonsterSet = (amount = 3, level = 1): Monster[] => {
+  const races = level > 5 ? advancedRaces : entryRaces;
   return Array.from(Array(amount)).map((): Monster => {
     return {
-      race: buildRace(entryRaces[randInt(0, entryRaces.length - 1)]),
+      race: buildRace(races[randInt(0, races.length - 1)]),
       class: buildClass(classes[randInt(0, classes.length - 1)]),
       level,
     };
