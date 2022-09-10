@@ -20,6 +20,7 @@ export class BattleManager {
   }
 
   selectForBattle(monster: MonsterC) {
+    this.battleEnded = false;
     this.monsterOpponent = monster;
     monster.x = this.canvas.width / 2 - monster.width / 2;
     monster.y = this.canvas.height / 2 - monster.height / 2;
@@ -56,7 +57,6 @@ export class BattleManager {
 
   battleEndCb() {
     this.battleEnded = true;
-    // TODO set battleEnded back to true
     if (!this.monsterOpponent) return;
     gameState.player.hp = this.monsterOpponent.monsterData.race.stats.hp;
     this.killMonster();
