@@ -12,7 +12,10 @@ export const storyTransitions = {
     throw 'broken door zoom missing';
   },
   blackness: (): void => {
-
+    throw 'blackness scene missing';
+  },
+  introBattle: (): void => {
+    throw 'intro scene missing';
   },
   startGame: (): void => {
     throw 'no start game';
@@ -32,10 +35,8 @@ export const story = [
   () => storyTransitions.doorZoom(),
   "I was too late. I couldn't save anyone.",
   () => storyTransitions.blackness(),
-  'The bloodied goblin rose. He wanted my life.',
-  () => {
-    console.log('start intro fight now');
-  },
+  'A bloodied goblin rose. He wanted my life.',
+  () => storyTransitions.introBattle(),
   "Oh no. I didn't mean to. Even if you killed my parents.",
   "I don't want you to die. I will save your life. I'll trade my own.",
   'But why am I a goblin now.',

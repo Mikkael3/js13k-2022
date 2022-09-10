@@ -295,7 +295,7 @@ export const girlRace: RaceProps = {
   },
   skills: [
     {
-      name: 'Hold kitchen knife threateningly',
+      name: 'point kitchen knife',
       type: 'boost',
       value: 0.1,
       effect: 'def',

@@ -1,9 +1,9 @@
-import { GameLoop, Sprite, SpriteClass, getCanvas } from 'kontra';
+import { GameLoop, getCanvas, Sprite, SpriteClass } from 'kontra';
 import { MonsterC, MonsterProps } from './monster';
 // import {createMonsterSprites, generateMonsterSet} from "./monster-generator";
 import { UiElement, UiElementProps } from './ui';
-import { buildClass, buildRace } from './types';
-import { girlRace, kid } from './data';
+import { buildClass, buildRace, Monster } from './types';
+import { girlRace, goblin, kid } from './data';
 
 import { GameState } from './game-state';
 import { initDefaultBackground } from './background-sprites';
@@ -54,14 +54,6 @@ class House extends SpriteClass {
     this.context.fillStyle = this.windowColor;
     this.context.fillRect(25, 30, 20, 20);
   }
-
-  // draw() {
-  //   this.context.fillStyle = this.color;
-  //   this.context.beginPath();
-  //   // this.context.to
-  //   this.context.arc(this.x ?? 0, this.y ?? 0, this.radius, 0, 2 * Math.PI);
-  //   this.context.fill();
-  // }
 }
 
 gameState.unrenderUi();
@@ -147,6 +139,32 @@ storyTransitions.blackness = () => {
   gameState.background.setScale(2, 2);
 };
 //////////////
+// Seventh scene: intro battle
+storyTransitions.introBattle = () => {
+  const woundedGoblin: Monster = {
+    race: { ...buildRace(goblin), skills: [] }, // todo baseStats.hp set to 0
+    class: buildClass({
+      color: 'green',
+      name: 'Wounded',
+      skills: [
+        {
+          name: 'Stumble',
+          value: -1,
+          type: 'boost',
+          effect: 'hp',
+        },
+      ],
+    }),
+    level: 1,
+  };
+  createMonsterSprites([woundedGoblin]);
+  gameState.player.monsterData = girl.monsterData;
+  gameState.battleManager.setPlayerSkills([]);
+  console.log('plaeyr', GameState.instance.player);
+  storyBox.unrender();
+  gameState.renderUi();
+  gameState.battleManager.selectForBattle(gameState.monsterSprites[0]);
+};
 
 type StoryProps = UiElementProps;
 

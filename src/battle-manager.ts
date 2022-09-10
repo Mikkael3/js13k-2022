@@ -124,15 +124,14 @@ export class BattleManager {
           title: skill.name,
           handler: (e: Dialog) => () => {
             player.skills.push(skill);
+            // Remove this skill from choosable skills
             e.options = e.options.filter((option) => option.title !== skill.name);
             e.setOptions();
             if (player.skills.length >= 3 && this.monsterOpponent) {
               player.monsterData = this.monsterOpponent.monsterData;
-              player.monsterData.class.skills = player.skills;
-              player.monsterData.class.name = 'BodySnatcher';
+              this.setPlayerSkills(player.skills);
               this.monsterOpponent = undefined;
               this.monsterBox.setMonster(undefined);
-              gameState.playerBox.setMonster(gameState.player);
               this.classChooseDialogOpen = false;
               e.unrender();
               // Show other monsters again
@@ -153,6 +152,13 @@ export class BattleManager {
     dialog.render();
     // TODO clean previous dialog elements
     gameState.uiElements.push(dialog);
+  }
+
+  public setPlayerSkills(skills: Skill[]) {
+    const player = gameState.player;
+    player.monsterData.class.skills = skills
+    player.monsterData.class.name = 'BodySnatcher';
+    gameState.playerBox.setMonster(gameState.player);
   }
 }
 
