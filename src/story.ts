@@ -27,6 +27,7 @@ export const storyTransitions = {
 
 export const story = [
   "I'm just a little girl, helpful and kind.",
+  () => storyTransitions.startGame(),
   'Life is always fun, every day is nice.',
   () => storyTransitions.zoom(),
   'Helping others is what I love to do.',
@@ -50,5 +51,4 @@ export const story = [
   "No, I don't want to kill.",
   'You just have to save them. Like you saved me.',
   'Yes, I want to help! I want to save.',
-  () => storyTransitions.startGame(),
 ];

@@ -12,8 +12,11 @@ export type BaseStats = {
   str: number;
   int: number;
   def: number;
+  wp: number;
   stamina: number;
 };
+
+export type StatStages = Omit<BaseStats, 'hp' | 'stamina'>;
 
 export const StatNames = {
   hp: 'Health',
@@ -21,6 +24,7 @@ export const StatNames = {
   int: 'Intelligence',
   def: 'Defence',
   stamina: 'Stamina',
+  wp: 'Willpower',
 };
 
 export type Race = {
@@ -75,6 +79,7 @@ export const buildStats = (data: Partial<BaseStats>): BaseStats => {
     int: 1,
     def: 1,
     stamina: 1,
+    wp: 1,
     ...data,
   };
 };

@@ -1,5 +1,7 @@
-import { BaseStats, Monster, Skill, size } from './types';
+import { BaseStats, Monster, Skill, StatStages, size } from './types';
 import { Sprite, SpriteClass, Text, track } from 'kontra';
+
+import { performSkill } from './battle';
 
 export type MonsterProps = Partial<Sprite> & { monster: Monster };
 
@@ -12,6 +14,7 @@ export class MonsterC extends SpriteClass {
   animationTime = 0;
   stats: BaseStats;
   stopped = false;
+  statStages: StatStages;
 
   constructor(props: MonsterProps) {
     super({
@@ -22,6 +25,13 @@ export class MonsterC extends SpriteClass {
     this.monsterData = monster;
     // Init mouse events
     track(this);
+
+    this.statStages = {
+      str: 0,
+      int: 0,
+      def: 0,
+      wp: 0,
+    };
 
     this.stats = { ...this.monsterData.race.stats };
     Object.keys(this.stats).forEach((stringKey) => {
@@ -123,23 +133,24 @@ export class MonsterC extends SpriteClass {
   // This monster attacks target with a skill
   // Returns: damage
   attack(skill: Skill, target: MonsterC): number {
-    const type = skill.type;
-    let damage = skill.value;
-    if (type === 'int' || type === 'str') {
-      const protection = (target.stats.def + target.stats[type]) / 2;
-      const baseStat = (this.stats[type] / protection) * 10;
-      damage = Math.ceil(skill.value * baseStat);
-    }
-    if (type === 'boost') {
-      this.stats[skill.effect] = Math.ceil(skill.value * this.stats[skill.effect]);
-      return 0;
-    }
-    if (type === 'status') {
-      target.stats[skill.effect] = Math.floor(skill.value * target.stats[skill.effect]);
-      if (target.stats[skill.effect] <= 0) target.stats[skill.effect] = 10;
-      return 0;
-    }
-    target.stats.hp -= damage;
-    return damage;
+    // const type = skill.type;
+    // let damage = skill.value;
+    // if (type === 'int' || type === 'str') {
+    //   const protection = (target.stats.def + target.stats[type]) / 2;
+    //   const baseStat = (this.stats[type] / protection) * 10;
+    //   damage = Math.ceil(skill.value * baseStat);
+    // }
+    // if (type === 'boost') {
+    //   this.stats[skill.effect] = Math.ceil(skill.value * this.stats[skill.effect]);
+    //   return 0;
+    // }
+    // if (type === 'status') {
+    //   target.stats[skill.effect] = Math.floor(skill.value * target.stats[skill.effect]);
+    //   if (target.stats[skill.effect] <= 0) target.stats[skill.effect] = 10;
+    //   return 0;
+    // }
+    // target.stats.hp -= damage;
+    // return damage;
+    return performSkill(skill, this, target);
   }
 }

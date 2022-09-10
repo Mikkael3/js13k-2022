@@ -6,7 +6,7 @@ export const kid: ClassProps = {
   skills: [
     {
       name: 'cry',
-      value: 0.9,
+      value: -1,
       type: 'status',
       effect: 'def',
     },
@@ -14,11 +14,11 @@ export const kid: ClassProps = {
       name: 'drool',
       type: 'boost',
       effect: 'str',
-      value: 1.1,
+      value: 1,
     },
     {
       name: 'scratch',
-      value: 0.2,
+      value: 20,
       type: 'str',
     },
     {
@@ -37,18 +37,18 @@ export const classes: ClassProps[] = [
     skills: [
       {
         name: 'Bash',
-        value: 0.4,
+        value: 45,
         type: 'str',
       },
       {
         name: 'Cleave',
-        value: 0.2,
+        value: 25,
         type: 'str',
       },
       {
         name: 'Fury',
         type: 'boost',
-        value: 1.2,
+        value: 2,
         effect: 'str',
       },
     ],
@@ -59,12 +59,12 @@ export const classes: ClassProps[] = [
     skills: [
       {
         name: 'Sacred Flame',
-        value: 0.4,
+        value: 40,
         type: 'int',
       },
       {
         name: 'Banishment',
-        value: 0.5,
+        value: 50,
         type: 'int',
       },
       {
@@ -81,18 +81,18 @@ export const classes: ClassProps[] = [
     skills: [
       {
         name: 'Sinister Strike',
-        value: 0.6,
+        value: 60,
         type: 'str',
       },
       {
         name: 'Wound Poison',
-        value: 0.3,
+        value: 30,
         type: 'int',
       },
       {
         name: 'Backstab',
         type: 'status',
-        value: 0.8,
+        value: -2,
         effect: 'int',
       },
     ],
@@ -111,7 +111,7 @@ export const human: RaceProps = {
   skills: [
     {
       name: 'Struggle',
-      value: 0.1,
+      value: 10,
       type: 'str',
     },
   ],
@@ -131,7 +131,7 @@ export const goblin: RaceProps = {
   skills: [
     {
       name: 'Stumble',
-      value: 0.1,
+      value: 10,
       type: 'str',
     },
   ],
@@ -156,7 +156,7 @@ export const races: RaceProps[] = [
     skills: [
       {
         name: 'Claw',
-        value: 0.3,
+        value: 35,
         type: 'str',
       },
     ],
@@ -175,7 +175,7 @@ export const races: RaceProps[] = [
     skills: [
       {
         name: 'Dig',
-        value: 0.2,
+        value: 25,
         type: 'str',
       },
     ],
@@ -195,7 +195,7 @@ export const races: RaceProps[] = [
       {
         name: 'Hypnotic Magnetic Glare',
         type: 'status',
-        value: 0.7,
+        value: -3,
         effect: 'int',
       },
     ],
@@ -215,7 +215,7 @@ export const races: RaceProps[] = [
     skills: [
       {
         name: 'Stomp',
-        value: 0.75,
+        value: 75,
         type: 'str',
       },
     ],
@@ -235,7 +235,7 @@ export const races: RaceProps[] = [
       {
         name: 'Bandages',
         type: 'status',
-        value: 0.8,
+        value: -2,
         effect: 'str',
       },
     ],
@@ -274,7 +274,7 @@ export const races: RaceProps[] = [
       {
         name: 'Osteoporosis',
         type: 'status',
-        value: 0.7,
+        value: -3,
         effect: 'def',
       },
     ],
@@ -297,7 +297,7 @@ export const girlRace: RaceProps = {
     {
       name: 'point kitchen knife',
       type: 'boost',
-      value: 0.1,
+      value: 1,
       effect: 'def',
     },
   ],
