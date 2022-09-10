@@ -5,7 +5,7 @@ import { getCanvas, randInt } from 'kontra';
 import { MonsterC } from './monster';
 import gameState from './game-state';
 
-export const generateMonsterSet = (amount = 3, level = 1): Monster[] => {
+export const generateMonsterSet = ( level = 1, amount = 3): Monster[] => {
   const races = level > 5 ? advancedRaces : entryRaces;
   return Array.from(Array(amount)).map((): Monster => {
     return {

@@ -252,7 +252,7 @@ storyBox.render();
 storyTransitions.startGame = () => {
   gameState.background.removeChild(blackness);
   gameState.renderUi();
-  createMonsterSprites(generateMonsterSet());
+  gameState.introEnded = true;
   gameState.background.removeChild(house);
   gameState.background.removeChild(girl);
   gameState.background.setScale(2, 2);

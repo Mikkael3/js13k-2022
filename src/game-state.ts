@@ -12,6 +12,7 @@ import { PlayerBox } from './player-box';
 import { UiElement } from './ui';
 // import { createMonsterSprites, generateMonsterSet } from './monster-generator';
 import { GameUi } from './game-ui';
+import { createMonsterSprites, generateMonsterSet } from './monster-generator';
 
 type GameStateI = {
   background: BackGround;
@@ -36,6 +37,8 @@ export class GameState implements GameStateI {
   public battleLog: BattleLog;
   public gameUi: GameUi;
   public showPlayer = false;
+  public round = 0;
+  public introEnded = false;
 
   private static _instance: GameState;
 
@@ -108,8 +111,9 @@ export class GameState implements GameStateI {
     this.playerBox.update();
     this.battleLog.update();
     fitCanvas();
-    if (this.monsterSprites.length === 0) {
-      // createMonsterSprites(generateMonsterSet());
+    if (this.monsterSprites.length === 0 && this.introEnded) {
+      this.round++;
+      createMonsterSprites(generateMonsterSet(this.round));
     }
   }
 
@@ -117,7 +121,6 @@ export class GameState implements GameStateI {
     this.background.render();
     if (this.showPlayer) {
       this.player?.render();
-
     }
     this.monsterSprites.forEach((s) => {
       s.render();
