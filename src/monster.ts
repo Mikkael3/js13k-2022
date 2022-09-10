@@ -32,15 +32,6 @@ export class MonsterC extends SpriteClass {
       def: 0,
       wp: 0,
     };
-
-    // this.stats = { ...this.monsterData.race.stats };
-    // Object.keys(this.stats).forEach((stringKey) => {
-    //   if (stringKey in this.stats) {
-    //     const key = stringKey as keyof BaseStats;
-    //     this.stats[key] *= 10;
-    //   }
-    // });
-    // this.stats.stamina = this.monsterData.race.stats.stamina;
   }
 
   set monsterData(monster: Monster) {
@@ -135,24 +126,6 @@ export class MonsterC extends SpriteClass {
   // This monster attacks target with a skill
   // Returns: damage
   attack(skill: Skill, target: MonsterC): number {
-    // const type = skill.type;
-    // let damage = skill.value;
-    // if (type === 'int' || type === 'str') {
-    //   const protection = (target.stats.def + target.stats[type]) / 2;
-    //   const baseStat = (this.stats[type] / protection) * 10;
-    //   damage = Math.ceil(skill.value * baseStat);
-    // }
-    // if (type === 'boost') {
-    //   this.stats[skill.effect] = Math.ceil(skill.value * this.stats[skill.effect]);
-    //   return 0;
-    // }
-    // if (type === 'status') {
-    //   target.stats[skill.effect] = Math.floor(skill.value * target.stats[skill.effect]);
-    //   if (target.stats[skill.effect] <= 0) target.stats[skill.effect] = 10;
-    //   return 0;
-    // }
-    // target.stats.hp -= damage;
-    // return damage;
     return performSkill(skill, this, target);
   }
 }

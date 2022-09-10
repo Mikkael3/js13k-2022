@@ -1,4 +1,5 @@
-import { ClassProps, RaceProps, Skill } from './types';
+import { randInt } from 'kontra';
+import { buildClass, buildRace, ClassProps, RaceProps, Skill } from './types';
 
 export const skills: Record<string, Partial<Skill>> = {
   // start of str moves
@@ -25,6 +26,12 @@ export const skills: Record<string, Partial<Skill>> = {
     value: 20,
     type: 'str',
     cost: 1,
+  },
+  bite: {
+    name: 'Bite',
+    value: 25,
+    type: 'str',
+    cost: 2,
   },
   dig: {
     name: 'Dig',
@@ -75,6 +82,18 @@ export const skills: Record<string, Partial<Skill>> = {
     type: 'int',
     cost: 0,
   },
+  badOmen: {
+    name: 'Hustle',
+    value: 15,
+    type: 'int',
+    cost: 1,
+  },
+  screech: {
+    name: 'Screech',
+    value: 25,
+    type: 'int',
+    cost: 2,
+  },
   woundPoison: {
     name: 'Wound Poison',
     value: 30,
@@ -120,6 +139,13 @@ export const skills: Record<string, Partial<Skill>> = {
     value: 1,
     cost: 1,
   },
+  pointlessLife: {
+    name: 'Pointless Life',
+    type: 'boost',
+    effect: 'str',
+    value: 2,
+    cost: 1,
+  },
   fury: {
     name: 'Fury',
     type: 'boost',
@@ -134,6 +160,14 @@ export const skills: Record<string, Partial<Skill>> = {
     effect: 'str',
     cost: 3,
   },
+  //wp
+  grin: {
+    name: 'Grin',
+    type: 'boost',
+    value: 2,
+    effect: 'wp',
+    cost: 2,
+  },
   //int
   scienceMagazine: {
     name: 'Science Magazine',
@@ -147,6 +181,13 @@ export const skills: Record<string, Partial<Skill>> = {
     name: 'Mindfulness',
     type: 'boost',
     value: 1.1,
+    effect: 'hp',
+    cost: 2,
+  },
+  heal: {
+    name: 'Heal',
+    type: 'boost',
+    value: 1.15,
     effect: 'hp',
     cost: 2,
   },
@@ -166,6 +207,13 @@ export const skills: Record<string, Partial<Skill>> = {
     cost: 1,
   },
   //start of statuses
+  cry: {
+    name: 'cry',
+    value: -1,
+    type: 'status',
+    effect: 'def',
+    cost: 1,
+  },
   osteoporosis: {
     name: 'Osteoporosis',
     type: 'status',
@@ -173,19 +221,19 @@ export const skills: Record<string, Partial<Skill>> = {
     effect: 'def',
     cost: 3,
   },
+  pathfind: {
+    name: 'Pathding',
+    type: 'status',
+    value: -1,
+    effect: 'wp',
+    cost: 1,
+  },
   backstab: {
     name: 'Backstab',
     type: 'status',
     value: -2,
     effect: 'int',
     cost: 3,
-  },
-  cry: {
-    name: 'cry',
-    value: -1,
-    type: 'status',
-    effect: 'def',
-    cost: 1,
   },
   serveDrink: {
     name: 'Serve Drink',
@@ -265,6 +313,7 @@ export const human: RaceProps = {
     int: 4,
     def: 4,
     stamina: 3,
+    wp: 3,
   },
   skills: [skills.struggle],
   width: 4,
@@ -277,8 +326,9 @@ export const goblin: RaceProps = {
     hp: 2,
     str: 3,
     int: 1,
-    def: 5,
+    def: 3,
     stamina: 4,
+    wp: 2,
   },
   skills: [skills.stumble],
   width: 4,
@@ -300,9 +350,124 @@ export const girlRace: RaceProps = {
   skills: [skills.hold],
 };
 
-export const races: RaceProps[] = [
+export const entryRaces: RaceProps[] = [
   goblin,
   human,
+  {
+    name: 'Slime',
+    width: 9,
+    sprite: '000001000000010000000010000000111000001111100011111111011111110111111110',
+    stats: {
+      hp: 2,
+      str: 2,
+      int: 2,
+      def: 2,
+      stamina: 2,
+      wp: 2,
+    },
+    skills: [skills.ooze],
+  },
+  {
+    name: 'Rat',
+    width: 7,
+    sprite: '100111111111100001010',
+    stats: {
+      hp: 1,
+      str: 5,
+      int: 1,
+      def: 3,
+      stamina: 3,
+      wp: 3,
+    },
+    skills: [skills.bite],
+  },
+  {
+    name: 'Bat',
+    width: 9,
+    sprite: '010111010101111101',
+    stats: {
+      hp: 1,
+      str: 1,
+      int: 5,
+      def: 3,
+      stamina: 3,
+      wp: 3,
+    },
+    skills: [skills.screech],
+  },
+  {
+    name: 'Dhalion',
+    width: 5,
+    sprite: '00001001101111000010',
+    stats: {
+      hp: 5,
+      str: 1,
+      int: 1,
+      def: 3,
+      stamina: 3,
+      wp: 3,
+    },
+    skills: [skills.heal],
+  },
+  {
+    name: 'Ghillie Dhu',
+    width: 6,
+    sprite: '001100001100000100101101011110101101',
+    stats: {
+      hp: 3,
+      str: 3,
+      int: 3,
+      def: 2,
+      stamina: 2,
+      wp: 5,
+    },
+    skills: [skills.pathfind],
+  },
+  {
+    name: 'Ipotane',
+    width: 5,
+    sprite: '100001111111111100101001011011',
+    stats: {
+      hp: 1,
+      str: 5,
+      int: 5,
+      def: 1,
+      stamina: 5,
+      wp: 1,
+    },
+    skills: [skills.pointlessLife],
+  },
+  {
+    name: 'Imp',
+    width: 7,
+    sprite: '001110010111010101010001110100111110010100',
+    stats: {
+      hp: 2,
+      str: 2,
+      int: 2,
+      def: 1,
+      stamina: 5,
+      wp: 5,
+    },
+    skills: [skills.grin],
+  },
+  {
+    name: 'Pinaviztli',
+    width: 7,
+    sprite: '00101011010101011111110101010010101',
+    stats: {
+      hp: 2,
+      str: 2,
+      int: 3,
+      def: 5,
+      stamina: 2,
+      wp: 1,
+    },
+    skills: [skills.badOmen],
+  },
+];
+
+export const races: RaceProps[] = [
   {
     name: 'Gargoyle',
     width: 5,
@@ -313,6 +478,7 @@ export const races: RaceProps[] = [
       int: 2,
       def: 5,
       stamina: 2,
+      wp: 3,
     },
     skills: [skills.claw],
   },
@@ -326,6 +492,7 @@ export const races: RaceProps[] = [
       int: 4,
       def: 4,
       stamina: 2,
+      wp: 4,
     },
     skills: [skills.dig],
   },
@@ -339,6 +506,7 @@ export const races: RaceProps[] = [
       int: 9,
       def: 2,
       stamina: 4,
+      wp: 6,
     },
     skills: [skills.hypnotic],
   },
@@ -353,6 +521,7 @@ export const races: RaceProps[] = [
       int: 1,
       def: 4,
       stamina: 2,
+      wp: 2,
     },
     skills: [skills.stomp],
   },
@@ -362,25 +531,13 @@ export const races: RaceProps[] = [
     sprite: '000110000111000001000011111010010100101010100100100101000010111',
     stats: {
       hp: 6,
-      str: 2,
-      int: 2,
+      str: 3,
+      int: 3,
       def: 7,
       stamina: 4,
+      wp: 7,
     },
     skills: [skills.bandage],
-  },
-  {
-    name: 'Slime',
-    width: 9,
-    sprite: '000001000000010000000010000000111000001111100011111111011111110111111110',
-    stats: {
-      hp: 2,
-      str: 2,
-      int: 2,
-      def: 2,
-      stamina: 2,
-    },
-    skills: [skills.ooze],
   },
   {
     name: 'Skeleton',
@@ -392,7 +549,42 @@ export const races: RaceProps[] = [
       int: 3,
       def: 6,
       stamina: 4,
+      wp: 4,
     },
     skills: [skills.osteoporosis],
   },
 ];
+
+const lord: ClassProps = {
+  name: 'Lord',
+  color: 'black',
+  skills: [
+    {
+      name: 'Ultimate Attack',
+      type: 'random',
+      cost: 1,
+    },
+  ],
+};
+
+const chimera: RaceProps = {
+  name: 'Chimera',
+  stats: {
+    hp: 10,
+    str: 10,
+    int: 10,
+    wp: 10,
+    def: 10,
+    stamina: 10,
+  },
+  width: 40,
+  sprite: Array.from(Array(800))
+    .map(() => [0, 1][randInt(0, 1)])
+    .join(),
+};
+
+export const lordChimera = {
+  race: buildRace(chimera),
+  class: buildClass(lord),
+  level: 10,
+};

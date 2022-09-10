@@ -3,7 +3,7 @@ export const size = (size: number) => size * 4;
 export type Skill = {
   name: string;
   value: number;
-  type: 'int' | 'str' | 'fixed' | 'status' | 'boost';
+  type: 'int' | 'str' | 'fixed' | 'status' | 'boost' | 'random';
   effect: keyof BaseStats;
   cost: number;
 };

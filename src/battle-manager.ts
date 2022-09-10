@@ -114,9 +114,11 @@ export class BattleManager {
     }, 500);
     // Get control back after enemy finishes
     setTimeout(() => {
-      //restore some stamina
-      gameState.player.stats.stamina += 1;
-      if (this.monsterOpponent) this.monsterOpponent.stats.stamina += 1;
+      // restore some stamina
+      gameState.player.stats.stamina =
+        gameState.player.stats.stamina < 10 ? gameState.player.stats.stamina + 1 : 10;
+      if (this.monsterOpponent)
+        this.monsterOpponent.stats.stamina < 10 ? this.monsterOpponent.stats.stamina + 1 : 10;
       if (!this.battleEnded) gameUi.render();
     }, 1000);
   }

@@ -1,5 +1,7 @@
+import { randInt } from 'kontra';
+import { skills } from './data';
 import { MonsterC } from './monster';
-import { Skill } from './types';
+import { buildSkill, Skill } from './types';
 
 export const stageValues = {
   '6': 4,
@@ -17,14 +19,18 @@ export const stageValues = {
   '-6': 0.25,
 };
 
-export const performSkill = (skill: Skill, user: MonsterC, target: MonsterC): number => {
-  const type = skill.type;
-  let damage = skill.value;
+export const performSkill = (skillV: Skill, user: MonsterC, target: MonsterC): number => {
+  let skill = skillV;
   if (skill.cost > user.stats.stamina) {
     return -1;
   }
   user.stats.stamina -= skill.cost;
-  console.log(user.stats.stamina);
+  if (skill.type === 'random') {
+    skill = buildSkill(Object.entries(skills)[randInt(0, Object.keys(skills).length - 1)][1]);
+    console.log(skill);
+  }
+  const type = skill.type;
+  let damage = skill.value;
   if (type === 'int' || type === 'str') {
     const attackStage = String(user.statStages[type]) as keyof typeof stageValues;
     const defType = type === 'str' ? 'def' : 'wp';
