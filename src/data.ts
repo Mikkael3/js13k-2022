@@ -83,7 +83,7 @@ export const skills: Record<string, Partial<Skill>> = {
     cost: 0,
   },
   badOmen: {
-    name: 'Hustle',
+    name: 'Bad omen',
     value: 15,
     type: 'int',
     cost: 1,
