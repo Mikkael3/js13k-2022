@@ -72,6 +72,8 @@ export class BattleManager {
       }
       return;
     }
+    // Set player status immediately after using skill
+    gameState.playerBox.setMonster(gameState.player);
     // Shake background when taking a hit
     this.shakeObject(this.monsterOpponent);
     this.shakeObject(gameState.background, 500);
