@@ -5,6 +5,7 @@ export type Skill = {
   value: number;
   type: 'int' | 'str' | 'fixed' | 'status' | 'boost';
   effect: keyof BaseStats;
+  cost: number;
 };
 
 export type BaseStats = {
@@ -59,6 +60,7 @@ export const buildSkill = (data: Partial<Skill>): Skill => {
     value: 0.0,
     type: 'int',
     effect: 'stamina',
+    cost: 1,
     ...data,
   };
 };

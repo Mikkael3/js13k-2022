@@ -20,7 +20,11 @@ export const stageValues = {
 export const performSkill = (skill: Skill, user: MonsterC, target: MonsterC): number => {
   const type = skill.type;
   let damage = skill.value;
-  console.log(user.statStages);
+  if (skill.cost > user.stats.stamina) {
+    return -1;
+  }
+  user.stats.stamina -= skill.cost;
+  console.log(user.stats.stamina);
   if (type === 'int' || type === 'str') {
     const attackStage = String(user.statStages[type]) as keyof typeof stageValues;
     const defType = type === 'str' ? 'def' : 'wp';
@@ -67,7 +71,7 @@ const handleStatStages = (skill: Skill, target: MonsterC): number => {
     if (target.statStages[skill.effect] > 6) target.statStages[skill.effect] = 6;
   }
   if (skill.effect === 'hp') {
-    target.stats.hp *= skill.value;
+    target.stats.hp += target.monsterData.race.stats.hp * skill.value;
     target.stats.hp = Math.ceil(target.stats.hp);
   }
   return 0;

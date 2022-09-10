@@ -114,7 +114,9 @@ export class BattleManager {
     }, 500);
     // Get control back after enemy finishes
     setTimeout(() => {
-      // todo
+      //restore some stamina
+      gameState.player.stats.stamina += 1;
+      if (this.monsterOpponent) this.monsterOpponent.stats.stamina += 1;
       if (!this.battleEnded) gameUi.render();
     }, 1000);
   }
@@ -191,6 +193,9 @@ export class BattleManager {
 }
 
 function getSkillText(skill: Skill, damage: number, attackerName: string) {
+  if (damage < 0) {
+    return attackerName + ' used ' + skill.name + '. ' + 'But there is no stamina to do that';
+  }
   let skillText = '';
   switch (skill.type) {
     case 'str':

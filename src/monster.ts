@@ -12,7 +12,7 @@ export class MonsterC extends SpriteClass {
   private _monsterData!: Monster;
   // Used for animation
   animationTime = 0;
-  stats: BaseStats;
+  stats!: BaseStats;
   stopped = false;
   statStages: StatStages;
 
@@ -33,13 +33,14 @@ export class MonsterC extends SpriteClass {
       wp: 0,
     };
 
-    this.stats = { ...this.monsterData.race.stats };
-    Object.keys(this.stats).forEach((stringKey) => {
-      if (stringKey in this.stats) {
-        const key = stringKey as keyof BaseStats;
-        this.stats[key] *= 10;
-      }
-    });
+    // this.stats = { ...this.monsterData.race.stats };
+    // Object.keys(this.stats).forEach((stringKey) => {
+    //   if (stringKey in this.stats) {
+    //     const key = stringKey as keyof BaseStats;
+    //     this.stats[key] *= 10;
+    //   }
+    // });
+    // this.stats.stamina = this.monsterData.race.stats.stamina;
   }
 
   set monsterData(monster: Monster) {
@@ -53,6 +54,7 @@ export class MonsterC extends SpriteClass {
         this.stats[key] *= 10;
       }
     });
+    this.stats.stamina = this.monsterData.race.stats.stamina;
     this.monsterSprite();
   }
 

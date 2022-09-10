@@ -23,6 +23,7 @@ export class PlayerBox extends MonsterBox {
     this.addStat('str', stats);
     this.addStat('int', stats);
     this.addStat('def', stats);
+    this.addStat('stamina', stats);
   }
 
   addStat(statName: keyof BaseStats, container: HTMLElement) {
