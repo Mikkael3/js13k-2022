@@ -1,7 +1,5 @@
-import { buildClass, buildRace } from './types';
 import { createMonsterSprites, generateMonsterSet } from './monster-generator';
 import { getCanvas, init, initPointer } from 'kontra';
-import { human, kid } from './data';
 
 import { BackGround } from './background-sprites';
 import { BattleLog } from './battle-log';
@@ -12,8 +10,9 @@ import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
 import { Player } from './player';
 import { PlayerBox } from './player-box';
+import { StoryBox } from './story-box';
 import { UiElement } from './ui';
-import {StoryBox} from "./story-box";
+import { starterGoblin } from './data';
 
 type GameStateI = {
   background: BackGround;
@@ -29,26 +28,37 @@ type GameStateI = {
 
 export class GameState implements GameStateI {
   public background: BackGround;
-  public monsterSprites: MonsterC[];
-  public player: Player;
-  public playerBox: MonsterBox;
-  public monsterBox: MonsterBox;
-  public battleManager: BattleManager;
-  public uiElements: UiElement[];
-  public battleLog: BattleLog;
-  public gameUi: GameUi;
+  public monsterSprites!: MonsterC[];
+  public player!: Player;
+  public playerBox!: MonsterBox;
+  public monsterBox!: MonsterBox;
+  public battleManager!: BattleManager;
+  public uiElements!: UiElement[];
+  public battleLog!: BattleLog;
+  public gameUi!: GameUi;
   public showPlayer = false;
   public round = 0;
   public introEnded = false;
-  public storyBox: StoryBox;
+  public storyBox!: StoryBox;
 
   private static _instance: GameState;
 
   private constructor() {
     init();
-    const canvas = getCanvas();
     initPointer();
     this.background = new BackGround();
+    this.restartRounds();
+    this.storyBox.render();
+  }
+
+  public static get instance() {
+    if (!this._instance) this._instance = new GameState();
+    return this._instance;
+  }
+
+  restartRounds() {
+    this.round = 0;
+    const canvas = getCanvas();
     this.monsterSprites = [];
     this.uiElements = [];
     this.battleLog = new BattleLog({
@@ -59,15 +69,13 @@ export class GameState implements GameStateI {
       canvas,
       color: 'lightgray',
     });
+
     this.battleLog.render();
+
     this.player = new Player({
       x: 240,
       y: canvas.height / 1.5,
-      monster: {
-        level: 1,
-        race: buildRace(human),
-        class: buildClass(kid),
-      },
+      monster: starterGoblin,
     });
 
     this.playerBox = new PlayerBox({
@@ -96,6 +104,7 @@ export class GameState implements GameStateI {
       monster: this.player.monsterData,
       battleManager: this.battleManager,
     });
+    this.gameUi.unrender();
     this.storyBox = new StoryBox({
       x: 0.6,
       y: 0,
@@ -104,12 +113,6 @@ export class GameState implements GameStateI {
       color: 'black',
       canvas: getCanvas(),
     });
-    this.storyBox.render();
-  }
-
-  public static get instance() {
-    if (!this._instance) this._instance = new GameState();
-    return this._instance;
   }
 
   public update(dt: number) {
@@ -121,7 +124,7 @@ export class GameState implements GameStateI {
     this.monsterBox.update();
     this.playerBox.update();
     this.battleLog.update();
-    this.storyBox.update();
+    if (!this.introEnded) this.storyBox.update();
     fitCanvas();
     if (!this.introEnded) return;
     if (this.monsterSprites.length === 0) {

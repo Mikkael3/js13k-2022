@@ -67,8 +67,11 @@ export class BattleManager {
   }
 
   skillsChosenCb() {
-    gameState.player.monsterData = this.monsterOpponent!.monsterData;
-    gameState.player.monsterData.class.name = 'Reborn';
+    const data = { ...this.monsterOpponent!.monsterData };
+    data.class.name = 'Reborn';
+    data.class.color = 'silver';
+    data.level = 1;
+    gameState.player.monsterData = data;
     this.setPlayerSkills(gameState.player.skills);
     this.monsterOpponent = undefined;
     this.monsterBox.setMonster(undefined);

@@ -1,12 +1,12 @@
 import { GameLoop, Sprite, SpriteClass } from 'kontra';
-import { buildClass, buildRace, Monster, Skill } from './types';
+import { Monster, buildClass, buildRace } from './types';
 import { MonsterC, MonsterProps } from './monster';
-import { girlRace, goblin, kid } from './data';
-import { storyTransitions } from './story';
+import { girlRace, goblin, kid, starterGoblin } from './data';
 
 import { GameState } from './game-state';
 import { createMonsterSprites } from './monster-generator';
 import { initDefaultBackground } from './background-sprites';
+import { storyTransitions } from './story';
 
 initDefaultBackground();
 
@@ -170,7 +170,6 @@ storyTransitions.introBattle = () => {
   const oldBattleEndCb = gameState.battleManager.battleEndCb;
   // Change battle end to skill choosing skills for this intro
   gameState.battleManager.battleEndCb = () => {
-
     gameState.storyBox.render();
     if (!gameState.battleManager.monsterOpponent) return;
     gameState.battleManager.battleEnded = true;
@@ -184,8 +183,8 @@ storyTransitions.introBattle = () => {
 
 storyTransitions.becomeGoblin = () => {
   if (!gameState.battleManager.monsterOpponent) return;
-  gameState.player.skills = [...kid.skills as Skill[], ...goblin.skills as Skill[]];
-  gameState.player.monsterData = gameState.battleManager.monsterOpponent.monsterData;
+  gameState.player.monsterData = starterGoblin;
+  gameState.player.skills = gameState.player.getSkills();
   gameState.battleManager.killMonster();
   gameState.battleManager.skillsChosenCb();
   gameState.showPlayer = true;
