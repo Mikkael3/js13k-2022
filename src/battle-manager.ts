@@ -68,6 +68,7 @@ export class BattleManager {
 
   skillsChosenCb() {
     gameState.player.monsterData = this.monsterOpponent!.monsterData;
+    gameState.player.monsterData.class.name = 'Reborn';
     this.setPlayerSkills(gameState.player.skills);
     this.monsterOpponent = undefined;
     this.monsterBox.setMonster(undefined);
@@ -189,7 +190,6 @@ export class BattleManager {
   public setPlayerSkills(skills: Skill[]) {
     const player = gameState.player;
     player.monsterData.class.skills = skills;
-    player.monsterData.class.name = 'BodySnatcher';
     gameState.playerBox.setMonster(gameState.player);
   }
 }

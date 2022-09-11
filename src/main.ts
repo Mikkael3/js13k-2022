@@ -155,6 +155,7 @@ storyTransitions.introBattle = () => {
   createMonsterSprites([woundedGoblin]);
   gameState.monsterSprites[0].stats.hp = 1;
   gameState.player.monsterData = girl.monsterData;
+  gameState.player.monsterData.class.name = 'Little';
   gameState.battleManager.setPlayerSkills([]);
   gameState.storyBox.unrender();
   gameState.renderUi();
