@@ -1,5 +1,6 @@
+import { ClassProps, RaceProps, Skill, buildClass, buildRace } from './types';
+
 import { randInt } from 'kontra';
-import { buildClass, buildRace, ClassProps, RaceProps, Skill } from './types';
 
 export const skills: Record<string, Partial<Skill>> = {
   // start of str moves
@@ -336,15 +337,15 @@ export const human: RaceProps = {
   name: 'Human',
   stats: {
     hp: 3,
-    str: 4,
-    int: 4,
-    def: 4,
+    str: 3,
+    int: 3,
+    def: 2,
     stamina: 3,
-    wp: 3,
+    wp: 2,
   },
   skills: [skills.struggle],
-  width: 4,
-  sprite: '01101111011011111001',
+  width: 7,
+  sprite: '00111000111110110101101111100111110001110011111111011101101110100101000110110',
 };
 
 export const goblin: RaceProps = {
@@ -424,8 +425,8 @@ export const entryRaces: RaceProps[] = [
   },
   {
     name: 'Dhalion',
-    width: 5,
-    sprite: '00001001101111000010',
+    width: 7,
+    sprite: '00001100000010000011000010100011110000011100011110011110011111100100010111011',
     stats: {
       hp: 5,
       str: 1,

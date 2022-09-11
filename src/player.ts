@@ -1,5 +1,5 @@
 import { MonsterC } from './monster';
-import {Skill} from "./types";
+import { Skill } from './types';
 
 export class Player extends MonsterC {
   // These skills are not shown.
@@ -10,13 +10,5 @@ export class Player extends MonsterC {
     if (this.stats.hp <= 0) {
       this.rotation += 0.1;
     }
-  }
-
-  onDown() {
-    this.color = 'blue';
-  }
-
-  onUp() {
-    this.color = 'limegreen';
   }
 }
