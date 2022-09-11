@@ -95,7 +95,6 @@ export class GameState implements GameStateI {
       canvas,
     });
     this.battleManager = new BattleManager(this.monsterBox, canvas);
-    this.gameUi.unrender();
     this.gameUi = new GameUi({
       x: 0,
       y: 0.9,
@@ -105,6 +104,7 @@ export class GameState implements GameStateI {
       monster: this.player.monsterData,
       battleManager: this.battleManager,
     });
+    this.gameUi.unrender();
     this.storyBox = new StoryBox({
       x: 0.6,
       y: 0,
