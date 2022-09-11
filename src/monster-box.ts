@@ -2,33 +2,38 @@ import { UiElement, UiElementProps } from './ui';
 
 import { Monster } from './types';
 import { MonsterC } from './monster';
+import { setStyles } from './elements';
 
 type Props = UiElementProps & { monster?: Monster };
 
 /** Ui to show monster stats */
 export class MonsterBox extends UiElement {
   monster?: MonsterC;
+  hpBar: HTMLDivElement;
+  container: HTMLDivElement;
 
   constructor(props: Props) {
     super(props);
+    setStyles(this.rootElement);
+    this.rootElement.style.fontSize = '1.5vmin';
+    this.hpBar = document.createElement('div');
+    this.container = document.createElement('div');
+    this.rootElement.appendChild(this.container);
+    this.rootElement.appendChild(this.hpBar);
   }
 
   setMonster(monster?: MonsterC) {
     if (!monster) this.unrender();
     else this.render();
     this.monster = monster;
-    const container = document.createElement('div');
-    container.style.display = 'flex';
-    this.rootElement.innerHTML = '';
-    this.rootElement.appendChild(container);
-    this.setText(container);
-  }
-
-  setText(container: HTMLElement) {
-    if (!this.monster) return;
-    this.addText(this.monster.monsterData.race.name, container);
-    this.addText(this.monster.monsterData.class.name, container);
-    this.addText(this.monster.stats.hp + '', container);
+    this.container.style.height = '50%';
+    this.container.style.display = 'flex';
+    this.container.innerHTML = '';
+    if (this.monster)
+      this.addText(
+        `${this.monster.monsterData.class.name} ${this.monster.monsterData.race.name}`,
+        this.container,
+      );
   }
 
   addText(text: string, container: HTMLElement) {
@@ -39,7 +44,18 @@ export class MonsterBox extends UiElement {
     race.style.textAlign = 'center';
   }
 
+  drawHpBar() {
+    if (this.monster) {
+      this.hpBar.style.textAlign = 'center';
+      this.hpBar.innerHTML = '';
+      this.hpBar.textContent = `HP: ${this.monster?.stats.hp} / ${
+        this.monster?.monsterData.race.stats.hp * 10
+      }`;
+    }
+  }
+
   update(): void {
     super.update();
+    this.drawHpBar();
   }
 }

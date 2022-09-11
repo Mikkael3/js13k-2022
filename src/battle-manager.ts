@@ -82,8 +82,6 @@ export class BattleManager {
     const damage = gameState.player.attack(skill, this.monsterOpponent);
     const skillText = getSkillText(skill, damage, 'You');
     gameState.battleLog.addLine(skillText);
-
-    this.monsterBox.setMonster(this.monsterOpponent);
     if (this.monsterOpponent.stats.hp <= 0) {
       this.battleEndCb();
       return;
@@ -105,7 +103,6 @@ export class BattleManager {
       );
       gameState.battleLog.addLine(skillText);
       gameState.playerBox.setMonster(gameState.player);
-      gameState.monsterBox.setMonster(this.monsterOpponent);
       if (this.monsterOpponent.stats.hp <= 0) {
         this.battleEndCb();
         return;

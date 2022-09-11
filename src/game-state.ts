@@ -1,18 +1,18 @@
 import { buildClass, buildRace } from './types';
+import { createMonsterSprites, generateMonsterSet } from './monster-generator';
 import { getCanvas, init, initPointer } from 'kontra';
 import { human, kid } from './data';
 
 import { BackGround } from './background-sprites';
 import { BattleLog } from './battle-log';
 import { BattleManager } from './battle-manager';
+// import { createMonsterSprites, generateMonsterSet } from './monster-generator';
+import { GameUi } from './game-ui';
 import { MonsterBox } from './monster-box';
 import { MonsterC } from './monster';
 import { Player } from './player';
 import { PlayerBox } from './player-box';
 import { UiElement } from './ui';
-// import { createMonsterSprites, generateMonsterSet } from './monster-generator';
-import { GameUi } from './game-ui';
-import { createMonsterSprites, generateMonsterSet } from './monster-generator';
 
 type GameStateI = {
   background: BackGround;
@@ -80,8 +80,8 @@ export class GameState implements GameStateI {
     this.monsterBox = new MonsterBox({
       x: 0,
       y: 0,
-      width: 0.3,
-      height: 0.05,
+      width: 0.2,
+      height: 0.06,
       canvas,
     });
     this.battleManager = new BattleManager(this.monsterBox, canvas);
