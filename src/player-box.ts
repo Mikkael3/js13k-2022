@@ -50,4 +50,14 @@ export class PlayerBox extends MonsterBox {
 
     this.handleStats();
   }
+
+  unrender() {
+    super.unrender();
+    this.stats.unrender();
+  }
+
+  render() {
+    super.render();
+    this.stats.render();
+  }
 }
