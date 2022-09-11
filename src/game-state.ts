@@ -69,10 +69,10 @@ export class GameState implements GameStateI {
     });
 
     this.playerBox = new PlayerBox({
-      x: 0.7,
+      x: 0.8,
       y: 0.7,
-      width: 0.3,
-      height: 0.125,
+      width: 0.2,
+      height: 0.06,
       canvas,
     });
     this.playerBox.setMonster(this.player);
