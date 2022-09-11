@@ -23,15 +23,6 @@ export class PlayerBox extends MonsterBox {
 
   setMonster(monster?: MonsterC) {
     super.setMonster(monster);
-    // const stats = document.createElement('div');
-    // stats.style.flex = '1';
-    // stats.style.display = 'flex';
-    // stats.style.flexDirection = 'column';
-    // this.rootElement.appendChild(stats);
-    // this.addStat('str', stats);
-    // this.addStat('int', stats);
-    // this.addStat('def', stats);
-    // this.addStat('stamina', stats);
   }
 
   handleStats() {
