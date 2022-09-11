@@ -28,7 +28,7 @@ export const storyTransitions = {
 
 export const story = [
   "I'm just a little girl, helpful and kind.",
-  () => storyTransitions.startGame(),
+
   'Life is always fun, every day is nice.',
   () => storyTransitions.zoom(),
   'Helping others is what I love to do.',
@@ -53,16 +53,30 @@ export const story = [
   { text: 'You just have to save them. Like you "saved" me.', color: 'red' },
   'Yes, I must help! I must save.',
   { text: "The road is dangerous. There'll be many a monster in need of saving.", color: 'red' },
+  () => storyTransitions.startGame(),
   // Next ones after a few rounds normal battles
+  // No monsters visible
   { text: "My home is just over yonder. Let's pay my pal Rex a visit.", color: 'red' },
-  { text: "Hi old pal.", color: 'red' },
+  // One goblin enemy visible
+  { text: 'Hi old pal.', color: 'red' },
   { text: 'Who the fuck are you?', color: 'green' },
   { text: "You left me to die but I was saved. I think you'll need saving as well.", color: 'red' },
   { text: "Seems I'll need to shut up your mad ramblings.", color: 'green' },
   // After fight
   {
-    text: 'We were forced to attack humans because our normal hunting grounds were taken over by a large weird beast.',
+    text: 'We were forced to attack humans because our normal hunting grounds were taken over by a weird giant beast.',
     color: 'green',
   },
-  "I'll make them stop. I'll save them too.",
+  "I'll make them stop. I'll save them too!",
+  // Chimera
+  { text: 'Greetings child.', color: 'white' },
+  { text: 'I can see you host a number of souls in your body.', color: 'white' },
+  {
+    text: 'I once was like you but ultimately souls prefer to hold their original shape.',
+    color: 'white',
+  },
+  { text: 'What happened to me will happen to you, eventually.', color: 'white' },
+  { text: "I don't wish such a terrible fate for anyone.", color: 'white' },
+  { text: 'I shall set your soul free.', color: 'white' },
+  // Final battle start
 ];
