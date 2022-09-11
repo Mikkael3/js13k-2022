@@ -2,7 +2,6 @@ import { Monster, StatNames, StatStages } from './types';
 import { UiElement, UiElementProps } from './ui';
 
 import { MonsterBox } from './monster-box';
-import { MonsterC } from './monster';
 import { setStyles } from './elements';
 
 type Props = UiElementProps & { monster?: Monster };
