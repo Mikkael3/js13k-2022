@@ -71,7 +71,6 @@ export class BattleManager {
     this.setPlayerSkills(gameState.player.skills);
     this.monsterOpponent = undefined;
     this.monsterBox.setMonster(undefined);
-    // todo jotain muuta pitaa kutsua
   }
 
   // Skill button clicked
