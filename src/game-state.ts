@@ -108,7 +108,7 @@ export class GameState implements GameStateI {
     this.storyBox = new StoryBox({
       x: 0.6,
       y: 0,
-      width: 0.4,
+      width: 0.375,
       height: 0.166,
       color: 'black',
       canvas: getCanvas(),
