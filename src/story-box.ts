@@ -1,4 +1,5 @@
 import { UiElement, UiElementProps } from './ui';
+
 import { story } from './story';
 
 type StoryProps = UiElementProps;
@@ -27,7 +28,7 @@ export class StoryBox extends UiElement {
         if (typeof storyEvent === 'string') {
           this.text = storyEvent;
         } else {
-          storyEvent();
+          (storyEvent as () => void)();
           handleEvent();
         }
       };
