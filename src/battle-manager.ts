@@ -1,4 +1,4 @@
-import { GameObject, dataAssets, randInt } from 'kontra';
+import { GameObject, randInt } from 'kontra';
 import { Skill, StatNames } from './types';
 import gameState, { GameState } from './game-state';
 
