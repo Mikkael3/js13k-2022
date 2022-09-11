@@ -1,5 +1,4 @@
 import { UiElement, UiElementProps } from './ui';
-
 import { story } from './story';
 
 type StoryProps = UiElementProps;
@@ -27,9 +26,12 @@ export class StoryBox extends UiElement {
         const storyEvent = story[++this.storyIndex];
         if (typeof storyEvent === 'string') {
           this.text = storyEvent;
-        } else {
-          (storyEvent as () => void)();
+        } else if (typeof storyEvent === 'function') {
+          storyEvent();
           handleEvent();
+        } else {
+          this.text = storyEvent.text;
+          // todo handle color
         }
       };
       handleEvent();
