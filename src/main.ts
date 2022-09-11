@@ -1,13 +1,13 @@
-import { GameLoop, Sprite, SpriteClass, getCanvas } from 'kontra';
-import { Monster, Skill, buildClass, buildRace } from './types';
+import { GameLoop, getCanvas, Sprite, SpriteClass } from 'kontra';
+import { buildClass, buildRace, Monster, Skill } from './types';
 import { MonsterC, MonsterProps } from './monster';
-import { UiElement, UiElementProps } from './ui';
 import { girlRace, goblin, kid } from './data';
-import { story, storyTransitions } from './story';
+import { storyTransitions } from './story';
 
 import { GameState } from './game-state';
 import { createMonsterSprites } from './monster-generator';
 import { initDefaultBackground } from './background-sprites';
+import { StoryBox } from './story-box';
 
 initDefaultBackground();
 
@@ -191,50 +191,6 @@ storyTransitions.becomeGoblin = () => {
   gameState.showPlayer = true;
   gameState.background.removeChild(girl);
 };
-
-type StoryProps = UiElementProps;
-
-class StoryBox extends UiElement {
-  textElement: HTMLParagraphElement;
-  continueElement: HTMLParagraphElement;
-  text: string;
-  lastBlink = performance.now();
-  storyIndex = 0;
-
-  constructor(props: StoryProps) {
-    super(props);
-    this.text = story[0] as string;
-    const s = this.rootElement.style;
-    this.textElement = document.createElement('p');
-    this.textElement.textContent = this.text;
-    this.rootElement.appendChild(this.textElement);
-    this.continueElement = document.createElement('p');
-    this.rootElement.appendChild(this.continueElement);
-    s.color = 'magenta';
-    s.padding = '1vmin';
-    this.rootElement.onclick = () => {
-      const handleEvent = () => {
-        const storyEvent = story[++this.storyIndex];
-        if (typeof storyEvent === 'string') {
-          this.text = storyEvent;
-        } else {
-          storyEvent();
-          handleEvent();
-        }
-      };
-      handleEvent();
-    };
-  }
-
-  update() {
-    super.update();
-    if (performance.now() - this.lastBlink > 300) {
-      this.lastBlink = performance.now();
-      this.continueElement.textContent = this.continueElement.textContent ? '' : 'Continue';
-    }
-    this.textElement.textContent = this.text;
-  }
-}
 
 const storyBox = new StoryBox({
   x: 0.6,
