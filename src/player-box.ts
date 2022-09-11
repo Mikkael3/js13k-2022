@@ -21,10 +21,6 @@ export class PlayerBox extends MonsterBox {
     this.stats.rootElement.style.fontSize = '1.5vmin';
   }
 
-  setMonster(monster?: MonsterC) {
-    super.setMonster(monster);
-  }
-
   handleStats() {
     const mon = this.monster;
     if (!mon) return;
