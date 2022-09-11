@@ -184,7 +184,7 @@ storyTransitions.introBattle = () => {
 
 storyTransitions.becomeGoblin = () => {
   if (!gameState.battleManager.monsterOpponent) return;
-  gameState.player.skills = kid.skills as Skill[];
+  gameState.player.skills = [...kid.skills as Skill[], ...goblin.skills as Skill[]];
   gameState.player.monsterData = gameState.battleManager.monsterOpponent.monsterData;
   gameState.battleManager.killMonster();
   gameState.battleManager.skillsChosenCb();
