@@ -15,9 +15,18 @@ export class PlayerBox extends MonsterBox {
       y: 0.76,
       height: 0.1,
     });
-    this.stats.render();
     setStyles(this.stats.rootElement);
     this.stats.rootElement.style.fontSize = '1.5vmin';
+  }
+
+  render(): void {
+    super.render();
+    this.stats.render();
+  }
+
+  unrender(): void {
+    super.unrender();
+    this.stats.unrender();
   }
 
   handleStats() {

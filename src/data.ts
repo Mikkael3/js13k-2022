@@ -328,7 +328,7 @@ export const classes: ClassProps[] = [
   },
   {
     color: 'cyan',
-    name: 'Rocket Scientist',
+    name: 'Scientist',
     skills: [skills.scienceMagazine, skills.hustle, skills.startingConversation],
   },
 ];
@@ -672,4 +672,10 @@ export const lordChimera = {
   race: buildRace(chimera),
   class: buildClass(lord),
   level: 10,
+};
+
+export const starterGoblin = {
+  race: buildRace(goblin),
+  class: { ...buildClass(kid), color: 'silver', name: 'BodySnatcher' },
+  level: 1,
 };
