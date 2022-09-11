@@ -113,7 +113,8 @@ export class BattleManager {
       gameState.player.stats.stamina =
         gameState.player.stats.stamina < 10 ? gameState.player.stats.stamina + 1 : 10;
       if (this.monsterOpponent)
-        this.monsterOpponent.stats.stamina < 10 ? this.monsterOpponent.stats.stamina + 1 : 10;
+        this.monsterOpponent.stats.stamina =
+          this.monsterOpponent.stats.stamina < 10 ? this.monsterOpponent.stats.stamina + 1 : 10;
       if (!this.battleEnded) gameUi.render();
     }, 1000);
   }
