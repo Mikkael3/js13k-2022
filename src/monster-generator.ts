@@ -1,11 +1,11 @@
-import { Monster, buildClass, buildRace } from './types';
+import { Monster, buildClass, buildRace, RaceProps, ClassProps } from './types';
 import { advancedRaces, classes, entryRaces } from './data';
 import { getCanvas, randInt } from 'kontra';
 
 import { MonsterC } from './monster';
 import gameState from './game-state';
 
-export const generateMonsterSet = ( level = 1, amount = 3): Monster[] => {
+export const generateMonsterSet = (level = 1, amount = 3): Monster[] => {
   const races = level > 5 ? advancedRaces : entryRaces;
   return Array.from(Array(amount)).map((): Monster => {
     return {
@@ -14,6 +14,26 @@ export const generateMonsterSet = ( level = 1, amount = 3): Monster[] => {
       level,
     };
   });
+};
+
+export const createSingleMonsterSprite = (
+  monsterRace: RaceProps,
+  monsterClass: ClassProps,
+  level: number,
+) => {
+  const monster = {
+    race: buildRace(monsterRace),
+    class: buildClass(monsterClass),
+    level,
+  };
+  const monsterC = new MonsterC({
+    x: getCanvas().width / 2,
+    y: 100,
+    dx: 0,
+    monster,
+  });
+  monsterC.handler = () => gameState.battleManager.selectForBattle(monsterC);
+  gameState.monsterSprites.push(monsterC);
 };
 
 export const createMonsterSprites = (monsters: Monster[]) => {

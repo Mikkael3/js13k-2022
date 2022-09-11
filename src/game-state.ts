@@ -37,9 +37,10 @@ export class GameState implements GameStateI {
   public battleLog!: BattleLog;
   public gameUi!: GameUi;
   public showPlayer = false;
-  public round = 0;
+  public round!: number;
   public introEnded = false;
   public storyBox!: StoryBox;
+  public showMiddleBoss = false;
 
   private static _instance: GameState;
 
@@ -57,7 +58,8 @@ export class GameState implements GameStateI {
   }
 
   restartRounds() {
-    this.round = 0;
+    // TODO restore storyIndex to just after intro
+    this.round = 1;
     const canvas = getCanvas();
     this.monsterSprites = [];
     this.uiElements = [];
@@ -124,30 +126,28 @@ export class GameState implements GameStateI {
     this.monsterBox.update();
     this.playerBox.update();
     this.battleLog.update();
-    if (!this.introEnded) this.storyBox.update();
+    this.storyBox.update();
     fitCanvas();
     if (!this.introEnded) return;
-    if (this.monsterSprites.length === 0) {
+    const midBossRound = 2;
+    const lastBossRound = 4;
+    if (this.battleManager.classChooseDialogOpen) return;
+    if (this.round < midBossRound && this.monsterSprites.length === 0) {
+      createMonsterSprites(generateMonsterSet(this.round));
       this.round++;
-      if (this.round < 4) {
-        createMonsterSprites(generateMonsterSet(this.round));
-      } else if (this.round === 4) {
-        // story``
-        // TODO pitaskohan tan olla no-op
-        // Round 4:
-        // - Show story box
-        // - "My home is just over yonder. Let's pay my pal Rex a visit."
-        // - spawn 3 normal monsters
-        // laita tama storyyn: createMonsterSprites(generateMonsterSet(this.round));
-      }
-      // TODO tanne eri roundien handlaus
-
-      // Round 5:
-      // - "Hi old pal."
-      //" - Who the fuck are you?"
-      // - "You left me to die but I was saved. I think you'll need saving as well."
-      // - "Seems I'll need to shut up your mad ramblings."
-      // - spawn goblin warlord
+    } else if (this.round === midBossRound && this.monsterSprites.length === 0) {
+      if (!this.storyBox.rendered) this.storyBox.render();
+      if (!this.showMiddleBoss) return;
+      // TODO class is barbarian as a placeholder.
+      // TODO class color should be same as text color
+      createSingleMonsterSprite(goblin, classes[1], 5);
+      this.round++;
+    } else if (this.round > midBossRound && this.monsterSprites.length === 0) {
+      // TODO spawn advanced monsters
+      createMonsterSprites(generateMonsterSet(this.round));
+      this.round++;
+    } else if (this.round === lastBossRound) {
+      console.log('Last boss round'); // TODO spawn last boss
     }
   }
 

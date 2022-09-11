@@ -1,3 +1,5 @@
+import gameState from './game-state';
+
 export const storyTransitions = {
   zoom: (): void => {
     throw 'little zoom scene missing';
@@ -23,12 +25,18 @@ export const storyTransitions = {
   becomeGoblin: (): void => {
     throw 'no become goblin scene';
   },
+  midBossApproach: (): void => {
+    gameState.showMiddleBoss = true;
+  },
+  resumeFight: (): void => {
+    gameState.battleManager.selectForBattle(gameState.monsterSprites[0])
+    gameState.storyBox.unrender();
+  }
   // todo generic after battle scene
 };
 
 export const story = [
   "I'm just a little girl, helpful and kind.",
-
   'Life is always fun, every day is nice.',
   () => storyTransitions.zoom(),
   'Helping others is what I love to do.',
@@ -57,11 +65,13 @@ export const story = [
   // Next ones after a few rounds normal battles
   // No monsters visible
   { text: "My home is just over yonder. Let's pay my pal Rex a visit.", color: 'red' },
+  () => storyTransitions.midBossApproach(),
   // One goblin enemy visible
   { text: 'Hi old pal.', color: 'red' },
   { text: 'Who the fuck are you?', color: 'green' },
   { text: "You left me to die but I was saved. I think you'll need saving as well.", color: 'red' },
   { text: "Seems I'll need to shut up your mad ramblings.", color: 'green' },
+  () => storyTransitions.resumeFight(),
   // After fight
   {
     text: 'We were forced to attack humans because our normal hunting grounds were taken over by a weird giant beast.',
