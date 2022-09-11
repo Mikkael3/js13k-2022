@@ -9,6 +9,8 @@ export class StoryBox extends UiElement {
   text: string;
   lastBlink = performance.now();
   storyIndex = 0;
+  defaultColor = 'magenta';
+  color = this.defaultColor;
 
   constructor(props: StoryProps) {
     super(props);
@@ -19,11 +21,12 @@ export class StoryBox extends UiElement {
     this.rootElement.appendChild(this.textElement);
     this.continueElement = document.createElement('p');
     this.rootElement.appendChild(this.continueElement);
-    s.color = 'magenta';
+    s.color = this.color;
     s.padding = '1vmin';
     this.rootElement.onclick = () => {
       const handleEvent = () => {
         const storyEvent = story[++this.storyIndex];
+        this.color = this.defaultColor;
         if (typeof storyEvent === 'string') {
           this.text = storyEvent;
         } else if (typeof storyEvent === 'function') {
@@ -31,8 +34,9 @@ export class StoryBox extends UiElement {
           handleEvent();
         } else {
           this.text = storyEvent.text;
-          // todo handle color
+          this.color = storyEvent.color;
         }
+        s.color = this.color;
       };
       handleEvent();
     };

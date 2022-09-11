@@ -46,9 +46,9 @@ export const story = [
   'But why am I a goblin now.',
   { text: 'They left me for dead.', color: 'red' },
   'Oh no. What should I do.',
-  'I must take revenge!',
+  { text: 'I must take revenge!', color: 'red' },
   "No, I don't want to kill.",
-  'You just have to save them. Like you saved me.',
-  'Yes, I want to help! I want to save.',
+  { text: 'You just have to save them. Like you "saved" me.', color: 'red' },
+  'Yes, I must help! I must save.',
   () => storyTransitions.startGame(),
 ];
