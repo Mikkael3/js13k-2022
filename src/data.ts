@@ -438,9 +438,9 @@ export const entryRaces: RaceProps[] = [
     skills: [skills.heal],
   },
   {
-    name: 'Ghillie Dhu',
-    width: 6,
-    sprite: '001100001100000100101101011110101101',
+    name: 'Elf',
+    width: 9,
+    sprite: '000111000111111111001111100000010000001111100001010100001010100000101000000101000',
     stats: {
       hp: 3,
       str: 3,
