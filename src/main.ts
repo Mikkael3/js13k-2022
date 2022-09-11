@@ -141,7 +141,7 @@ storyTransitions.blackness = () => {
 // Seventh scene: intro battle
 storyTransitions.introBattle = () => {
   const woundedGoblin: Monster = {
-    race: { ...buildRace(goblin), skills: [] }, // todo baseStats.hp set to 0
+    race: { ...buildRace(goblin), skills: [] },
     class: buildClass({
       color: 'green',
       name: 'Wounded',
@@ -173,8 +173,10 @@ storyTransitions.introBattle = () => {
   const oldBattleEndCb = gameState.battleManager.battleEndCb;
   // Change battle end to skill choosing skills for this intro
   gameState.battleManager.battleEndCb = () => {
+
     storyBox.render();
     if (!gameState.battleManager.monsterOpponent) return;
+    gameState.battleManager.battleEnded = true;
     gameState.battleManager.monsterOpponent.rotation = Math.PI / 2;
     gameState.battleManager.monsterOpponent.color = 'red';
     gameState.battleManager.monsterOpponent.stopped = true;
