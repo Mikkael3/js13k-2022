@@ -157,6 +157,7 @@ storyTransitions.introBattle = () => {
     level: 1,
   };
   createMonsterSprites([woundedGoblin]);
+  gameState.monsterSprites[0].stats.hp = 1;
   gameState.player.monsterData = girl.monsterData;
   gameState.battleManager.setPlayerSkills([]);
   storyBox.unrender();
