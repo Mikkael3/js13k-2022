@@ -151,6 +151,7 @@ storyTransitions.introBattle = () => {
           value: -1,
           type: 'boost',
           effect: 'hp',
+          flavor: 'Goblin fell on top of you and skewered himself on the knife.',
         },
       ],
     }),

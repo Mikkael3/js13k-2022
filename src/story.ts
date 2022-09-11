@@ -22,12 +22,11 @@ export const storyTransitions = {
   },
   becomeGoblin: (): void => {
     throw 'no become goblin scene';
-  }
+  },
 };
 
 export const story = [
   "I'm just a little girl, helpful and kind.",
-  () => storyTransitions.startGame(),
   'Life is always fun, every day is nice.',
   () => storyTransitions.zoom(),
   'Helping others is what I love to do.',
@@ -45,10 +44,11 @@ export const story = [
   "I don't want you to die. I will save your life. I'll trade my own.",
   () => storyTransitions.becomeGoblin(),
   'But why am I a goblin now.',
-  'They left me for dead.',
+  { text: 'They left me for dead.', color: 'red' },
   'Oh no. What should I do.',
   'I must take revenge!',
   "No, I don't want to kill.",
   'You just have to save them. Like you saved me.',
   'Yes, I want to help! I want to save.',
+  () => storyTransitions.startGame(),
 ];

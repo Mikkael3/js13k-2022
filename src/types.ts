@@ -6,6 +6,7 @@ export type Skill = {
   type: 'int' | 'str' | 'fixed' | 'status' | 'boost' | 'random';
   effect: keyof BaseStats;
   cost: number;
+  flavor?: string;
 };
 
 export type BaseStats = {

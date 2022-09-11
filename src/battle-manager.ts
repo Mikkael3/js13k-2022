@@ -195,6 +195,9 @@ function getSkillText(skill: Skill, damage: number, attackerName: string) {
   if (damage < 0) {
     return attackerName + ' used ' + skill.name + '. ' + 'But there is no stamina to do that';
   }
+  if (skill.flavor) {
+    return attackerName + ' used ' + skill.name + '. ' + skill.flavor;
+  }
   let skillText = '';
   switch (skill.type) {
     case 'str':
