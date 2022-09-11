@@ -23,6 +23,7 @@ export const storyTransitions = {
   becomeGoblin: (): void => {
     throw 'no become goblin scene';
   },
+  // todo generic after battle scene
 };
 
 export const story = [
@@ -52,4 +53,16 @@ export const story = [
   { text: 'You just have to save them. Like you "saved" me.', color: 'red' },
   'Yes, I must help! I must save.',
   { text: "The road is dangerous. There'll be many a monster in need of saving.", color: 'red' },
+  // Next ones after a few rounds normal battles
+  { text: "My home is just over yonder. Let's pay my pal Rex a visit.", color: 'red' },
+  { text: "Hi old pal.", color: 'red' },
+  { text: 'Who the fuck are you?', color: 'green' },
+  { text: "You left me to die but I was saved. I think you'll need saving as well.", color: 'red' },
+  { text: "Seems I'll need to shut up your mad ramblings.", color: 'green' },
+  // After fight
+  {
+    text: 'We were forced to attack humans because our normal hunting grounds were taken over by a large weird beast.',
+    color: 'green',
+  },
+  "I'll make them stop. I'll save them too.",
 ];
