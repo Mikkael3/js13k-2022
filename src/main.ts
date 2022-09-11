@@ -1,4 +1,4 @@
-import { GameLoop, getCanvas, Sprite, SpriteClass } from 'kontra';
+import { GameLoop, Sprite, SpriteClass } from 'kontra';
 import { buildClass, buildRace, Monster, Skill } from './types';
 import { MonsterC, MonsterProps } from './monster';
 import { girlRace, goblin, kid } from './data';
@@ -7,7 +7,6 @@ import { storyTransitions } from './story';
 import { GameState } from './game-state';
 import { createMonsterSprites } from './monster-generator';
 import { initDefaultBackground } from './background-sprites';
-import { StoryBox } from './story-box';
 
 initDefaultBackground();
 
@@ -157,7 +156,7 @@ storyTransitions.introBattle = () => {
   gameState.monsterSprites[0].stats.hp = 1;
   gameState.player.monsterData = girl.monsterData;
   gameState.battleManager.setPlayerSkills([]);
-  storyBox.unrender();
+  gameState.storyBox.unrender();
   gameState.renderUi();
   gameState.battleManager.selectForBattle(gameState.monsterSprites[0]);
   gameState.background.setScale(2, 2);
@@ -171,7 +170,7 @@ storyTransitions.introBattle = () => {
   // Change battle end to skill choosing skills for this intro
   gameState.battleManager.battleEndCb = () => {
 
-    storyBox.render();
+    gameState.storyBox.render();
     if (!gameState.battleManager.monsterOpponent) return;
     gameState.battleManager.battleEnded = true;
     gameState.battleManager.monsterOpponent.rotation = Math.PI / 2;
@@ -192,17 +191,6 @@ storyTransitions.becomeGoblin = () => {
   gameState.background.removeChild(girl);
 };
 
-const storyBox = new StoryBox({
-  x: 0.6,
-  y: 0,
-  width: 0.4,
-  height: 0.166,
-  color: 'black',
-  canvas: getCanvas(),
-});
-
-storyBox.render();
-
 //////////////
 // Start Game scene
 storyTransitions.startGame = () => {
@@ -213,13 +201,12 @@ storyTransitions.startGame = () => {
   gameState.background.removeChild(girl);
   gameState.background.setScale(2, 2);
   gameState.showPlayer = true;
-  storyBox.unrender();
+  gameState.storyBox.unrender();
 };
 const loop = GameLoop({
   blur: true,
   update: (dt) => {
     gameState.update(dt);
-    storyBox.update();
   },
   render: () => {
     gameState.render();

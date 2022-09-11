@@ -13,6 +13,7 @@ import { MonsterC } from './monster';
 import { Player } from './player';
 import { PlayerBox } from './player-box';
 import { UiElement } from './ui';
+import {StoryBox} from "./story-box";
 
 type GameStateI = {
   background: BackGround;
@@ -39,6 +40,7 @@ export class GameState implements GameStateI {
   public showPlayer = false;
   public round = 0;
   public introEnded = false;
+  public storyBox: StoryBox;
 
   private static _instance: GameState;
 
@@ -94,6 +96,15 @@ export class GameState implements GameStateI {
       monster: this.player.monsterData,
       battleManager: this.battleManager,
     });
+    this.storyBox = new StoryBox({
+      x: 0.6,
+      y: 0,
+      width: 0.4,
+      height: 0.166,
+      color: 'black',
+      canvas: getCanvas(),
+    });
+    this.storyBox.render();
   }
 
   public static get instance() {
@@ -110,10 +121,30 @@ export class GameState implements GameStateI {
     this.monsterBox.update();
     this.playerBox.update();
     this.battleLog.update();
+    this.storyBox.update();
     fitCanvas();
-    if (this.monsterSprites.length === 0 && this.introEnded) {
+    if (!this.introEnded) return;
+    if (this.monsterSprites.length === 0) {
       this.round++;
-      createMonsterSprites(generateMonsterSet(this.round));
+      if (this.round < 4) {
+        createMonsterSprites(generateMonsterSet(this.round));
+      } else if (this.round === 4) {
+        // story``
+        // TODO pitaskohan tan olla no-op
+        // Round 4:
+        // - Show story box
+        // - "My home is just over yonder. Let's pay my pal Rex a visit."
+        // - spawn 3 normal monsters
+        // laita tama storyyn: createMonsterSprites(generateMonsterSet(this.round));
+      }
+      // TODO tanne eri roundien handlaus
+
+      // Round 5:
+      // - "Hi old pal."
+      //" - Who the fuck are you?"
+      // - "You left me to die but I was saved. I think you'll need saving as well."
+      // - "Seems I'll need to shut up your mad ramblings."
+      // - spawn goblin warlord
     }
   }
 
