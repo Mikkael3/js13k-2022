@@ -51,4 +51,5 @@ export const story = [
   "No, I don't want to kill.",
   { text: 'You just have to save them. Like you "saved" me.', color: 'red' },
   'Yes, I must help! I must save.',
+  { text: "The road is dangerous. There'll be many a monster in need of saving.", color: 'red' },
 ];
