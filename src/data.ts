@@ -676,6 +676,6 @@ export const lordChimera = {
 
 export const starterGoblin = {
   race: buildRace(goblin),
-  class: { ...buildClass(kid), color: 'silver', name: 'BodySnatcher' },
+  class: { ...buildClass(kid), color: 'silver', name: 'Reborn' },
   level: 1,
 };
