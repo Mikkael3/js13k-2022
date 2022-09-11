@@ -104,7 +104,8 @@ export class MonsterC extends SpriteClass {
 
   update(dt: number): void {
     super.update();
-    if (!this.stopped) this.animationTime += dt;
+    if (this.stopped) return;
+    this.animationTime += dt;
     // Make monster move a little
     this.x += (Math.sign(Math.cos(this.animationTime)) * Math.cos(this.animationTime) ** 2) / 8;
     this.y += Math.sin(this.animationTime * 2.1) / 20;
