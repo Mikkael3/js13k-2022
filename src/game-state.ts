@@ -1,4 +1,4 @@
-import { createMonsterSprites, generateMonsterSet } from './monster-generator';
+import {createMonsterSprites, createSingleMonsterSprite, generateMonsterSet} from './monster-generator';
 import { getCanvas, init, initPointer } from 'kontra';
 
 import { BackGround } from './background-sprites';
@@ -12,7 +12,7 @@ import { Player } from './player';
 import { PlayerBox } from './player-box';
 import { StoryBox } from './story-box';
 import { UiElement } from './ui';
-import { starterGoblin } from './data';
+import {classes, goblin, starterGoblin} from './data';
 
 type GameStateI = {
   background: BackGround;
