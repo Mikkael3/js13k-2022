@@ -28,79 +28,26 @@ type GameStateI = {
 
 export class GameState implements GameStateI {
   public background: BackGround;
-  public monsterSprites: MonsterC[];
-  public player: Player;
-  public playerBox: MonsterBox;
-  public monsterBox: MonsterBox;
-  public battleManager: BattleManager;
-  public uiElements: UiElement[];
-  public battleLog: BattleLog;
-  public gameUi: GameUi;
+  public monsterSprites!: MonsterC[];
+  public player!: Player;
+  public playerBox!: MonsterBox;
+  public monsterBox!: MonsterBox;
+  public battleManager!: BattleManager;
+  public uiElements!: UiElement[];
+  public battleLog!: BattleLog;
+  public gameUi!: GameUi;
   public showPlayer = false;
   public round = 0;
   public introEnded = false;
-  public storyBox: StoryBox;
+  public storyBox!: StoryBox;
 
   private static _instance: GameState;
 
   private constructor() {
     init();
-    const canvas = getCanvas();
     initPointer();
     this.background = new BackGround();
-    this.monsterSprites = [];
-    this.uiElements = [];
-    this.battleLog = new BattleLog({
-      x: 0,
-      y: 0.45,
-      height: 0.4,
-      width: 0.3,
-      canvas,
-      color: 'lightgray',
-    });
-
-    this.battleLog.render();
-
-    this.player = new Player({
-      x: 240,
-      y: canvas.height / 1.5,
-      monster: starterGoblin,
-    });
-
-    this.playerBox = new PlayerBox({
-      x: 0.8,
-      y: 0.7,
-      width: 0.2,
-      height: 0.06,
-      canvas,
-    });
-    this.playerBox.setMonster(this.player);
-
-    this.monsterBox = new MonsterBox({
-      x: 0,
-      y: 0,
-      width: 0.2,
-      height: 0.06,
-      canvas,
-    });
-    this.battleManager = new BattleManager(this.monsterBox, canvas);
-    this.gameUi = new GameUi({
-      x: 0,
-      y: 0.9,
-      canvas,
-      height: 0.1,
-      width: 1,
-      monster: this.player.monsterData,
-      battleManager: this.battleManager,
-    });
-    this.storyBox = new StoryBox({
-      x: 0.6,
-      y: 0,
-      width: 0.4,
-      height: 0.166,
-      color: 'black',
-      canvas: getCanvas(),
-    });
+    this.restartRounds();
     this.storyBox.render();
   }
 
