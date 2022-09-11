@@ -480,9 +480,9 @@ export const entryRaces: RaceProps[] = [
     skills: [skills.grin],
   },
   {
-    name: 'Pinaviztli',
-    width: 7,
-    sprite: '00101011010101011111110101010010101',
+    name: 'Spider',
+    width: 9,
+    sprite: '001000100001010100111111111011111110101010101001000100',
     stats: {
       hp: 2,
       str: 2,
