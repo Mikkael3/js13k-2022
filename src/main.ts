@@ -107,7 +107,6 @@ storyTransitions.extraZoom = () => {
 };
 ///////////////
 // Fourth scene
-// todo door to black
 storyTransitions.brokenHouse = () => {
   house.doorColor = 'black';
   house.windowColor = 'black';
@@ -118,7 +117,6 @@ storyTransitions.brokenHouse = () => {
 };
 ///////////////
 // Fifth scene
-// todo zoom onto broken door
 storyTransitions.doorZoom = () => {
   gameState.background.setScale(8, 8);
   gameState.background.x = -300;
@@ -131,8 +129,6 @@ const blackness = Sprite({
 });
 ///////////////
 // Sixth scene
-// todo zoom onto blackness or make black background
-// todo tee iso black rect ja append child
 storyTransitions.blackness = () => {
   gameState.background.addChild(blackness);
   gameState.background.setScale(2, 2);
