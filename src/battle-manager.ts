@@ -68,7 +68,6 @@ export class BattleManager {
 
   skillsChosenCb() {
     gameState.player.monsterData = this.monsterOpponent!.monsterData;
-    console.log('skills chose cb, skills', gameState.player.skills);
     this.setPlayerSkills(gameState.player.skills);
     this.monsterOpponent = undefined;
     this.monsterBox.setMonster(undefined);
@@ -124,13 +123,11 @@ export class BattleManager {
   }
 
   public killMonster() {
-    console.log('killing mons')
     const gameState = GameState.instance;
     const index = gameState.monsterSprites.findIndex((m) => {
       return m === this.monsterOpponent;
     });
     if (index < 0) return;
-    console.log('spicing monster')
     gameState.monsterSprites.splice(index, 1);
   }
 

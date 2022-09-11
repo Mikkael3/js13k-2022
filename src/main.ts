@@ -162,7 +162,6 @@ storyTransitions.introBattle = () => {
   storyBox.unrender();
   gameState.renderUi();
   gameState.battleManager.selectForBattle(gameState.monsterSprites[0]);
-  console.log(girl);
   gameState.background.setScale(2, 2);
   gameState.background.x = 0;
   gameState.background.y = 0;
