@@ -160,6 +160,12 @@ export class BattleManager {
               this.skillsChosenCb();
               this.classChooseDialogOpen = false;
               e.unrender();
+              player.statStages = {
+                str: 0,
+                int: 0,
+                def: 0,
+                wp: 0,
+              };
               // Show other monsters again
               GameState.instance.monsterSprites.forEach((monster) => (monster.display = true));
             }
