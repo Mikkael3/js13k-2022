@@ -19,8 +19,8 @@ export class PlayerBox extends MonsterBox {
     });
     this.round = new UiElement({
       ...props,
-      y: 0.67,
-      height: 0.03,
+      y: 0.66,
+      height: 0.04,
     });
     this.stamina = true;
     setStyles(this.stats.rootElement);
