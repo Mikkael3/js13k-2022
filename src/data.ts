@@ -221,9 +221,9 @@ export const skills: Record<string, Partial<Skill>> = {
     cost: 3,
   },
   pathfind: {
-    name: 'Pathding',
+    name: 'Smirk',
     type: 'status',
-    value: -1,
+    value: -2,
     effect: 'wp',
   },
   spook: {

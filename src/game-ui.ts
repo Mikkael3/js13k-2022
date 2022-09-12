@@ -26,6 +26,10 @@ export class GameUi extends UiElement {
     skills.forEach((skill) => {
       // Skill buttons
       const button = getButton(skill.name);
+      if (skill.type === 'str') button.style.color = 'red';
+      if (skill.type === 'int') button.style.color = 'blue';
+      if (skill.type === 'status') button.style.color = 'violet';
+      if (skill.type === 'boost') button.style.color = 'green';
       const span = document.createElement('span');
       span.textContent = `Cost: ${skill.cost}`;
       button.appendChild(span);
