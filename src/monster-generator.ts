@@ -1,4 +1,4 @@
-import { Monster, buildClass, buildRace, RaceProps, ClassProps } from './types';
+import { ClassProps, Monster, RaceProps, buildClass, buildRace } from './types';
 import { advancedRaces, classes, entryRaces } from './data';
 import { getCanvas, randInt } from 'kontra';
 
@@ -6,7 +6,7 @@ import { MonsterC } from './monster';
 import gameState from './game-state';
 
 export const generateMonsterSet = (level = 1, amount = 3): Monster[] => {
-  const races = level > 5 ? advancedRaces : entryRaces;
+  const races = level > 4 ? advancedRaces : entryRaces;
   return Array.from(Array(amount)).map((): Monster => {
     return {
       race: buildRace(races[randInt(0, races.length - 1)]),
