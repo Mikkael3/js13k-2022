@@ -100,6 +100,10 @@ export const story = [
   'You killed the monster. But what have you became.',
   'The end.',
   'Game by: mikkael3 and Mikko Kemppainen',
-  () => gameState.storyBox.unrender(),
+  () => {
+    gameState.round = -1;
+    gameState.storyBox.unrender();
+    gameState.unrenderUi();
+  },
   '',
 ];
