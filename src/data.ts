@@ -38,7 +38,7 @@ export const skills: Record<string, Partial<Skill>> = {
   },
   claw: {
     name: 'Claw',
-    value: 35,
+    value: 40,
     cost: 2,
   },
   shatteredBottle: {
@@ -110,11 +110,6 @@ export const skills: Record<string, Partial<Skill>> = {
     cost: 5,
   },
   // start of fixed moves
-  ooze: {
-    name: 'Ooze',
-    type: 'fixed',
-    value: 5,
-  },
   kill: {
     name: 'Ooze',
     type: 'fixed',
@@ -276,7 +271,7 @@ export const skills: Record<string, Partial<Skill>> = {
 export const kid: ClassProps = {
   color: 'yellow',
   name: 'Kid',
-  skills: [skills.cry, skills.drool, skills.scratch, skills.kill],
+  skills: [skills.cry, skills.drool, skills.scratch],
 };
 
 export const classes: ClassProps[] = [
