@@ -661,7 +661,7 @@ const hobgoblin: RaceProps = {
 const rex: ClassProps = {
   name: 'Rex',
   color: 'vermillion',
-  skills: [skills.bash, skills.fur, skills.pound],
+  skills: [skills.bash, skills.fury, skills.pound],
 };
 
 export const rexHobgoblin = {
