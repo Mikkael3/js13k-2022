@@ -196,7 +196,6 @@ export const skills: Record<string, Partial<Skill>> = {
     type: 'boost',
     value: 1,
     effect: 'def',
-    cost: 1,
   },
   mudSpin: {
     name: 'Mud spin',
@@ -328,7 +327,6 @@ export const goblin: RaceProps = {
   stats: {
     hp: 2,
     str: 3,
-    int: 1,
     def: 3,
     stamina: 4,
     wp: 2,
@@ -345,10 +343,8 @@ export const girlRace: RaceProps = {
     '00011000110000011111111100001010101010000101111101000010111110100001000100010011100111001110110011100110000011111000000001111100000001111111000001111111110000000101000000000010100000',
   stats: {
     hp: 2,
-    str: 1,
     int: 4,
     def: 0,
-    stamina: 1,
   },
   skills: [skills.hold],
 };
@@ -375,9 +371,7 @@ export const entryRaces: RaceProps[] = [
     width: 7,
     sprite: '100111111111100001010',
     stats: {
-      hp: 1,
       str: 5,
-      int: 1,
       def: 3,
       stamina: 3,
       wp: 3,
@@ -389,8 +383,6 @@ export const entryRaces: RaceProps[] = [
     width: 9,
     sprite: '010111010101111101',
     stats: {
-      hp: 1,
-      str: 1,
       int: 5,
       def: 3,
       stamina: 3,
@@ -404,8 +396,6 @@ export const entryRaces: RaceProps[] = [
     sprite: '00001100000010000011000010100011110000011100011110011110011111100100010111011',
     stats: {
       hp: 5,
-      str: 1,
-      int: 1,
       def: 3,
       stamina: 3,
       wp: 3,
@@ -431,12 +421,9 @@ export const entryRaces: RaceProps[] = [
     width: 5,
     sprite: '100001111111111100101001011011',
     stats: {
-      hp: 1,
       str: 5,
       int: 5,
-      def: 1,
       stamina: 5,
-      wp: 1,
     },
     skills: [skills.pointlessLife],
   },
@@ -448,7 +435,6 @@ export const entryRaces: RaceProps[] = [
       hp: 2,
       str: 2,
       int: 2,
-      def: 1,
       stamina: 5,
       wp: 5,
     },
@@ -464,7 +450,6 @@ export const entryRaces: RaceProps[] = [
       int: 3,
       def: 5,
       stamina: 2,
-      wp: 1,
     },
     skills: [skills.badOmen],
   },
@@ -521,7 +506,6 @@ export const advancedRaces: RaceProps[] = [
     stats: {
       hp: 6,
       str: 10,
-      int: 1,
       def: 4,
       stamina: 2,
       wp: 2,
@@ -562,7 +546,6 @@ export const advancedRaces: RaceProps[] = [
     sprite: '011101111110101111111111110101',
     stats: {
       hp: 5,
-      str: 1,
       int: 5,
       def: 3,
       stamina: 5,
@@ -577,7 +560,6 @@ export const advancedRaces: RaceProps[] = [
     stats: {
       hp: 10,
       str: 5,
-      int: 1,
       def: 5,
       stamina: 5,
       wp: 4,
@@ -622,7 +604,6 @@ const lord: ClassProps = {
     {
       name: 'Ultimate Attack',
       type: 'random',
-      cost: 1,
     },
   ],
 };
