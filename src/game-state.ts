@@ -45,7 +45,6 @@ export class GameState implements GameStateI {
   public introEnded = false;
   public storyBox!: StoryBox;
   public showBoss = false;
-  public rollCredits = false;
 
   private static _instance: GameState;
 
@@ -164,32 +163,6 @@ export class GameState implements GameStateI {
         if (!this.storyBox.rendered) this.storyBox.render();
         break;
     }
-
-    // if (this.round < midBossRound && this.monsterSprites.length === 0) {
-    //   console.log('eka');
-    // } else if (this.round === midBossRound && this.monsterSprites.length === 0) {
-    //   console.log('midd');
-    //   if (!this.storyBox.rendered) this.storyBox.render();
-    //   if (!this.showBoss) return;
-    //   createSingleMonsterSprite(goblin, classes[3], 5);
-    //   this.round++;
-    // } else if (
-    //   this.round > midBossRound &&
-    //   this.round < lastBossRound &&
-    //   this.monsterSprites.length === 0
-    // ) {
-    //   console.log('advanced');
-    //   createMonsterSprites(generateMonsterSet(this.round));
-    //   this.round++;
-    // } else if (this.round === lastBossRound && this.monsterSprites.length === 0) {
-    //   console.log('last boss');
-    //   if (!this.storyBox.rendered) this.storyBox.render();
-    //   createMonsterSprites([lordChimera]);
-    //   this.rollCredits = true;
-    // } else if (this.rollCredits && this.monsterSprites.length === 0) {
-    //   console.log('credits');
-    //   if (!this.storyBox.rendered) this.storyBox.render();
-    // }
   }
 
   public render() {
