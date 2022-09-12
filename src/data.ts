@@ -206,8 +206,15 @@ export const skills: Record<string, Partial<Skill>> = {
   },
   //start of statuses
   cry: {
-    name: 'cry',
+    name: 'Cry',
     value: -1,
+    type: 'status',
+    effect: 'def',
+    cost: 2,
+  },
+  warcry: {
+    name: 'Warcry',
+    value: -2,
     type: 'status',
     effect: 'def',
     cost: 2,
@@ -634,4 +641,30 @@ export const starterGoblin = {
   race: buildRace(goblin),
   class: { ...buildClass(kid), color: 'silver', name: 'Reborn' },
   level: 1,
+};
+
+const hobgoblin: RaceProps = {
+  name: 'Hobgoblin',
+  stats: {
+    hp: 5,
+    str: 5,
+    int: 5,
+    wp: 5,
+    def: 5,
+    stamina: 5,
+  },
+  width: 7,
+  sprite: '11111111111111110101101111100111110001110011111111011101101110100101001110111',
+};
+
+const rex: ClassProps = {
+  name: 'Rex',
+  color: 'vermillion',
+  skills: [skills.bash, skills.fury, skills.warcry],
+};
+
+export const rexHobgoblin = {
+  race: buildRace(hobgoblin),
+  class: { ...buildClass(rex) },
+  level: 5,
 };

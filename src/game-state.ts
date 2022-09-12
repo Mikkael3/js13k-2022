@@ -1,10 +1,10 @@
-import { classes, goblin, lordChimera, starterGoblin } from './data';
 import {
   createMonsterSprites,
   createSingleMonsterSprite,
   generateMonsterSet,
 } from './monster-generator';
 import { getCanvas, init, initPointer } from 'kontra';
+import { lordChimera, rexHobgoblin, starterGoblin } from './data';
 
 import { BackGround } from './background-sprites';
 import { BattleLog } from './battle-log';
@@ -149,7 +149,7 @@ export class GameState implements GameStateI {
       case 2:
         if (!this.storyBox.rendered) this.storyBox.render();
         if (!this.showBoss) return;
-        createSingleMonsterSprite(goblin, classes[3], 5);
+        createSingleMonsterSprite(rexHobgoblin.race, rexHobgoblin.class, rexHobgoblin.level);
         this.monsterSprites[0].clickable = false;
         if (!this.storyBox.rendered) this.storyBox.render();
         break;
