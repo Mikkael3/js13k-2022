@@ -33,22 +33,22 @@ export const skills: Record<string, Partial<Skill>> = {
   },
   cleave: {
     name: 'Cleave',
-    value: 30,
+    value: 45,
     cost: 2,
   },
   claw: {
     name: 'Claw',
-    value: 40,
+    value: 50,
     cost: 2,
   },
   shatteredBottle: {
     name: 'Shattered Bottle',
-    value: 40,
+    value: 55,
     cost: 3,
   },
   bash: {
     name: 'Bash',
-    value: 45,
+    value: 60,
     cost: 3,
   },
   sinisterStrike: {
@@ -89,17 +89,17 @@ export const skills: Record<string, Partial<Skill>> = {
     name: 'Sacred Flame',
     value: 40,
     type: 'int',
-    cost: 3,
+    cost: 2,
   },
   banishment: {
     name: 'Banishment',
-    value: 50,
+    value: 55,
     type: 'int',
-    cost: 4,
+    cost: 3,
   },
   startingConversation: {
-    name: 'Starting Conversation',
-    value: 60,
+    name: 'Split hairs',
+    value: 85,
     type: 'int',
     cost: 5,
   },
@@ -107,13 +107,13 @@ export const skills: Record<string, Partial<Skill>> = {
     name: 'Thunderstorm',
     value: 75,
     type: 'int',
-    cost: 5,
+    cost: 4,
   },
   // start of fixed moves
   ooze: {
     name: 'Ooze',
     type: 'fixed',
-    value: 5,
+    value: 4,
   },
   // start of boosts
   drool: {
