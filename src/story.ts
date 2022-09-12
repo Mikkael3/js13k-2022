@@ -76,10 +76,19 @@ export const story = [
   () => storyTransitions.resumeFight(),
   // After fight
   {
+    text: "Im not.. dead?.",
+    color: 'green',
+  },
+  "I saved you! I'm from the human village.",
+  {
     text: 'We were forced to attack humans because our normal hunting grounds were taken over by a weird giant beast.',
     color: 'green',
   },
   "I'll make them stop. I'll save them too!",
+  {
+    text: 'The beast is a little ways off with dangerous monsters on the way.',
+    color: 'green',
+  },
   () => {
     gameState.storyBox.unrender();
     gameState.round++;
