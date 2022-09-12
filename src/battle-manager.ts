@@ -197,7 +197,7 @@ export class BattleManager {
   }
 }
 
-function getSkillText(skill: Skill, damage: number, attackerName: string) {
+const getSkillText = (skill: Skill, damage: number, attackerName: string) => {
   if (damage < 0) {
     return attackerName + ' used ' + skill.name + '. ' + 'But there is no stamina to do that';
   }
@@ -218,7 +218,7 @@ function getSkillText(skill: Skill, damage: number, attackerName: string) {
       skillText = "Opponent's " + StatNames[skill.effect] + ' fell.';
       break;
     default:
-      skillText = 'pieleen meni. ' + skill.type;
+      skillText = 'error' + skill.type;
   }
   return attackerName + ' used ' + skill.name + '. ' + skillText;
-}
+};

@@ -99,10 +99,6 @@ export class MonsterC extends SpriteClass {
     this.y += Math.sin(this.animationTime * 2.1) / 20;
   }
 
-  draw(): void {
-    super.draw();
-  }
-
   render(): void {
     if (!this.display) return;
     super.render();
