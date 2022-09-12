@@ -136,7 +136,10 @@ storyTransitions.blackness = () => {
 // Seventh scene: intro battle
 storyTransitions.introBattle = () => {
   const woundedGoblin: Monster = {
-    race: { ...buildRace(goblin), skills: [] },
+    race: {
+      ...buildRace(goblin),
+      skills: [],
+    },
     class: buildClass({
       color: 'green',
       name: 'Wounded',
@@ -147,6 +150,7 @@ storyTransitions.introBattle = () => {
           type: 'boost',
           effect: 'hp',
           flavor: 'Goblin fell on top of you and skewered himself on the knife.',
+          cost: 0,
         },
       ],
     }),

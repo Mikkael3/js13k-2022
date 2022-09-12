@@ -110,10 +110,10 @@ export const skills: Record<string, Partial<Skill>> = {
     cost: 5,
   },
   // start of fixed moves
-  kill: {
+  ooze: {
     name: 'Ooze',
     type: 'fixed',
-    value: 500,
+    value: 5,
   },
   // start of boosts
   drool: {
