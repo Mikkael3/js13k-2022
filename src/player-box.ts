@@ -2,12 +2,14 @@ import { Monster, StatNames, StatStages } from './types';
 import { UiElement, UiElementProps } from './ui';
 
 import { MonsterBox } from './monster-box';
+import gameState from './game-state';
 import { setStyles } from './elements';
 
 type Props = UiElementProps & { monster?: Monster };
 
 export class PlayerBox extends MonsterBox {
   stats: UiElement;
+  round: UiElement;
   constructor(props: Props) {
     super(props);
     this.stats = new UiElement({
@@ -15,19 +17,27 @@ export class PlayerBox extends MonsterBox {
       y: 0.76,
       height: 0.1,
     });
+    this.round = new UiElement({
+      ...props,
+      y: 0.67,
+      height: 0.03,
+    });
     this.stamina = true;
     setStyles(this.stats.rootElement);
+    setStyles(this.round.rootElement);
     this.stats.rootElement.style.fontSize = '1.5vmin';
   }
 
   render(): void {
     super.render();
     this.stats.render();
+    this.round.render();
   }
 
   unrender(): void {
     super.unrender();
     this.stats.unrender();
+    this.round.unrender();
   }
 
   handleStats() {
@@ -53,11 +63,14 @@ export class PlayerBox extends MonsterBox {
     });
     this.stats.rootElement.innerHTML = '';
     this.stats.rootElement.appendChild(stat);
+    this.round.rootElement.innerHTML = '';
+    this.round.rootElement.style.textAlign = 'center';
+    if (gameState.round) this.round.rootElement.textContent = `Round: ${gameState.round}`;
   }
   update() {
     super.update();
     this.stats.update();
-
+    this.round.update();
     this.handleStats();
   }
 }

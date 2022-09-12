@@ -1,4 +1,9 @@
-import {createMonsterSprites, createSingleMonsterSprite, generateMonsterSet} from './monster-generator';
+import { classes, goblin, starterGoblin } from './data';
+import {
+  createMonsterSprites,
+  createSingleMonsterSprite,
+  generateMonsterSet,
+} from './monster-generator';
 import { getCanvas, init, initPointer } from 'kontra';
 
 import { BackGround } from './background-sprites';
@@ -12,7 +17,6 @@ import { Player } from './player';
 import { PlayerBox } from './player-box';
 import { StoryBox } from './story-box';
 import { UiElement } from './ui';
-import {classes, goblin, starterGoblin} from './data';
 
 type GameStateI = {
   background: BackGround;
@@ -59,7 +63,7 @@ export class GameState implements GameStateI {
 
   restartRounds() {
     // TODO restore storyIndex to just after intro
-    this.round = 1;
+    this.round = 0;
     const canvas = getCanvas();
     this.monsterSprites = [];
     this.uiElements = [];
