@@ -37,7 +37,7 @@ export class GameState implements GameStateI {
   public playerBox!: MonsterBox;
   public monsterBox!: MonsterBox;
   public battleManager!: BattleManager;
-  public uiElements!: UiElement[];
+  public uiElements: UiElement[] = [];
   public battleLog!: BattleLog;
   public gameUi!: GameUi;
   public showPlayer = false;
@@ -63,6 +63,11 @@ export class GameState implements GameStateI {
 
   restartRounds() {
     // TODO restore storyIndex to just after intro
+    this.battleLog?.unrender();
+    this.monsterBox?.unrender();
+    this.playerBox?.unrender();
+    this.uiElements.forEach((u) => u.unrender());
+    this.gameUi?.unrender();
     this.round = 0;
     const canvas = getCanvas();
     this.monsterSprites = [];
@@ -85,7 +90,7 @@ export class GameState implements GameStateI {
     });
 
     this.playerBox = new PlayerBox({
-      x: 0.8,
+      x: 0.79,
       y: 0.7,
       width: 0.2,
       height: 0.06,
@@ -133,8 +138,8 @@ export class GameState implements GameStateI {
     this.storyBox.update();
     fitCanvas();
     if (!this.introEnded) return;
-    const midBossRound = 2;
-    const lastBossRound = 4;
+    const midBossRound = 1;
+    const lastBossRound = 2;
     if (this.battleManager.classChooseDialogOpen) return;
     if (this.round < midBossRound && this.monsterSprites.length === 0) {
       createMonsterSprites(generateMonsterSet(this.round));
