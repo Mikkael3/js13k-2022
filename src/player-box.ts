@@ -15,7 +15,7 @@ export class PlayerBox extends MonsterBox {
     this.stats = new UiElement({
       ...props,
       y: 0.76,
-      height: 0.1,
+      height: 0.14,
     });
     this.round = new UiElement({
       ...props,
@@ -65,8 +65,9 @@ export class PlayerBox extends MonsterBox {
     this.stats.rootElement.appendChild(stat);
     this.round.rootElement.innerHTML = '';
     this.round.rootElement.style.textAlign = 'center';
-    if (gameState.round) this.round.rootElement.textContent = `Round: ${gameState.round}`;
+    if (gameState.round) this.round.rootElement.textContent = `Area: ${gameState.round}`;
   }
+
   update() {
     super.update();
     this.stats.update();
