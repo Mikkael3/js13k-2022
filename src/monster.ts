@@ -1,12 +1,11 @@
 import { BaseStats, Monster, Skill, StatStages, size } from './types';
-import { Sprite, SpriteClass, Text, track } from 'kontra';
+import { Sprite, SpriteClass, track } from 'kontra';
 
 import { performSkill } from './battle';
 
 export type MonsterProps = Partial<Sprite> & { monster: Monster };
 
 export class MonsterC extends SpriteClass {
-  text!: Text;
   // Show this sprite or not
   display = true;
   private _monsterData!: Monster;
@@ -78,17 +77,6 @@ export class MonsterC extends SpriteClass {
         );
       }),
     );
-    this.text = Text({
-      text: `${this.monsterData.class.name} ${this.monsterData.race.name}`,
-      font: '8px Arial',
-      color: 'black',
-      x: 0,
-      y: 0,
-      width: this.width,
-      anchor: { x: 0, y: 0 },
-      textAlign: 'center',
-    });
-    // this.addChild(this.text);
   }
 
   /// Mouse events
