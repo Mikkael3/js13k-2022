@@ -188,7 +188,6 @@ storyTransitions.introBattle = () => {
 
 storyTransitions.becomeGoblin = () => {
   if (!gameState.battleManager.monsterOpponent) return;
-  gameState.player.monsterData = starterGoblin;
   gameState.player.skills = starterGoblin.class.skills;
   gameState.battleManager.monsterOpponent.monsterData = starterGoblin;
   gameState.battleManager.killMonster();
