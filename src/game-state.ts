@@ -144,7 +144,7 @@ export class GameState implements GameStateI {
       if (!this.showMiddleBoss) return;
       // TODO class is barbarian as a placeholder.
       // TODO class color should be same as text color
-      createSingleMonsterSprite(goblin, classes[1], 5);
+      createSingleMonsterSprite(goblin, classes[3], 5);
       this.round++;
     } else if (this.round > midBossRound && this.monsterSprites.length === 0) {
       // TODO spawn advanced monsters
