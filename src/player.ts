@@ -3,6 +3,7 @@ import { Skill } from './types';
 import { UiElement } from './ui';
 import gameState from './game-state';
 import { getCanvas } from 'kontra';
+import { story } from './story';
 
 export class Player extends MonsterC {
   // These skills are not shown.
@@ -32,6 +33,9 @@ export class Player extends MonsterC {
       died.render();
       setTimeout(() => {
         gameState.restartRounds();
+        gameState.storyBox.storyIndex = 28;
+        gameState.storyBox.text = story[28] as string;
+        gameState.round = 1;
         this.launchRestart = true;
         died.unrender();
       }, 2500);

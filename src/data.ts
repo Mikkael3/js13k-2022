@@ -24,7 +24,7 @@ export const skills: Record<string, Partial<Skill>> = {
   },
   bite: {
     name: 'Bite',
-    value: 25,
+    value: 35,
     cost: 2,
   },
   dig: {
@@ -116,10 +116,9 @@ export const skills: Record<string, Partial<Skill>> = {
     value: 5,
   },
   kill: {
-    name: 'kill',
-    value: 100,
+    name: 'Ooze',
     type: 'fixed',
-    cost: 0,
+    value: 500,
   },
   // start of boosts
   drool: {

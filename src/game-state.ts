@@ -142,24 +142,30 @@ export class GameState implements GameStateI {
     if (this.monsterSprites.length !== 0) return;
     switch (this.round) {
       case 1:
+      case 2:
+      case 4:
       case 3:
+      case 6:
+      case 7:
+      case 8:
+      case 9:
         createMonsterSprites(generateMonsterSet(this.round));
         this.round++;
         break;
-      case 2:
+      case 5:
         if (!this.storyBox.rendered) this.storyBox.render();
         if (!this.showBoss) return;
         createSingleMonsterSprite(rexHobgoblin.race, rexHobgoblin.class, rexHobgoblin.level);
         this.monsterSprites[0].clickable = false;
         if (!this.storyBox.rendered) this.storyBox.render();
         break;
-      case 4:
+      case 10:
         createMonsterSprites([lordChimera]);
         this.monsterSprites[0].clickable = false;
         if (!this.storyBox.rendered) this.storyBox.render();
         this.round++;
         break;
-      case 5:
+      case 11:
         if (!this.storyBox.rendered) this.storyBox.render();
         break;
     }
