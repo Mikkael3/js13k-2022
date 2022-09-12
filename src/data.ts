@@ -21,7 +21,6 @@ export const skills: Record<string, Partial<Skill>> = {
   scratch: {
     name: 'scratch',
     value: 20,
-    cost: 1,
   },
   bite: {
     name: 'Bite',
@@ -31,7 +30,6 @@ export const skills: Record<string, Partial<Skill>> = {
   dig: {
     name: 'Dig',
     value: 25,
-    cost: 1,
   },
   cleave: {
     name: 'Cleave',
