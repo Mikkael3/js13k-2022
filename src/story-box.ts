@@ -10,8 +10,8 @@ export class StoryBox extends UiElement {
   text: string;
   lastBlink = performance.now();
   storyIndex = 0;
-  defaultColor = 'magenta';
-  color = this.defaultColor;
+  dc = 'magenta';
+  color = this.dc;
 
   constructor(props: StoryProps) {
     super(props);
@@ -27,7 +27,7 @@ export class StoryBox extends UiElement {
     this.rootElement.onclick = () => {
       const handleEvent = () => {
         const storyEvent = story[++this.storyIndex];
-        this.color = this.defaultColor;
+        this.color = this.dc;
         if (typeof storyEvent === 'string') {
           this.text = storyEvent;
         } else if (typeof storyEvent === 'function') {
@@ -47,7 +47,9 @@ export class StoryBox extends UiElement {
     super.update();
     if (performance.now() - this.lastBlink > 300) {
       this.lastBlink = performance.now();
-      this.continueElement.textContent = this.continueElement.textContent ? '' : 'Continue';
+      this.continueElement.textContent = this.continueElement.textContent
+        ? ''
+        : 'Click to Continue';
     }
     this.textElement.textContent = this.text;
   }
