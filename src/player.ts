@@ -34,7 +34,7 @@ export class Player extends MonsterC {
       setTimeout(() => {
         gameState.restartRounds();
         gameState.storyBox.storyIndex = 28;
-        gameState.storyBox.text = story[28] as string;
+        gameState.storyBox.text = (story[28] as { text: string }).text;
         gameState.round = 1;
         this.launchRestart = true;
         died.unrender();
