@@ -150,8 +150,8 @@ export class GameState implements GameStateI {
       // TODO spawn advanced monsters
       createMonsterSprites(generateMonsterSet(this.round));
       this.round++;
-    } else if (this.round === lastBossRound) {
-      
+    } else if (this.round === lastBossRound && this.monsterSprites.length === 0) {
+      createMonsterSprites([lordChimera]);
       console.log('Last boss round'); // TODO spawn last boss
     }
   }
