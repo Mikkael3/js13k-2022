@@ -92,7 +92,6 @@ export const story = [
   () => {
     gameState.storyBox.unrender();
     gameState.round++;
-    // todo empty monster
     gameState.monsterSprites = [];
   },
   // chimera
@@ -105,7 +104,10 @@ export const story = [
   { text: 'What happened to me will happen to you, eventually.', color: 'white' },
   { text: "I don't wish such a terrible fate for anyone.", color: 'white' },
   { text: 'I shall set your soul free.', color: 'white' },
-  () => storyTransitions.resumeFight(),
+  () => {
+    storyTransitions.resumeFight();
+    gameState.monsterSprites[0].y -= 50;
+  },
   'You killed the monster. But what have you became.',
   'The end.',
   'Game by: mikkael3 and Mikko Kemppainen',

@@ -159,6 +159,7 @@ export class GameState implements GameStateI {
       case 8:
         createMonsterSprites([lordChimera]);
         this.monsterSprites[0].clickable = false;
+        this.monsterSprites[0].y -= 50;
         if (!this.storyBox.rendered) this.storyBox.render();
         this.round++;
         break;
