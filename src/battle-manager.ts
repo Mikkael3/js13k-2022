@@ -153,6 +153,14 @@ export class BattleManager {
       .map((skill) => {
         return {
           title: skill.name,
+          color:
+            skill.type === 'str'
+              ? 'red'
+              : skill.type === 'int'
+              ? 'blue'
+              : skill.type === 'status'
+              ? 'green'
+              : 'violet',
           handler: (e: Dialog) => () => {
             player.skills.push(skill);
             // Remove this skill from choosable skills

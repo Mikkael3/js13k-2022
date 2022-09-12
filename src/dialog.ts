@@ -4,6 +4,7 @@ import { getButton, setStyles } from './elements';
 type Option = {
   title: string;
   handler: (e: Dialog) => () => void;
+  color: string;
 };
 
 type Props = UiElementProps & { options: Option[]; text: string };
@@ -41,6 +42,7 @@ export class Dialog extends UiElement {
   addOption(option: Option) {
     const button = getButton(option.title);
     button.style.height = 100 / 8 + '%';
+    button.style.color = option.color;
     button.onclick = option.handler(this);
     this.rootElement.appendChild(button);
   }

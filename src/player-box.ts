@@ -60,6 +60,10 @@ export class PlayerBox extends MonsterBox {
       s.appendChild(l);
       s.appendChild(v);
       stat.appendChild(s);
+      if (key === 'str') l.style.color = 'red';
+      if (key === 'int') l.style.color = 'blue';
+      if (key === 'def') l.style.color = 'red';
+      if (key === 'wp') l.style.color = 'blue';
     });
     this.stats.rootElement.innerHTML = '';
     this.stats.rootElement.appendChild(stat);
