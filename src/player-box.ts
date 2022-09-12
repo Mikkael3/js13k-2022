@@ -74,8 +74,8 @@ export class PlayerBox extends MonsterBox {
 
   update() {
     super.update();
+    this.handleStats();
     this.stats.update();
     this.round.update();
-    this.handleStats();
   }
 }

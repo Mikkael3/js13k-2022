@@ -66,12 +66,23 @@ export class BattleManager {
     }
   }
 
-  skillsChosenCb() {
+  setPlayerMonster() {
     const data = { ...this.monsterOpponent!.monsterData };
     data.class.name = 'Reborn';
     data.class.color = 'silver';
     data.level = 1;
     gameState.player.monsterData = data;
+    gameState.playerBox.setMonster(gameState.player);
+    gameState.player.statStages = {
+      str: 0,
+      int: 0,
+      def: 0,
+      wp: 0,
+    };
+  }
+
+  skillsChosenCb() {
+    this.setPlayerMonster();
     this.setPlayerSkills(gameState.player.skills);
     this.monsterOpponent = undefined;
     this.monsterBox.setMonster(undefined);
@@ -171,12 +182,6 @@ export class BattleManager {
               this.skillsChosenCb();
               this.classChooseDialogOpen = false;
               e.unrender();
-              player.statStages = {
-                str: 0,
-                int: 0,
-                def: 0,
-                wp: 0,
-              };
               // Show other monsters again
               gameState.monsterSprites.forEach((monster) => (monster.display = true));
               if (gameState.showBoss) {
@@ -197,6 +202,7 @@ export class BattleManager {
       height: 0.6,
       canvas: this.monsterBox.canvas,
     });
+    this.setPlayerMonster();
     dialog.render();
     // TODO clean previous dialog elements
     gameState.uiElements.push(dialog);
