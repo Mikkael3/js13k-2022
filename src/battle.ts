@@ -80,5 +80,6 @@ const handleStatStages = (skill: Skill, target: MonsterC): number => {
     target.stats.hp += target.monsterData.race.stats.hp * skill.value;
     target.stats.hp = Math.ceil(target.stats.hp);
   }
+  if (skill.effect === 'stamina') target.stats.stamina += 1;
   return 0;
 };

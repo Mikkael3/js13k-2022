@@ -29,7 +29,7 @@ export const skills: Record<string, Partial<Skill>> = {
   },
   dig: {
     name: 'Dig',
-    value: 25,
+    value: 30,
   },
   cleave: {
     name: 'Cleave',
@@ -53,12 +53,12 @@ export const skills: Record<string, Partial<Skill>> = {
   },
   sinisterStrike: {
     name: 'Sinister Strike',
-    value: 60,
-    cost: 5,
+    value: 70,
+    cost: 4,
   },
   stomp: {
     name: 'Stomp',
-    value: 75,
+    value: 85,
     cost: 5,
   },
   /// Start of int moves
@@ -166,21 +166,21 @@ export const skills: Record<string, Partial<Skill>> = {
   mindfulness: {
     name: 'Mindfulness',
     type: 'boost',
-    value: 1.1,
+    value: 1.15,
     effect: 'hp',
     cost: 2,
   },
   heal: {
     name: 'Heal',
     type: 'boost',
-    value: 1.15,
+    value: 1.2,
     effect: 'hp',
     cost: 2,
   },
   blessing: {
     name: 'Blessing',
     type: 'boost',
-    value: 1.2,
+    value: 1.35,
     effect: 'hp',
     cost: 3,
   },
@@ -240,12 +240,12 @@ export const skills: Record<string, Partial<Skill>> = {
     effect: 'int',
     cost: 3,
   },
-  serveDrink: {
-    name: 'Serve Drink',
-    type: 'status',
-    value: -2,
-    effect: 'int',
-    cost: 2,
+  mix: {
+    name: 'Mix a Drink',
+    type: 'boost',
+    value: 1.1,
+    effect: 'stamina',
+    cost: 0,
   },
   hypnotic: {
     name: 'Hypnotic Magnetic Glare',
@@ -299,7 +299,7 @@ export const classes: ClassProps[] = [
   {
     color: 'violet',
     name: 'Bartender',
-    skills: [skills.serveDrink, skills.shatteredBottle, skills.smallTalk],
+    skills: [skills.mix, skills.shatteredBottle, skills.smallTalk],
   },
   {
     color: 'cyan',
