@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "kontra": "^8.0.0",
+    "terser": "^5.15.0",
     "vite-plugin-singlefile": "^0.11.1"
   }
 }
