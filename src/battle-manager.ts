@@ -125,7 +125,7 @@ export class BattleManager {
 
   public killMonster() {
     if (gameState.showBoss) {
-      return
+      return;
     }
     const index = gameState.monsterSprites.findIndex((m) => {
       return m === this.monsterOpponent;
@@ -138,9 +138,6 @@ export class BattleManager {
     const { player } = gameState;
     if (!this.monsterOpponent || !player) return;
     player.skills = [];
-    // Meilla on lista nappeja dialog elementissa
-    // pitasko skill list olla dialog elementissa
-    // options lista josta tehaan napit
     const options = [
       ...player.monsterData.class.skills,
       ...this.monsterOpponent.monsterData.class.skills,
