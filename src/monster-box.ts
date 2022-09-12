@@ -11,6 +11,7 @@ export class MonsterBox extends UiElement {
   monster?: MonsterC;
   hpBar: HTMLDivElement;
   container: HTMLDivElement;
+  stamina = false;
 
   constructor(props: Props) {
     super(props);
@@ -50,7 +51,7 @@ export class MonsterBox extends UiElement {
       this.hpBar.innerHTML = '';
       this.hpBar.textContent = `HP: ${this.monster?.stats.hp} / ${
         this.monster?.monsterData.race.stats.hp * 10
-      }`;
+      } ${this.stamina ? 'Sta: ' + this.monster.stats.stamina : ''}`;
     }
   }
 

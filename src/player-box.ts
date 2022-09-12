@@ -15,6 +15,7 @@ export class PlayerBox extends MonsterBox {
       y: 0.76,
       height: 0.1,
     });
+    this.stamina = true;
     setStyles(this.stats.rootElement);
     this.stats.rootElement.style.fontSize = '1.5vmin';
   }

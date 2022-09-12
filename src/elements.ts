@@ -1,5 +1,9 @@
 export const getButton = (text: string): HTMLButtonElement => {
   const button = document.createElement('button');
+  button.style.display = 'flex';
+  button.style.flexDirection = 'column';
+  button.style.justifyContent = 'center';
+  button.style.alignItems = 'center';
   setStyles(button);
   button.textContent = text;
   return button;

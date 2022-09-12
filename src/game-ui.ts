@@ -26,6 +26,9 @@ export class GameUi extends UiElement {
     skills.forEach((skill) => {
       // Skill buttons
       const button = getButton(skill.name);
+      const span = document.createElement('span');
+      span.textContent = `Cost: ${skill.cost}`;
+      button.appendChild(span);
       button.style.flex = '1';
 
       button.onclick = () => {
