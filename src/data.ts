@@ -655,12 +655,13 @@ const hobgoblin: RaceProps = {
   },
   width: 7,
   sprite: '11111111111111110101101111100111110001110011111111011101101110100101001110111',
+  skills: [skills.warcry],
 };
 
 const rex: ClassProps = {
   name: 'Rex',
   color: 'vermillion',
-  skills: [skills.bash, skills.fury, skills.warcry],
+  skills: [skills.bash, skills.fur, skills.pound],
 };
 
 export const rexHobgoblin = {
