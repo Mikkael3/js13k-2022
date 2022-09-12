@@ -2,36 +2,36 @@ import gameState from './game-state';
 
 export const storyTransitions = {
   zoom: (): void => {
-    throw 'little zoom scene missing';
+    //pass
   },
   extraZoom: (): void => {
-    throw 'extra close scene missing';
+    //pass
   },
   brokenHouse: (): void => {
-    throw 'broken house missing';
+    //pass
   },
   doorZoom: (): void => {
-    throw 'broken door zoom missing';
+    //pass
   },
   blackness: (): void => {
-    throw 'blackness scene missing';
+    //pass
   },
   introBattle: (): void => {
-    throw 'intro scene missing';
+    //pass
   },
   startGame: (): void => {
-    throw 'no start game';
+    //pass
   },
   becomeGoblin: (): void => {
-    throw 'no become goblin scene';
+    //pass
   },
   midBossApproach: (): void => {
     gameState.showMiddleBoss = true;
   },
   resumeFight: (): void => {
-    gameState.battleManager.selectForBattle(gameState.monsterSprites[0])
+    gameState.battleManager.selectForBattle(gameState.monsterSprites[0]);
     gameState.storyBox.unrender();
-  }
+  },
   // todo generic after battle scene
 };
 
