@@ -97,13 +97,13 @@ export const skills: Record<string, Partial<Skill>> = {
     type: 'int',
     cost: 3,
   },
-  startingConversation: {
+  sta: {
     name: 'Split hairs',
     value: 85,
     type: 'int',
     cost: 5,
   },
-  thunderStorm: {
+  ts: {
     name: 'Thunderstorm',
     value: 75,
     type: 'int',
@@ -122,7 +122,7 @@ export const skills: Record<string, Partial<Skill>> = {
     value: 1,
     cost: 2,
   },
-  pointlessLife: {
+  p: {
     name: 'Pointless Life',
     type: 'boost',
     value: 2,
@@ -191,7 +191,7 @@ export const skills: Record<string, Partial<Skill>> = {
     value: 1,
     effect: 'def',
   },
-  mudSpin: {
+  ms: {
     name: 'Mud spin',
     type: 'boost',
     value: 3,
@@ -213,14 +213,14 @@ export const skills: Record<string, Partial<Skill>> = {
     effect: 'def',
     cost: 2,
   },
-  osteoporosis: {
+  o: {
     name: 'Osteoporosis',
     type: 'status',
     value: -3,
     effect: 'def',
     cost: 3,
   },
-  pathfind: {
+  pf: {
     name: 'Smirk',
     type: 'status',
     value: -2,
@@ -304,7 +304,7 @@ export const classes: ClassProps[] = [
   {
     color: 'cyan',
     name: 'Scientist',
-    skills: [skills.scienceMagazine, skills.hustle, skills.startingConversation],
+    skills: [skills.scienceMagazine, skills.hustle, skills.sta],
   },
 ];
 
@@ -415,7 +415,7 @@ export const entryRaces: RaceProps[] = [
       stamina: 2,
       wp: 5,
     },
-    skills: [skills.pathfind],
+    skills: [skills.pf],
   },
   {
     name: 'Ipotane',
@@ -426,7 +426,7 @@ export const entryRaces: RaceProps[] = [
       int: 5,
       stamina: 5,
     },
-    skills: [skills.pointlessLife],
+    skills: [skills.p],
   },
   {
     name: 'Imp',
@@ -539,7 +539,7 @@ export const advancedRaces: RaceProps[] = [
       stamina: 4,
       wp: 4,
     },
-    skills: [skills.osteoporosis],
+    skills: [skills.o],
   },
   {
     name: 'Ghost',
@@ -565,7 +565,7 @@ export const advancedRaces: RaceProps[] = [
       stamina: 5,
       wp: 4,
     },
-    skills: [skills.mudSpin],
+    skills: [skills.ms],
   },
   {
     name: 'Roc',
@@ -580,7 +580,7 @@ export const advancedRaces: RaceProps[] = [
       stamina: 3,
       wp: 5,
     },
-    skills: [skills.thunderStorm],
+    skills: [skills.ts],
   },
   {
     name: 'Troll',
