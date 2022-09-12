@@ -1,7 +1,8 @@
 import { GameLoop, Sprite, SpriteClass } from 'kontra';
-import { buildClass, buildRace, Monster } from './types';
+import { Monster, buildClass, buildRace } from './types';
 import { MonsterC, MonsterProps } from './monster';
 import { girlRace, goblin, kid, starterGoblin } from './data';
+
 import { GameState } from './game-state';
 import { createMonsterSprites } from './monster-generator';
 import { initDefaultBackground } from './background-sprites';
@@ -26,7 +27,7 @@ class House extends SpriteClass {
 
   draw() {
     super.draw();
-    let c = this.context;
+    const c = this.context;
     if (!c || !this.color) return;
     // house wall
     c.fillStyle = 'darkred';
@@ -175,20 +176,20 @@ storyTransitions.introBattle = () => {
   // Change battle end to skill choosing skills for this intro
   gameState.battleManager.battleEndCb = () => {
     gameState.storyBox.render();
-    if (!gameState.battleManager.monsterOpponent) return;
+    if (!gameState.battleManager.monOp) return;
     gameState.battleManager.battleEnded = true;
-    gameState.battleManager.monsterOpponent.rotation = Math.PI / 2;
-    gameState.battleManager.monsterOpponent.color = 'red';
-    gameState.battleManager.monsterOpponent.stopped = true;
+    gameState.battleManager.monOp.rotation = Math.PI / 2;
+    gameState.battleManager.monOp.color = 'red';
+    gameState.battleManager.monOp.stopped = true;
     // Restore battleManager to regular
     gameState.battleManager.battleEndCb = oldBattleEndCb;
   };
 };
 
 storyTransitions.becomeGoblin = () => {
-  if (!gameState.battleManager.monsterOpponent) return;
+  if (!gameState.battleManager.monOp) return;
   gameState.player.skills = starterGoblin.class.skills;
-  gameState.battleManager.monsterOpponent.monsterData = starterGoblin;
+  gameState.battleManager.monOp.monsterData = starterGoblin;
   gameState.battleManager.killMonster();
   gameState.battleManager.skillsChosenCb();
   gameState.showPlayer = true;

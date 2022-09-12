@@ -45,8 +45,8 @@ export class GameUi extends UiElement {
 
   update() {
     super.update();
-    if (this.monster !== this.battleManager.getMonsterOpponent()) {
-      this.monster = this.battleManager.getMonsterOpponent();
+    if (this.monster !== this.battleManager.monOp) {
+      this.monster = this.battleManager.monOp;
       if (this.monster) {
         this.render();
         this.changeSkills(GameState.instance.player.getSkills() || []);

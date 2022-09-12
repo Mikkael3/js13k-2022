@@ -9,7 +9,7 @@ import { MonsterC } from './monster';
 
 export class BattleManager {
   canvas: HTMLCanvasElement;
-  monsterOpponent?: MonsterC = undefined;
+  monOp?: MonsterC = undefined;
   monsterBox: MonsterBox;
   classChooseDialogOpen = false;
   battleEnded = false;
@@ -21,12 +21,12 @@ export class BattleManager {
 
   selectForBattle(monster: MonsterC) {
     this.battleEnded = false;
-    this.monsterOpponent = monster;
+    this.monOp = monster;
     monster.x = this.canvas.width / 2 - monster.width / 2;
     monster.y = this.canvas.height / 2 - monster.height / 2;
     monster.resetAnimation();
     GameState.instance.monsterSprites.forEach((monster) => {
-      if (monster === this.monsterOpponent) {
+      if (monster === this.monOp) {
         return;
       }
 
@@ -35,10 +35,6 @@ export class BattleManager {
 
     // Set ui to show monster stats
     this.monsterBox.setMonster(monster);
-  }
-
-  getMonsterOpponent() {
-    return this.monsterOpponent;
   }
 
   shakeObject(object: GameObject, timeout = 0) {
@@ -57,21 +53,24 @@ export class BattleManager {
 
   battleEndCb() {
     this.battleEnded = true;
-    if (!this.monsterOpponent) return;
-    gameState.player.hp = this.monsterOpponent.monsterData.race.stats.hp;
+    if (!this.monOp) return;
+    gameState.player.hp = this.monOp.monsterData.race.stats.hp;
     this.killMonster();
     if (!this.classChooseDialogOpen) {
-      this.showChooseClassDialog();
+      this.showDialog();
       this.classChooseDialogOpen = true;
     }
   }
 
   setPlayerMonster() {
-    const data = { ...this.monsterOpponent!.monsterData };
+    const data = { ...this.monOp!.monsterData };
     data.class.name = 'Reborn';
     data.class.color = 'silver';
     data.level = 1;
-    gameState.player.monsterData = data;
+    gameState.player.monsterData = {
+      ...data,
+      race: { ...data.race, stats: { ...data.race.stats, hp: data.race.stats.hp + 0.5 } },
+    };
     gameState.playerBox.setMonster(gameState.player);
     gameState.player.statStages = {
       str: 0,
@@ -84,40 +83,35 @@ export class BattleManager {
   skillsChosenCb() {
     this.setPlayerMonster();
     this.setPlayerSkills(gameState.player.skills);
-    this.monsterOpponent = undefined;
+    this.monOp = undefined;
     this.monsterBox.setMonster(undefined);
   }
 
   // Skill button clicked
   useSkill(skill: Skill, gameUi: GameUi) {
-    if (!this.monsterOpponent) return;
+    if (!this.monOp) return;
     gameUi.unrender();
 
-    const damage = gameState.player.attack(skill, this.monsterOpponent);
+    const damage = gameState.player.attack(skill, this.monOp);
     const skillText = getSkillText(skill, damage, 'You');
     gameState.battleLog.addLine(skillText);
-    if (this.monsterOpponent.stats.hp <= 0) {
+    if (this.monOp.stats.hp <= 0) {
       this.battleEndCb();
       return;
     }
     // Set player status immediately after using skill
     gameState.playerBox.setMonster(gameState.player);
     // Shake background when taking a hit
-    this.shakeObject(this.monsterOpponent);
+    this.shakeObject(this.monOp);
     this.shakeObject(gameState.background, 500);
     setTimeout(() => {
-      if (!this.monsterOpponent) return;
-      const randomSkill =
-        this.monsterOpponent.getSkills()[randInt(0, this.monsterOpponent.getSkills().length - 1)];
-      const damage = this.monsterOpponent.attack(randomSkill, gameState.player);
-      const skillText = getSkillText(
-        randomSkill,
-        damage,
-        this.monsterOpponent.monsterData.race.name,
-      );
+      if (!this.monOp) return;
+      const randomSkill = this.monOp.getSkills()[randInt(0, this.monOp.getSkills().length - 1)];
+      const damage = this.monOp.attack(randomSkill, gameState.player);
+      const skillText = getSkillText(randomSkill, damage, this.monOp.monsterData.race.name);
       gameState.battleLog.addLine(skillText);
       gameState.playerBox.setMonster(gameState.player);
-      if (this.monsterOpponent.stats.hp <= 0) {
+      if (this.monOp.stats.hp <= 0) {
         this.battleEndCb();
         return;
       }
@@ -127,9 +121,9 @@ export class BattleManager {
       // restore some stamina
       gameState.player.stats.stamina =
         gameState.player.stats.stamina < 10 ? gameState.player.stats.stamina + 1 : 10;
-      if (this.monsterOpponent)
-        this.monsterOpponent.stats.stamina =
-          this.monsterOpponent.stats.stamina < 10 ? this.monsterOpponent.stats.stamina + 1 : 10;
+      if (this.monOp)
+        this.monOp.stats.stamina =
+          this.monOp.stats.stamina < 10 ? this.monOp.stats.stamina + 1 : 10;
       if (!this.battleEnded) gameUi.render();
     }, 1000);
   }
@@ -139,20 +133,17 @@ export class BattleManager {
       return;
     }
     const index = gameState.monsterSprites.findIndex((m) => {
-      return m === this.monsterOpponent;
+      return m === this.monOp;
     });
     if (index < 0) return;
     gameState.monsterSprites.splice(index, 1);
   }
 
-  private showChooseClassDialog() {
+  private showDialog() {
     const { player } = gameState;
-    if (!this.monsterOpponent || !player) return;
+    if (!this.monOp || !player) return;
     player.skills = [];
-    const options = [
-      ...player.monsterData.class.skills,
-      ...this.monsterOpponent.monsterData.class.skills,
-    ]
+    const options = [...player.monsterData.class.skills, ...this.monOp.monsterData.class.skills]
       // Remove duplicate skills
       .filter((skill, index, skills) => {
         return (
@@ -179,7 +170,7 @@ export class BattleManager {
             e.setOptions();
             const limit = options.length > 4 ? 4 : options.length;
             // Last skill was chosen. Continue
-            if (player.skills.length >= limit && this.monsterOpponent) {
+            if (player.skills.length >= limit && this.monOp) {
               this.skillsChosenCb();
               this.classChooseDialogOpen = false;
               e.unrender();
