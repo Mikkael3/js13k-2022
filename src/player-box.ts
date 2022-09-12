@@ -65,7 +65,7 @@ export class PlayerBox extends MonsterBox {
     this.stats.rootElement.appendChild(stat);
     this.round.rootElement.innerHTML = '';
     this.round.rootElement.style.textAlign = 'center';
-    if (gameState.round) this.round.rootElement.textContent = `Area: ${gameState.round}`;
+    if (gameState.round) this.round.rootElement.textContent = `Area: ${gameState.round - 1}`;
   }
 
   update() {
