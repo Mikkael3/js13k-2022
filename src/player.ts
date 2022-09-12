@@ -27,8 +27,8 @@ export class Player extends MonsterC {
       died.rootElement.style.fontSize = '4vmin';
       died.rootElement.style.color = 'red';
       died.rootElement.style.display = 'flex';
-      died.rootElement.style.justifyContent = 'center';
-      died.rootElement.style.alignItems = 'center';
+      died.rootElement.style.alignItems = died.rootElement.style.justifyContent = 'center';
+
       gameState.gameUi.battleManager.battleEnded = true;
       died.render();
       setTimeout(() => {
