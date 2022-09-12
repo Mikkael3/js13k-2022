@@ -3,6 +3,7 @@ import { Monster, buildClass, buildRace } from './types';
 import { MonsterC, MonsterProps } from './monster';
 import { girlRace, goblin, kid, starterGoblin } from './data';
 
+import { BattleManager } from './battle-manager';
 import { GameState } from './game-state';
 import { createMonsterSprites } from './monster-generator';
 import { initDefaultBackground } from './background-sprites';
@@ -188,7 +189,8 @@ storyTransitions.introBattle = () => {
 storyTransitions.becomeGoblin = () => {
   if (!gameState.battleManager.monsterOpponent) return;
   gameState.player.monsterData = starterGoblin;
-  gameState.player.skills = gameState.player.getSkills();
+  gameState.player.skills = starterGoblin.class.skills;
+  gameState.battleManager.monsterOpponent.monsterData = starterGoblin;
   gameState.battleManager.killMonster();
   gameState.battleManager.skillsChosenCb();
   gameState.showPlayer = true;
