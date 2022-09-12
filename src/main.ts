@@ -3,15 +3,12 @@ import { Monster, buildClass, buildRace } from './types';
 import { MonsterC, MonsterProps } from './monster';
 import { girlRace, goblin, kid, starterGoblin } from './data';
 
-import { GameState } from './game-state';
+import gameState from './game-state';
 import { createMonsterSprites } from './monster-generator';
 import { initDefaultBackground } from './background-sprites';
 import { storyTransitions } from './story';
 
 initDefaultBackground();
-
-const gameState = GameState.instance;
-
 class House extends SpriteClass {
   public doorColor = 'sienna';
   public windowColor = 'white';

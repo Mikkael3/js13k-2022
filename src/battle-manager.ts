@@ -1,6 +1,6 @@
 import { GameObject, randInt } from 'kontra';
 import { Skill, StatNames } from './types';
-import gameState, { GameState } from './game-state';
+import gameState from './game-state';
 
 import { Dialog } from './dialog';
 import { GameUi } from './game-ui';
@@ -25,7 +25,7 @@ export class BattleManager {
     monster.x = this.canvas.width / 2 - monster.width / 2;
     monster.y = this.canvas.height / 2 - monster.height / 2;
     monster.resetAnimation();
-    GameState.instance.monsterSprites.forEach((monster) => {
+    gameState.monsterSprites.forEach((monster) => {
       if (monster === this.monOp) {
         return;
       }
