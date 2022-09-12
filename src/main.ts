@@ -26,30 +26,31 @@ class House extends SpriteClass {
 
   draw() {
     super.draw();
-    if (!this.context || !this.color) return;
+    let c = this.context;
+    if (!c || !this.color) return;
     // house wall
-    this.context.fillStyle = 'darkred';
-    this.context.beginPath();
-    this.context.lineTo(0, 0);
-    this.context.lineTo(0, 70);
-    this.context.lineTo(100, 70);
-    this.context.lineTo(100, 0);
-    this.context.closePath();
-    this.context.fill();
+    c.fillStyle = 'darkred';
+    c.beginPath();
+    c.lineTo(0, 0);
+    c.lineTo(0, 70);
+    c.lineTo(100, 70);
+    c.lineTo(100, 0);
+    c.closePath();
+    c.fill();
     // roof
-    this.context.fillStyle = 'grey';
-    this.context.beginPath();
-    this.context.lineTo(-10, 0);
-    this.context.lineTo(50, -50);
-    this.context.lineTo(110, 0);
-    this.context.closePath();
-    this.context.fill();
+    c.fillStyle = 'grey';
+    c.beginPath();
+    c.lineTo(-10, 0);
+    c.lineTo(50, -50);
+    c.lineTo(110, 0);
+    c.closePath();
+    c.fill();
     // door
-    this.context.fillStyle = this.doorColor;
-    this.context.fillRect(60, 30, 25, 40);
+    c.fillStyle = this.doorColor;
+    c.fillRect(60, 30, 25, 40);
     // window
-    this.context.fillStyle = this.windowColor;
-    this.context.fillRect(25, 30, 20, 20);
+    c.fillStyle = this.windowColor;
+    c.fillRect(25, 30, 20, 20);
   }
 }
 
