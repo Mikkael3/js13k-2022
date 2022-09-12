@@ -1,4 +1,4 @@
-import { classes, goblin, starterGoblin } from './data';
+import { classes, goblin, lordChimera, starterGoblin } from './data';
 import {
   createMonsterSprites,
   createSingleMonsterSprite,
@@ -146,7 +146,11 @@ export class GameState implements GameStateI {
       // TODO class color should be same as text color
       createSingleMonsterSprite(goblin, classes[3], 5);
       this.round++;
-    } else if (this.round > midBossRound && this.round < lastBossRound && this.monsterSprites.length === 0) {
+    } else if (
+      this.round > midBossRound &&
+      this.round < lastBossRound &&
+      this.monsterSprites.length === 0
+    ) {
       // TODO spawn advanced monsters
       createMonsterSprites(generateMonsterSet(this.round));
       this.round++;
