@@ -1,9 +1,7 @@
 import { GameLoop, Sprite, SpriteClass } from 'kontra';
-import { Monster, buildClass, buildRace } from './types';
+import { buildClass, buildRace, Monster } from './types';
 import { MonsterC, MonsterProps } from './monster';
 import { girlRace, goblin, kid, starterGoblin } from './data';
-
-import { BattleManager } from './battle-manager';
 import { GameState } from './game-state';
 import { createMonsterSprites } from './monster-generator';
 import { initDefaultBackground } from './background-sprites';
