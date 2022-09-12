@@ -44,7 +44,8 @@ export class GameState implements GameStateI {
   public round!: number;
   public introEnded = false;
   public storyBox!: StoryBox;
-  public showMiddleBoss = false;
+  public showBoss = false;
+  public rollCredits = false;
 
   private static _instance: GameState;
 
@@ -137,32 +138,58 @@ export class GameState implements GameStateI {
     this.battleLog.update();
     this.storyBox.update();
     fitCanvas();
-    if (!this.introEnded) return;
-    const midBossRound = 1;
-    const lastBossRound = 2;
     if (this.battleManager.classChooseDialogOpen) return;
-    if (this.round < midBossRound && this.monsterSprites.length === 0) {
-      createMonsterSprites(generateMonsterSet(this.round));
-      this.round++;
-    } else if (this.round === midBossRound && this.monsterSprites.length === 0) {
-      if (!this.storyBox.rendered) this.storyBox.render();
-      if (!this.showMiddleBoss) return;
-      // TODO class is barbarian as a placeholder.
-      // TODO class color should be same as text color
-      createSingleMonsterSprite(goblin, classes[3], 5);
-      this.round++;
-    } else if (
-      this.round > midBossRound &&
-      this.round < lastBossRound &&
-      this.monsterSprites.length === 0
-    ) {
-      // TODO spawn advanced monsters
-      createMonsterSprites(generateMonsterSet(this.round));
-      this.round++;
-    } else if (this.round === lastBossRound && this.monsterSprites.length === 0) {
-      createMonsterSprites([lordChimera]);
-      console.log('Last boss round'); // TODO spawn last boss
+    console.log('round', this.round);
+    if (this.monsterSprites.length !== 0) return;
+    switch (this.round) {
+      case 1:
+      case 3:
+        createMonsterSprites(generateMonsterSet(this.round));
+        this.round++;
+        break;
+      case 2:
+        if (!this.storyBox.rendered) this.storyBox.render();
+        if (!this.showBoss) return;
+        createSingleMonsterSprite(goblin, classes[3], 5);
+        this.monsterSprites[0].clickable = false;
+        if (!this.storyBox.rendered) this.storyBox.render();
+        break;
+      case 4:
+        createMonsterSprites([lordChimera]);
+        this.monsterSprites[0].clickable = false;
+        if (!this.storyBox.rendered) this.storyBox.render();
+        this.round++;
+        break;
+      case 5:
+        if (!this.storyBox.rendered) this.storyBox.render();
+        break;
     }
+
+    // if (this.round < midBossRound && this.monsterSprites.length === 0) {
+    //   console.log('eka');
+    // } else if (this.round === midBossRound && this.monsterSprites.length === 0) {
+    //   console.log('midd');
+    //   if (!this.storyBox.rendered) this.storyBox.render();
+    //   if (!this.showBoss) return;
+    //   createSingleMonsterSprite(goblin, classes[3], 5);
+    //   this.round++;
+    // } else if (
+    //   this.round > midBossRound &&
+    //   this.round < lastBossRound &&
+    //   this.monsterSprites.length === 0
+    // ) {
+    //   console.log('advanced');
+    //   createMonsterSprites(generateMonsterSet(this.round));
+    //   this.round++;
+    // } else if (this.round === lastBossRound && this.monsterSprites.length === 0) {
+    //   console.log('last boss');
+    //   if (!this.storyBox.rendered) this.storyBox.render();
+    //   createMonsterSprites([lordChimera]);
+    //   this.rollCredits = true;
+    // } else if (this.rollCredits && this.monsterSprites.length === 0) {
+    //   console.log('credits');
+    //   if (!this.storyBox.rendered) this.storyBox.render();
+    // }
   }
 
   public render() {
@@ -191,10 +218,8 @@ export class GameState implements GameStateI {
    */
   public renderUi() {
     this.playerBox.render();
-    // this.monsterBox.render();
     this.uiElements.forEach((element) => element.render());
     this.battleLog.render();
-    // this.gameUi.render();
   }
 }
 

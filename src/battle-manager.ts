@@ -124,7 +124,9 @@ export class BattleManager {
   }
 
   public killMonster() {
-    const gameState = GameState.instance;
+    if (gameState.showBoss) {
+      return
+    }
     const index = gameState.monsterSprites.findIndex((m) => {
       return m === this.monsterOpponent;
     });
@@ -133,7 +135,7 @@ export class BattleManager {
   }
 
   private showChooseClassDialog() {
-    const { player } = GameState.instance;
+    const { player } = gameState;
     if (!this.monsterOpponent || !player) return;
     player.skills = [];
     // Meilla on lista nappeja dialog elementissa
@@ -171,7 +173,12 @@ export class BattleManager {
                 wp: 0,
               };
               // Show other monsters again
-              GameState.instance.monsterSprites.forEach((monster) => (monster.display = true));
+              gameState.monsterSprites.forEach((monster) => (monster.display = true));
+              if (gameState.showBoss) {
+                gameState.monsterSprites[0].display = false;
+                gameState.storyBox.render();
+                gameState.showBoss = false;
+              }
             }
           },
         };

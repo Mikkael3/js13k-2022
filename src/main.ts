@@ -202,6 +202,7 @@ storyTransitions.startGame = () => {
   gameState.background.setScale(2, 2);
   gameState.showPlayer = true;
   gameState.storyBox.unrender();
+  gameState.round = 1;
 };
 const loop = GameLoop({
   blur: true,

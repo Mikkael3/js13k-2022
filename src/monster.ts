@@ -14,6 +14,7 @@ export class MonsterC extends SpriteClass {
   stats!: BaseStats;
   stopped = false;
   statStages: StatStages;
+  clickable = true;
 
   constructor(props: MonsterProps) {
     super({
@@ -81,7 +82,7 @@ export class MonsterC extends SpriteClass {
 
   /// Mouse events
   public onDown() {
-    if (this.handler && this.display) this.handler(this);
+    if (this.handler && this.display && this.clickable) this.handler(this);
   }
 
   public handler: ((monster: MonsterC) => void) | undefined;

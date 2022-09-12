@@ -26,7 +26,7 @@ export const storyTransitions = {
     //pass
   },
   midBossApproach: (): void => {
-    gameState.showMiddleBoss = true;
+    gameState.showBoss = true;
   },
   resumeFight: (): void => {
     gameState.battleManager.selectForBattle(gameState.monsterSprites[0]);
@@ -37,7 +37,6 @@ export const storyTransitions = {
 
 export const story = [
   "I'm just a little girl, helpful and kind.",
-  () => storyTransitions.startGame(),
   'Life is always fun, every day is nice.',
   () => storyTransitions.zoom(),
   'Helping others is what I love to do.',
@@ -79,7 +78,13 @@ export const story = [
     color: 'green',
   },
   "I'll make them stop. I'll save them too!",
-  // Chimera
+  () => {
+    gameState.storyBox.unrender();
+    gameState.round++;
+    // todo empty monster
+    gameState.monsterSprites = [];
+  },
+  // chimera
   { text: 'Greetings child.', color: 'white' },
   { text: 'I can see you host a number of souls in your body.', color: 'white' },
   {
@@ -89,5 +94,10 @@ export const story = [
   { text: 'What happened to me will happen to you, eventually.', color: 'white' },
   { text: "I don't wish such a terrible fate for anyone.", color: 'white' },
   { text: 'I shall set your soul free.', color: 'white' },
-  // Final battle start
+  () => storyTransitions.resumeFight(),
+  'You killed the monster. But what have you became.',
+  'The end.',
+  'Game by: mikkael3 and Mikko Kemppainen',
+  () => gameState.storyBox.unrender(),
+  '',
 ];
