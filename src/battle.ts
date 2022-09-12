@@ -1,7 +1,8 @@
+import { Skill, buildSkill } from './types';
+
+import { MonsterC } from './monster';
 import { randInt } from 'kontra';
 import { skills } from './data';
-import { MonsterC } from './monster';
-import { buildSkill, Skill } from './types';
 
 export const stageValues = {
   '6': 4,
@@ -27,7 +28,6 @@ export const performSkill = (skillV: Skill, user: MonsterC, target: MonsterC): n
   user.stats.stamina -= skill.cost;
   if (skill.type === 'random') {
     skill = buildSkill(Object.entries(skills)[randInt(0, Object.keys(skills).length - 1)][1]);
-    console.log(skill);
   }
   const type = skill.type;
   let damage = skill.value;

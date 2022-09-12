@@ -26,7 +26,6 @@ export class StoryBox extends UiElement {
     s.padding = '1vmin';
     this.rootElement.onclick = () => {
       const handleEvent = () => {
-        console.log(this.storyIndex);
         const storyEvent = story[++this.storyIndex];
         this.color = this.defaultColor;
         if (typeof storyEvent === 'string') {
