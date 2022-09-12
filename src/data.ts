@@ -51,7 +51,7 @@ export const skills: Record<string, Partial<Skill>> = {
     value: 60,
     cost: 3,
   },
-  sinisterStrike: {
+  ss: {
     name: 'Sinister Strike',
     value: 70,
     cost: 4,
@@ -85,7 +85,7 @@ export const skills: Record<string, Partial<Skill>> = {
     type: 'int',
     cost: 2,
   },
-  sacredFlame: {
+  sf: {
     name: 'Sacred Flame',
     value: 40,
     type: 'int',
@@ -247,7 +247,7 @@ export const skills: Record<string, Partial<Skill>> = {
     effect: 'stamina',
     cost: 0,
   },
-  hypnotic: {
+  hy: {
     name: 'Hypnotic Magnetic Glare',
     type: 'status',
     value: -3,
@@ -284,12 +284,12 @@ export const classes: ClassProps[] = [
   {
     color: 'gold',
     name: 'Cleric',
-    skills: [skills.sacredFlame, skills.blessing, skills.banishment],
+    skills: [skills.sf, skills.blessing, skills.banishment],
   },
   {
     color: 'green',
     name: 'Rogue',
-    skills: [skills.sinisterStrike, skills.woundPoison, skills.backstab],
+    skills: [skills.ss, skills.woundPoison, skills.backstab],
   },
   {
     color: 'blue',
@@ -497,7 +497,7 @@ export const advancedRaces: RaceProps[] = [
       stamina: 4,
       wp: 6,
     },
-    skills: [skills.hypnotic],
+    skills: [skills.hy],
   },
   {
     name: 'Minotaur',
