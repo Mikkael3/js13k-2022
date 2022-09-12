@@ -7,73 +7,60 @@ export const skills: Record<string, Partial<Skill>> = {
   struggle: {
     name: 'Struggle',
     value: 5,
-    type: 'str',
     cost: 0,
   },
   stumble: {
     name: 'Stumble',
     value: 10,
-    type: 'str',
-    cost: 1,
   },
   pound: {
     name: 'Pound',
     value: 15,
-    type: 'str',
     cost: 0,
   },
   scratch: {
     name: 'scratch',
     value: 20,
-    type: 'str',
     cost: 1,
   },
   bite: {
     name: 'Bite',
     value: 25,
-    type: 'str',
     cost: 2,
   },
   dig: {
     name: 'Dig',
     value: 25,
-    type: 'str',
     cost: 1,
   },
   cleave: {
     name: 'Cleave',
     value: 30,
-    type: 'str',
     cost: 2,
   },
   claw: {
     name: 'Claw',
     value: 35,
-    type: 'str',
     cost: 2,
   },
   shatteredBottle: {
     name: 'Shattered Bottle',
     value: 40,
-    type: 'str',
     cost: 3,
   },
   bash: {
     name: 'Bash',
     value: 45,
-    type: 'str',
     cost: 3,
   },
   sinisterStrike: {
     name: 'Sinister Strike',
     value: 60,
-    type: 'str',
     cost: 5,
   },
   stomp: {
     name: 'Stomp',
     value: 75,
-    type: 'str',
     cost: 5,
   },
   /// Start of int moves
@@ -87,7 +74,6 @@ export const skills: Record<string, Partial<Skill>> = {
     name: 'Bad omen',
     value: 15,
     type: 'int',
-    cost: 1,
   },
   screech: {
     name: 'Screech',
@@ -130,7 +116,6 @@ export const skills: Record<string, Partial<Skill>> = {
     name: 'Ooze',
     type: 'fixed',
     value: 5,
-    cost: 1,
   },
   kill: {
     name: 'kill',
@@ -142,29 +127,24 @@ export const skills: Record<string, Partial<Skill>> = {
   drool: {
     name: 'drool',
     type: 'boost',
-    effect: 'str',
     value: 1,
-    cost: 1,
+    cost: 2,
   },
   pointlessLife: {
     name: 'Pointless Life',
     type: 'boost',
-    effect: 'str',
     value: 2,
-    cost: 1,
   },
   fury: {
     name: 'Fury',
     type: 'boost',
     value: 2,
-    effect: 'str',
     cost: 2,
   },
   innerStr: {
     name: 'Inner Strength',
     type: 'boost',
     value: 3,
-    effect: 'str',
     cost: 3,
   },
   //wp
@@ -233,7 +213,7 @@ export const skills: Record<string, Partial<Skill>> = {
     value: -1,
     type: 'status',
     effect: 'def',
-    cost: 1,
+    cost: 2,
   },
   osteoporosis: {
     name: 'Osteoporosis',
@@ -247,7 +227,6 @@ export const skills: Record<string, Partial<Skill>> = {
     type: 'status',
     value: -1,
     effect: 'wp',
-    cost: 1,
   },
   spook: {
     name: 'Spook',
@@ -282,13 +261,11 @@ export const skills: Record<string, Partial<Skill>> = {
     type: 'status',
     value: -1,
     effect: 'str',
-    cost: 1,
   },
   bandage: {
     name: 'Bandages',
     type: 'status',
     value: -3,
-    effect: 'str',
     cost: 3,
   },
 };

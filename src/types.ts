@@ -57,10 +57,10 @@ export type RaceProps = Partial<
 
 export const buildSkill = (data: Partial<Skill>): Skill => {
   return {
-    name: 'Skill',
-    value: 0.0,
-    type: 'int',
-    effect: 'stamina',
+    name: '',
+    value: 0,
+    type: 'str',
+    effect: 'str',
     cost: 1,
     ...data,
   };
@@ -68,8 +68,8 @@ export const buildSkill = (data: Partial<Skill>): Skill => {
 
 export const buildClass = (data: ClassProps): Class => {
   return {
-    name: 'Class',
-    color: 'yellow',
+    name: '',
+    color: '',
     ...data,
     skills: data.skills ? data.skills.map((skill) => buildSkill(skill)) : [],
   };
@@ -89,10 +89,10 @@ export const buildStats = (data: Partial<BaseStats>): BaseStats => {
 
 export const buildRace = (data: RaceProps): Race => {
   return {
-    name: 'Race',
+    name: '',
     height: size(data.sprite && data.width ? data.sprite.length / data.width : 1),
-    sprite: '1001',
-    width: 4,
+    sprite: '1',
+    width: 1,
     ...data,
     stats: buildStats({ ...data.stats }),
     skills: data.skills?.map((skill) => buildSkill(skill)) ?? [],
