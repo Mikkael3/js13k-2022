@@ -137,7 +137,7 @@ export class GameState implements GameStateI {
     this.battleLog.update();
     this.storyBox.update();
     fitCanvas();
-    if (this.battleManager.classChooseDialogOpen) return;
+    if (this.battleManager.choosingClass) return;
     if (this.monsterSprites.length !== 0) return;
     switch (this.round) {
       case 1:

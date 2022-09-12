@@ -11,7 +11,7 @@ export class BattleManager {
   canvas: HTMLCanvasElement;
   monOp?: MonsterC = undefined;
   monsterBox: MonsterBox;
-  classChooseDialogOpen = false;
+  choosingClass = false;
   battleEnded = false;
 
   constructor(monsterBox: MonsterBox, canvas: HTMLCanvasElement) {
@@ -56,9 +56,9 @@ export class BattleManager {
     if (!this.monOp) return;
     gameState.player.hp = this.monOp.monsterData.race.stats.hp;
     this.killMonster();
-    if (!this.classChooseDialogOpen) {
+    if (!this.choosingClass) {
       this.showDialog();
-      this.classChooseDialogOpen = true;
+      this.choosingClass = true;
     }
   }
 
@@ -172,7 +172,7 @@ export class BattleManager {
             // Last skill was chosen. Continue
             if (player.skills.length >= limit && this.monOp) {
               this.skillsChosenCb();
-              this.classChooseDialogOpen = false;
+              this.choosingClass = false;
               e.unrender();
               // Show other monsters again
               gameState.monsterSprites.forEach((monster) => (monster.display = true));
