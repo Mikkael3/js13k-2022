@@ -177,8 +177,9 @@ export class BattleManager {
             // Remove this skill from choosable skills
             e.options = e.options.filter((option) => option.title !== skill.name);
             e.setOptions();
+            const limit = options.length > 4 ? 4 : options.length;
             // Last skill was chosen. Continue
-            if (player.skills.length >= 3 && this.monsterOpponent) {
+            if (player.skills.length >= limit && this.monsterOpponent) {
               this.skillsChosenCb();
               this.classChooseDialogOpen = false;
               e.unrender();
